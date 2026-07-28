@@ -1394,6 +1394,11 @@ section {
   .choice-input:not(:checked) + .choice-chip:hover {
     transform: none;
   }
+
+  /* The message still has to appear — only the movement goes. */
+  .form-status[data-state='ok'] {
+    animation: none;
+  }
 }
 
 .form-submit {
@@ -1449,6 +1454,79 @@ section {
 
 .form-submit:hover::after {
   transform: translateX(325%) skewX(-20deg);
+}
+
+/* While the request is in flight. The sweep is a hover affordance, and hovering
+   a button that will not answer is a lie, so it stays parked. */
+.form-submit:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.form-submit:disabled::after {
+  transform: translateX(-150%) skewX(-20deg);
+}
+
+/*
+ * The honeypot. Pushed off-screen rather than hidden with display:none or the
+ * hidden attribute — both are trivial for a bot to detect and skip, and the
+ * point is that it fills this in. Nothing here is reachable by mouse, keyboard
+ * or screen reader: the field carries tabindex="-1" and its wrapper aria-hidden.
+ */
+.form-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-status {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.35;
+  max-width: 46ch;
+  color: var(--text-on-dark-muted);
+}
+
+/*
+ * Success gets more than a colour change. Sending a form into a black box is
+ * the moment a visitor most wants proof something happened, so the confirmation
+ * arrives with a tick and a short rise — a beat of celebration, then it sits
+ * still. The other two states stay plain: nobody wants a flourish on an error.
+ */
+.form-status[data-state='ok'] {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  color: var(--accent);
+  font-weight: 600;
+  animation: form-status-land 0.34s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.form-status[data-state='ok']::before {
+  content: '✓';
+  flex: none;
+  font-size: 17px;
+  line-height: 1;
+}
+
+@keyframes form-status-land {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Pale rather than a signal red: the form sits on --block, and a saturated red
+   lands around 3.5:1 against that purple. This clears 4.5:1 and still reads as
+   a warning next to the yellow success line. */
+.form-status[data-state='error'] {
+  color: #ffc4b4;
 }
 
 /* ── Footer ──────────────────────────────────────────────────────── */

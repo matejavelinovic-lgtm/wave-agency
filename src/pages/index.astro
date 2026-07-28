@@ -338,20 +338,52 @@ const faqSchema = {
         <h2 class="contact-title" data-edit="contact.title">{contact.title}</h2>
         <p class="contact-text" data-edit="contact.text">{contact.text}</p>
       </div>
-      <form class="contact-form">
+    {
+      /*
+       * contact.sending, contact.success and contact.error carry no data-edit
+       * because none of them is on screen when the page loads — the submit
+       * handler below reads them off the form's data attributes and writes them
+       * into .form-status. They still live in copy.json like every other
+       * sentence, so editing them there is the same job as editing the rest.
+       */
+    }
+      <form
+        class="contact-form"
+        data-sending={contact.sending}
+        data-success={contact.success}
+        data-error={contact.error}
+      >
         <div class="form-row">
           <div class="form-field">
             <label class="form-label" for="name" data-edit="contact.labelName">{contact.labelName}</label>
-            <input class="form-input" type="text" id="name" name="name" placeholder="Your name" />
+            <input
+              class="form-input"
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Your name"
+              autocomplete="name"
+              maxlength="100"
+              required
+            />
           </div>
           <div class="form-field">
             <label class="form-label" for="email" data-edit="contact.labelEmail">{contact.labelEmail}</label>
-            <input class="form-input" type="email" id="email" name="email" placeholder="you@company.com" />
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@company.com"
+              autocomplete="email"
+              maxlength="200"
+              required
+            />
           </div>
         </div>
         <div class="form-field">
           <label class="form-label" for="site" data-edit="contact.labelSite">{contact.labelSite}</label>
-          <input class="form-input" type="url" id="site" name="site" placeholder="https://" />
+          <input class="form-input" type="url" id="site" name="site" placeholder="https://" maxlength="300" />
         </div>
         <div class="form-field" role="radiogroup" aria-labelledby="need-label">
           <span class="form-label" id="need-label" data-edit="contact.labelNeed">{contact.labelNeed}</span>
@@ -374,12 +406,89 @@ const faqSchema = {
             class="form-textarea"
             id="message"
             name="message"
+            maxlength="4000"
+            required
             placeholder="What bothers you about the site, and when do you need it fixed?"></textarea>
         </div>
+        {
+          /*
+           * The honeypot. Bots fill every field they can parse, so a field a
+           * person never sees filled in is a bot signature — the endpoint drops
+           * those silently. aria-hidden and tabindex="-1" keep screen readers
+           * and the tab key away from it; it is off-screen rather than
+           * display:none because some bots skip what is display:none.
+           */
+        }
+        <div class="form-trap" aria-hidden="true">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+        </div>
         <button class="form-submit" type="submit" data-edit="contact.submit">{contact.submit}</button>
+        <p class="form-status" role="status" aria-live="polite" hidden></p>
       </form>
     </div>
   </section>
+
+  <script>
+    /*
+     * Submits the contact form to /api/contact without leaving the page. That
+     * endpoint is a Vercel serverless function (api/contact.js) and does not
+     * exist under `astro dev`, so a submit on the dev server fails and shows
+     * the error state — that is the dev server missing, not the form breaking.
+     *
+     * There is no no-JS fallback here on purpose: a plain form post would need
+     * a real page to land on, and the endpoint answers in JSON. If that ever
+     * matters, give the form an action and have the function redirect.
+     */
+    const form = document.querySelector<HTMLFormElement>('.contact-form');
+    const status = form?.querySelector<HTMLParagraphElement>('.form-status');
+    const submit = form?.querySelector<HTMLButtonElement>('.form-submit');
+
+    if (form && status && submit) {
+      const idleLabel = submit.textContent;
+      let sending = false;
+
+      const say = (message: string, state: 'pending' | 'ok' | 'error') => {
+        status.textContent = message;
+        status.dataset.state = state;
+        status.hidden = false;
+      };
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        // A double click while the request is in flight would send twice.
+        if (sending) return;
+        if (!form.reportValidity()) return;
+
+        sending = true;
+        submit.disabled = true;
+        submit.textContent = form.dataset.sending ?? '';
+        say(form.dataset.sending ?? '', 'pending');
+
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(new FormData(form))),
+          });
+
+          if (!response.ok) throw new Error(`/api/contact answered ${response.status}`);
+
+          // reset() restores the first radio's checked attribute, so the chip
+          // row goes back to "Speed" selected rather than to nothing selected.
+          form.reset();
+          say(form.dataset.success ?? '', 'ok');
+        } catch (error) {
+          console.error(error);
+          say(form.dataset.error ?? '', 'error');
+        } finally {
+          sending = false;
+          submit.disabled = false;
+          submit.textContent = idleLabel;
+        }
+      });
+    }
+  </script>
 
   {serviceSchema.map((s) => <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />)}
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />

@@ -160,7 +160,10 @@
       "Audit first"
     ],
     "labelMessage": "Message",
-    "submit": "Send it"
+    "submit": "Send it",
+    "sending": "Sending…",
+    "success": "Sent! Your message just landed in my inbox. I reply within a day.",
+    "error": "That did not go through. Email me at matejavelinovic@gmail.com and I will pick it up there."
   },
   "footer": {
     "text": "I speed up Web3 and fintech sites."
