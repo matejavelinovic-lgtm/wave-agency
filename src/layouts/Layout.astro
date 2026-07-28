@@ -1,0 +1,162 @@
+---
+import { getImage } from 'astro:assets';
+import '../styles/main.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import DevCopyEditor from '../components/DevCopyEditor.astro';
+import { SITE_URL, SITE_NAME, PERSON, PERSON_PHOTO } from '../consts';
+
+/*
+ * Schema image. Referencing PERSON_PHOTO.src here would publish the 5495px
+ * camera original, so ask Astro for a sized jpg instead: crawlers read it,
+ * no visitor downloads it, and the original never reaches dist.
+ */
+const schemaPhoto = await getImage({
+  src: PERSON_PHOTO,
+  width: 800,
+  height: 1240,
+  format: 'jpg',
+  quality: 75,
+});
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Trailing crumbs after Home. Omit on the homepage. */
+  breadcrumbs?: { name: string; path: string }[];
+}
+
+const {
+  title = 'WaveWeb | Speed and AEO for Web3 and fintech sites, Webflow and code',
+  description =
+    'I speed up Web3 and fintech sites, get them quoted by AI search, and migrate them into Webflow or out of Webflow into custom code.',
+  breadcrumbs = [],
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE_URL).href;
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${SITE_URL}/#organization`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/WaveWeb_Logo.png`,
+  description,
+  founder: { '@id': `${SITE_URL}/#person` },
+  sameAs: [PERSON.linkedin],
+};
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${SITE_URL}/#person`,
+  name: PERSON.name,
+  jobTitle: PERSON.jobTitle,
+  url: SITE_URL,
+  image: new URL(schemaPhoto.src, SITE_URL).href,
+  sameAs: [PERSON.linkedin],
+  worksFor: { '@id': `${SITE_URL}/#organization` },
+  knowsAbout: [
+    'Core Web Vitals',
+    'Answer Engine Optimization',
+    'Webflow development',
+    'Website migration',
+  ],
+};
+
+const breadcrumbList = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [{ name: 'Home', path: '/' }, ...breadcrumbs].map((crumb, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: crumb.name,
+    item: new URL(crumb.path, SITE_URL).href,
+  })),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/WaveWeb_Logo.png" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!--
+      Only the two weights that paint above the fold get preloaded. Regular
+      carries body copy, Semibold carries the H1 and every button.
+    -->
+    <link
+      rel="preload"
+      href="/fonts/BlauerNue-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/BlauerNue-Semibold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!--
+      Blauer Nue, self-hosted from public/fonts as woff2. The stylesheet uses
+      four weights and no more: 400 body, 500 nav and chips, 600 labels, 700
+      headings. The family ships without a standalone Bold, so Semibold is
+      registered at both 600 and 700 and the browser renders the real crafted
+      glyphs instead of synthesizing one or matching up to Extrabold. Thin,
+      Extralight, Light, Extrabold, and Heavy stay out of the document: a face
+      the CSS never asks for is a face the browser never needs to know about.
+    -->
+    <style>
+      @font-face {
+        font-family: 'Blauer Nue';
+        src: url('/fonts/BlauerNue-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Blauer Nue';
+        src: url('/fonts/BlauerNue-Medium.woff2') format('woff2');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Blauer Nue';
+        src: url('/fonts/BlauerNue-Semibold.woff2') format('woff2');
+        font-weight: 600 700;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(person)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbList)} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    {import.meta.env.DEV && <DevCopyEditor />}
+  </body>
+</html>

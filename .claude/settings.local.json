@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__shipstudio-preview__preview_navigate",
+      "mcp__shipstudio-preview__preview_scroll",
+      "mcp__shipstudio-preview__preview_screenshot",
+      "mcp__shipstudio-preview__preview_set_viewport",
+      "mcp__shipstudio-preview__preview_console",
+      "Bash(mkdir -p \"/c/Users/matej/AppData/Local/Temp/claude/C--Users-matej-ShipStudio-wave-agency/70c22727-7cd2-48d8-a8bd-d63dbdedeab6/scratchpad/fontconv\")",
+      "Read(//c/Users/matej/AppData/Local/Temp/claude/C--Users-matej-ShipStudio-wave-agency/70c22727-7cd2-48d8-a8bd-d63dbdedeab6/scratchpad/**)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(sed -i \"s#/c/Users/matej/Desktop/New folder#C:/Users/matej/Desktop/New folder#; s#/c/Users/matej/ShipStudio/wave-agency/public/fonts#C:/Users/matej/ShipStudio/wave-agency/public/fonts#\" convert.js)",
+      "Bash(node convert.js)",
+      "Bash(python3 *)",
+      "Bash(node *)",
+      "mcp__shipstudio-preview__preview_query",
+      "mcp__shipstudio-preview__preview_reload",
+      "mcp__shipstudio-preview__preview_click",
+      "mcp__shipstudio-preview__preview_status",
+      "Skill(artifact-design)",
+      "Artifact",
+      "Bash(python *)"
+    ]
+  }
+}

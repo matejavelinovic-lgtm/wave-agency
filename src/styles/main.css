@@ -1,0 +1,1727 @@
+/*
+ * main.css — Waveweb
+ *
+ * Convention (keeps the in-app visual editor reliable): every styled element
+ * carries ONE semantic class, and each class is defined by exactly ONE rule
+ * here. No inline styles, no utility soup. Responsive overrides live in the
+ * @media block at the bottom, mirroring the rule above it.
+ *
+ * Palette: --bg-dark and --bg-light split the page roughly in half as the
+ * background rhythm; --block (purple) covers the card/module surfaces
+ * (~40% of the page); --accent (pale yellow) is reserved for CTAs and small
+ * accent text only — used sparingly by design, not as a base color.
+ */
+
+/* ── Design tokens ───────────────────────────────────────────────── */
+:root {
+  --bg-dark: #070707;
+  --bg-light: #d0dada;
+  --block: #6835ce;
+  --block-strong: #5628a4;
+  --accent: #efed90;
+  --accent-strong: #e0dd5f;
+  --ink: #070707;
+  --paper: #d0dada;
+  --text-on-dark: #ededE6;
+  --text-on-dark-muted: rgba(237, 237, 230, 0.62);
+  --text-on-light: #0c0c0c;
+  --text-on-light-muted: rgba(7, 7, 7, 0.6);
+  --border-on-dark: rgba(237, 237, 230, 0.14);
+  --border-on-light: rgba(7, 7, 7, 0.14);
+  --font-brand: 'Blauer Nue', system-ui, sans-serif;
+  --maxw: 1160px;
+  --step: 28px;
+}
+
+/* ── Base elements ───────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg-dark);
+  overscroll-behavior-y: none;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+html.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-dark);
+  color: var(--text-on-dark);
+  font-family: var(--font-brand);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+section {
+  position: relative;
+}
+
+/* ── Header / nav ────────────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg-dark) 86%, transparent);
+  backdrop-filter: saturate(160%) blur(10px);
+  border-bottom: 1px solid var(--border-on-dark);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 16px 28px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: block;
+}
+
+.nav-wordmark {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-on-dark);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-link {
+  position: relative;
+  color: var(--text-on-dark-muted);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 2px 14px;
+  transition: color 0.2s ease;
+}
+
+.nav-link::before,
+.nav-link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 7px;
+  height: 100%;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease;
+}
+
+.nav-link::before {
+  left: 0;
+  border-right: none;
+  transform: translateX(6px);
+}
+
+.nav-link::after {
+  right: 0;
+  border-left: none;
+  transform: translateX(-6px);
+}
+
+.nav-link:hover {
+  color: var(--text-on-dark);
+}
+
+.nav-link:hover::before,
+.nav-link:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-letter {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.nav-link.is-decoding .nav-letter {
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(239, 237, 144, 0.65);
+  font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+}
+
+.nav-cta {
+  position: relative;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 20px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    calc(100% - 10px) 5px,
+    calc(100% - 5px) 5px,
+    calc(100% - 5px) 10px,
+    100% 10px,
+    100% 100%,
+    0 100%
+  );
+  transition: background 0.15s ease;
+}
+
+.nav-cta:hover {
+  background: var(--accent-strong);
+}
+
+.nav-cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.nav-cta:hover::after {
+  left: 130%;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-block;
+  position: relative;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 15px 30px;
+  /*
+   * Invisible, but load bearing: .btn-secondary carries a 1px border, and these
+   * two sit side by side in a flex row. Without a matching border the primary is
+   * 2px shorter, and since both shapes are cut with a percentage clip-path, any
+   * height it borrows from its neighbour bends the corner notch out of shape.
+   */
+  border: 1px solid transparent;
+  /*
+   * Belt to the clip-path's braces. The sweep parks off the left edge, which is
+   * where the neighbouring button sits, and clip-path alone does not reliably
+   * clip a composited descendant — the streak escapes and paints over that
+   * neighbour. overflow works on the compositor. The polygon sits inside the
+   * border box, so this changes nothing you can see.
+   */
+  overflow: hidden;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    calc(100% - 14px) 7px,
+    calc(100% - 7px) 7px,
+    calc(100% - 7px) 14px,
+    100% 14px,
+    100% 100%,
+    0 100%
+  );
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+  transform: translateY(-1px);
+}
+
+/*
+ * The sweep moves on transform, never on left. Animating left relaid out and
+ * repainted a skewed box inside a clip-path on every frame, which pushed the
+ * button onto its own GPU layer for the duration and let the neighbouring
+ * button pick up a stale raster when the layer collapsed a few seconds later.
+ * transform stays on the compositor: no layout, no repaint, no shared raster.
+ * translateX resolves against this element's own width (40% of the button), so
+ * -150% and 325% land where left: -60% and left: 130% used to.
+ */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%);
+  transform: translateX(-150%) skewX(-20deg);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  transform: translateX(325%) skewX(-20deg);
+}
+
+.btn-secondary {
+  display: inline-block;
+  position: relative;
+  background: rgba(237, 237, 230, 0.06);
+  color: var(--text-on-dark);
+  font-weight: 600;
+  font-size: 16px;
+  padding: 15px 30px;
+  border: 1px solid var(--border-on-dark);
+  /* See .btn-primary — keeps the parked sweep from painting over its neighbour. */
+  overflow: hidden;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    calc(100% - 14px) 7px,
+    calc(100% - 7px) 7px,
+    calc(100% - 7px) 14px,
+    100% 14px,
+    100% 100%,
+    0 100%
+  );
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--text-on-dark);
+  background: rgba(237, 237, 230, 0.1);
+}
+
+/* Same sweep, same reason it rides on transform. See .btn-primary::after. */
+.btn-secondary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent 0%, rgba(237, 237, 230, 0.35) 50%, transparent 100%);
+  transform: translateX(-150%) skewX(-20deg);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.btn-secondary:hover::after {
+  transform: translateX(325%) skewX(-20deg);
+}
+
+/* ── Hero ────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  background: var(--bg-dark);
+  overflow: hidden;
+  padding: 84px 28px 96px;
+}
+
+.hero-rings {
+  position: absolute;
+  top: 50%;
+  right: -12%;
+  width: min(880px, 80vw);
+  height: min(880px, 80vw);
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 26px;
+}
+
+.hero-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.hero-title {
+  font-size: 68px;
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin: 0 0 28px;
+  max-width: 19ch;
+  color: var(--text-on-dark);
+}
+
+.hero-title-em {
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-size: 19px;
+  color: var(--text-on-dark-muted);
+  margin: 0 0 40px;
+  max-width: 48ch;
+}
+
+.hero-actions {
+  display: flex;
+  /*
+   * Not stretch. Stretch ties the two buttons' heights together, so anything
+   * that grows one of them — a border, a focus ring, a label that wraps —
+   * resizes the other and warps its clip-path corner. Each button keeps its
+   * own height instead.
+   */
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 64px;
+}
+
+.hero-scope {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 62ch;
+}
+
+.hero-scope-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-on-dark-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 6px;
+  align-self: center;
+}
+
+.scope-chip {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-on-dark);
+  border: 1px solid var(--border-on-dark);
+  border-radius: 100px;
+  padding: 7px 16px;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.scope-chip:hover {
+  border-color: var(--accent);
+  background: rgba(239, 237, 144, 0.1);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ── Founder ─────────────────────────────────────────────────────── */
+.founder {
+  background: var(--bg-dark);
+  padding: 96px 28px 108px;
+}
+
+.founder-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.founder-media {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 32px) 0,
+    calc(100% - 32px) 16px,
+    calc(100% - 16px) 16px,
+    calc(100% - 16px) 32px,
+    100% 32px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.founder-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 600 / 930;
+  object-fit: cover;
+}
+
+.founder-eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.founder-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+  margin: 0 0 18px;
+  max-width: 16ch;
+  line-height: 1.2;
+}
+
+.founder-text {
+  font-size: 17px;
+  color: var(--text-on-dark-muted);
+  margin: 0 0 24px;
+  max-width: 46ch;
+  line-height: 1.3;
+}
+
+.founder-role {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0;
+}
+
+.founder-link {
+  color: var(--accent);
+  border-bottom: 1px solid rgba(239, 237, 144, 0.4);
+  margin-left: 8px;
+  transition: border-color 0.15s ease;
+}
+
+.founder-link:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* ── Proof strip ─────────────────────────────────────────────────── */
+.proof {
+  background: var(--bg-dark);
+  padding: 0 28px 96px;
+}
+
+.proof-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  border-top: 1px solid var(--border-on-dark);
+  padding-top: 40px;
+}
+
+.proof-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+  margin: 0 0 32px;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.proof-item {
+  border-left: 2px solid var(--block);
+  padding-left: 22px;
+}
+
+.proof-figures {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 10px;
+  line-height: 1;
+}
+
+.proof-before {
+  font-size: 28px;
+  font-weight: 500;
+  color: rgba(237, 237, 230, 0.32);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+/* Chevron drawn from two borders so the strip ships without an icon file. */
+.proof-arrow {
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid var(--block);
+  border-right: 2px solid var(--block);
+  transform: rotate(45deg) translateY(-2px);
+  flex-shrink: 0;
+}
+
+.proof-after {
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.proof-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0 0 4px;
+}
+
+.proof-note {
+  font-size: 13px;
+  color: var(--text-on-dark-muted);
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* ── Section seams (blocky transition where bg color changes) ──── */
+/*
+ * A dither: four rows of square cells, each row denser than the one above it —
+ * one cell in four, then one in two, then three in four, then solid. The way a
+ * display with no gradients faked one. Both seams share the geometry and differ
+ * only in which colour arrives — --from is the section above, --to the section
+ * below — so the two rules underneath set nothing but the pair.
+ *
+ * Cells are sized in px, not percent, so they stay the same size at every
+ * viewport instead of stretching with the window. --px tracks a quarter of --h,
+ * which keeps every cell square: change the seam height and the whole stack
+ * follows on one line.
+ */
+.seam-to-light,
+.seam-to-dark {
+  --h: 32px;
+  --px: calc(var(--h) / 4);
+  height: var(--h);
+  background-color: var(--from);
+  background-repeat: no-repeat;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--to) 0 var(--px),
+      transparent var(--px) calc(var(--px) * 4)
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--to) 0 var(--px),
+      transparent var(--px) calc(var(--px) * 2)
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--to) 0 calc(var(--px) * 3),
+      transparent calc(var(--px) * 3) calc(var(--px) * 4)
+    ),
+    linear-gradient(var(--to), var(--to));
+  background-size: 100% calc(var(--h) / 4);
+  background-position: 0 0, 0 calc(var(--h) / 4), 0 calc(var(--h) / 2), 0 100%;
+}
+
+.seam-to-light {
+  --from: var(--bg-dark);
+  --to: var(--bg-light);
+}
+
+.seam-to-dark {
+  --from: var(--bg-light);
+  --to: var(--bg-dark);
+}
+
+/* ── Services ────────────────────────────────────────────────────── */
+.services {
+  background: var(--bg-light);
+  padding: 96px 28px 100px;
+}
+
+.services-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--block);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-light);
+  margin: 0 0 18px;
+  max-width: 20ch;
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  font-size: 17px;
+  color: var(--text-on-light-muted);
+  margin: 0 0 52px;
+  max-width: 56ch;
+  line-height: 1.3;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--block);
+  padding: 30px 26px;
+  color: var(--text-on-dark);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 32px) 0,
+    calc(100% - 32px) 16px,
+    calc(100% - 16px) 16px,
+    calc(100% - 16px) 32px,
+    100% 32px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.service-index {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 18px;
+  letter-spacing: 0.04em;
+}
+
+.service-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.service-text {
+  font-size: 15px;
+  color: var(--text-on-dark-muted);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* ── Process ─────────────────────────────────────────────────────── */
+.process {
+  background: var(--bg-dark);
+  padding: 100px 28px 104px;
+}
+
+.process-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.process-header {
+  max-width: 60ch;
+  margin-bottom: 56px;
+}
+
+.process-eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.process-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.chain-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.chain-block {
+  position: relative;
+  flex: 1;
+  background: var(--block);
+  padding: 26px 22px;
+  color: var(--text-on-dark);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 26px) 0,
+    calc(100% - 26px) 13px,
+    calc(100% - 13px) 13px,
+    calc(100% - 13px) 26px,
+    100% 26px,
+    100% 100%,
+    0 100%
+  );
+  opacity: 0;
+  transform: translateY(18px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.chain-row.in-view .chain-block {
+  animation: chain-rise 0.6s ease forwards;
+}
+
+.chain-row.in-view .chain-block:nth-of-type(1) {
+  animation-delay: 0s;
+}
+
+.chain-row.in-view .chain-block:nth-of-type(3) {
+  animation-delay: 0.15s;
+}
+
+.chain-row.in-view .chain-block:nth-of-type(5) {
+  animation-delay: 0.3s;
+}
+
+.chain-row.in-view .chain-block:nth-of-type(7) {
+  animation-delay: 0.45s;
+}
+
+/* Hover: accent fill sweep — yellow wipes across the block from the
+   left and the text flips to dark. Loading animation is untouched. */
+.chain-row.in-view .chain-block:hover {
+  z-index: 2;
+}
+
+.chain-row--hover1 .chain-block::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+  clip-path: inherit;
+}
+
+.chain-row--hover1 .chain-block > * {
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease 0.05s;
+}
+
+.chain-row--hover1.in-view .chain-block:hover::after {
+  transform: scaleX(1);
+}
+
+.chain-row--hover1.in-view .chain-block:hover .chain-hash,
+.chain-row--hover1.in-view .chain-block:hover .chain-block-title,
+.chain-row--hover1.in-view .chain-block:hover .chain-block-text {
+  color: var(--block);
+}
+
+@keyframes chain-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chain-hash {
+  display: block;
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.chain-block-title {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.chain-block-text {
+  font-size: 14px;
+  color: rgba(237, 237, 230, 0.75);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.chain-link {
+  width: 40px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.chain-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: var(--border-on-dark);
+  transform: translateY(-1px) scaleX(0);
+  transform-origin: left center;
+}
+
+.chain-row.in-view .chain-link::before {
+  animation: chain-draw 0.5s ease forwards;
+}
+
+.chain-row.in-view .chain-link:nth-of-type(2)::before {
+  animation-delay: 0.1s;
+}
+
+.chain-row.in-view .chain-link:nth-of-type(4)::before {
+  animation-delay: 0.25s;
+}
+
+.chain-row.in-view .chain-link:nth-of-type(6)::before {
+  animation-delay: 0.4s;
+}
+
+.chain-block:hover + .chain-link::before {
+  background: var(--accent);
+  transition: background 0.3s ease 0.05s;
+}
+
+@keyframes chain-draw {
+  from {
+    transform: translateY(-1px) scaleX(0);
+  }
+  to {
+    transform: translateY(-1px) scaleX(1);
+  }
+}
+
+@keyframes chain-draw-v {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ── Problem ─────────────────────────────────────────────────────── */
+.problem {
+  background: var(--bg-light);
+  padding: 72px 28px 76px;
+}
+
+.problem-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  gap: 64px;
+}
+
+.problem-title {
+  position: sticky;
+  top: 120px;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-light);
+  margin: 0;
+  max-width: 14ch;
+  line-height: 1.2;
+}
+
+.problem-title-col {
+  flex: 0.9;
+}
+
+.problem-deck {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+}
+
+.problem-card {
+  position: sticky;
+  top: 120px;
+  padding: 32px 30px;
+  color: var(--text-on-dark);
+  background: var(--block);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 28px) 0,
+    calc(100% - 28px) 14px,
+    calc(100% - 14px) 14px,
+    calc(100% - 14px) 28px,
+    100% 28px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.problem-card:nth-child(1) {
+  z-index: 1;
+}
+
+.problem-card:nth-child(2) {
+  z-index: 2;
+  margin-top: 32vh;
+}
+
+.problem-card:nth-child(3) {
+  z-index: 3;
+  margin-top: 32vh;
+}
+
+.problem-card:nth-child(4) {
+  z-index: 4;
+  margin-top: 32vh;
+}
+
+.problem-card-title {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px;
+}
+
+.problem-card-text {
+  font-size: 15px;
+  color: rgba(237, 237, 230, 0.78);
+  margin: 0;
+  max-width: 42ch;
+  line-height: 1.3;
+}
+
+/* ── FAQ ─────────────────────────────────────────────────────────── */
+.faq {
+  background: var(--bg-light);
+  padding: 76px 28px 88px;
+}
+
+.faq-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.faq-head {
+  position: sticky;
+  top: 120px;
+}
+
+.faq-eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--block);
+  margin-bottom: 16px;
+}
+
+.faq-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-light);
+  margin: 0 0 16px;
+  max-width: 14ch;
+  line-height: 1.2;
+}
+
+.faq-text {
+  font-size: 16px;
+  color: var(--text-on-light-muted);
+  margin: 0;
+  max-width: 34ch;
+  line-height: 1.35;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-on-light);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border-on-light);
+}
+
+.faq-question {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--text-on-light);
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--block);
+  outline-offset: 4px;
+}
+
+.faq-question-text {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  transition: color 0.15s ease;
+}
+
+.faq-question:hover .faq-question-text {
+  color: var(--block);
+}
+
+.faq-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  background: var(--block);
+  transition: background 0.2s ease;
+}
+
+.faq-icon::before {
+  content: '';
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: 12px;
+  width: 2px;
+  background: var(--text-on-dark);
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.2s ease;
+}
+
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  top: 12px;
+  height: 2px;
+  background: var(--text-on-dark);
+  transition: background 0.2s ease;
+}
+
+.faq-item.is-open .faq-question-text {
+  color: var(--block);
+}
+
+.faq-item.is-open .faq-icon {
+  background: var(--accent-strong);
+}
+
+.faq-item.is-open .faq-icon::before {
+  transform: scaleY(0);
+  background: var(--ink);
+}
+
+.faq-item.is-open .faq-icon::after {
+  background: var(--ink);
+}
+
+/* 0fr → 1fr interpolates the answer's real height, so opening and closing run
+   the identical curve. A fixed max-height cannot: the visible part of the
+   travel would be a fraction of the cap, making the open look instant.
+   The padding lives on .faq-answer, one level below the clipper, because a
+   grid item cannot shrink below its own padding and would leave a sliver. */
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0.35s;
+}
+
+.faq-item.is-open .faq-panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s;
+}
+
+.faq-panel-clip {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.faq-answer {
+  font-size: 15px;
+  color: var(--text-on-light-muted);
+  margin: 0;
+  padding-bottom: 24px;
+  max-width: 58ch;
+  line-height: 1.5;
+}
+
+/* ── Contact ─────────────────────────────────────────────────────── */
+.contact {
+  background: var(--bg-dark);
+  padding: 100px 28px 110px;
+}
+
+.contact-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  background: var(--block);
+  padding: 64px;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 56px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 56px) 0,
+    calc(100% - 56px) 28px,
+    calc(100% - 28px) 28px,
+    calc(100% - 28px) 56px,
+    100% 56px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.contact-eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+.contact-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+  margin: 0 0 16px;
+  max-width: 14ch;
+  line-height: 1.2;
+}
+
+.contact-text {
+  font-size: 16px;
+  color: var(--text-on-dark-muted);
+  margin: 0;
+  max-width: 40ch;
+  line-height: 1.3;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-on-dark-muted);
+}
+
+.form-input {
+  background: rgba(7, 7, 7, 0.28);
+  border: 1px solid rgba(237, 237, 230, 0.22);
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 15px;
+  font-family: var(--font-brand);
+  color: var(--text-on-dark);
+}
+
+.form-input::placeholder {
+  color: rgba(237, 237, 230, 0.4);
+}
+
+.form-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.form-textarea {
+  background: rgba(7, 7, 7, 0.28);
+  border: 1px solid rgba(237, 237, 230, 0.22);
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 15px;
+  font-family: var(--font-brand);
+  color: var(--text-on-dark);
+  resize: vertical;
+  min-height: 96px;
+}
+
+.form-textarea::placeholder {
+  color: rgba(237, 237, 230, 0.4);
+}
+
+.form-textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/*
+ * "What do you need?" is a radio group wearing chips, not a select. The native
+ * dropdown hid five answers behind a click and could not be styled to match the
+ * rest of the form; these show every option at once and stay keyboard native —
+ * the real radio sits under each chip, visually hidden but focusable.
+ */
+.choice-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.choice {
+  display: inline-flex;
+  position: relative;
+}
+
+.choice-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choice-chip {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  background: rgba(7, 7, 7, 0.28);
+  border: 1px solid rgba(237, 237, 230, 0.22);
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.choice-input:not(:checked) + .choice-chip:hover {
+  border-color: var(--accent);
+  background: rgba(239, 237, 144, 0.1);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.choice-input:checked + .choice-chip {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.choice-input:focus-visible + .choice-chip {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice-chip {
+    transition: none;
+  }
+
+  .choice-input:not(:checked) + .choice-chip:hover {
+    transform: none;
+  }
+}
+
+.form-submit {
+  display: inline-block;
+  position: relative;
+  align-self: flex-start;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 14px 30px;
+  /* See .btn-primary — keeps the parked sweep from painting over its neighbour. */
+  overflow: hidden;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    calc(100% - 14px) 7px,
+    calc(100% - 7px) 7px,
+    calc(100% - 7px) 14px,
+    100% 14px,
+    100% 100%,
+    0 100%
+  );
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-brand);
+  transition: background 0.15s ease;
+  margin-top: 6px;
+}
+
+.form-submit:hover {
+  background: var(--accent-strong);
+}
+
+.form-submit:focus-visible {
+  outline: 2px solid var(--text-on-dark);
+  outline-offset: 2px;
+}
+
+/* Same sweep, same reason it rides on transform. See .btn-primary::after. */
+.form-submit::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%);
+  transform: translateX(-150%) skewX(-20deg);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.form-submit:hover::after {
+  transform: translateX(325%) skewX(-20deg);
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.site-footer {
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border-on-dark);
+}
+
+.footer-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 48px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: block;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: var(--text-on-dark-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 26px;
+}
+
+.footer-link {
+  font-size: 14px;
+  color: var(--text-on-dark-muted);
+  transition: color 0.15s ease;
+}
+
+.footer-link:hover {
+  color: var(--text-on-dark);
+}
+
+/* ── Motion ──────────────────────────────────────────────────────── */
+@keyframes ring-pulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  14% {
+    opacity: 1;
+    transform: scale(1.035);
+  }
+  32% {
+    opacity: 0.65;
+    transform: scale(0.99);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+.hero-ring {
+  animation: ring-pulse 2.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  transform-origin: 100% 50%;
+}
+
+.hero-ring:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.hero-ring:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-ring {
+    animation: none;
+  }
+
+  .chain-block {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .chain-link::before {
+    animation: none;
+    transform: none;
+  }
+
+  .faq-panel {
+    transition: none;
+  }
+
+  .faq-icon::before {
+    transition: none;
+  }
+}
+
+/* ── Responsive (one breakpoint set; mirror rules above) ─────────── */
+@media (max-width: 900px) {
+  .hero-title {
+    font-size: 46px;
+  }
+
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .proof-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .chain-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .chain-link {
+    width: 100%;
+    height: 24px;
+  }
+
+  .chain-link::before {
+    left: 50%;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+
+  .chain-row.in-view .chain-link::before {
+    animation-name: chain-draw-v;
+  }
+
+  .problem-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .problem-title {
+    position: static;
+  }
+
+  .problem-card {
+    position: static;
+    top: auto;
+    margin-bottom: 20px;
+  }
+
+  .problem-card:nth-child(2),
+  .problem-card:nth-child(3),
+  .problem-card:nth-child(4) {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  .faq-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .faq-head {
+    position: static;
+  }
+
+  .founder-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .founder-media {
+    max-width: 320px;
+  }
+
+  .contact-inner {
+    grid-template-columns: 1fr;
+    padding: 40px 28px;
+    gap: 36px;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 32px) 0,
+      calc(100% - 32px) 16px,
+      calc(100% - 16px) 16px,
+      calc(100% - 16px) 32px,
+      100% 32px,
+      100% 100%,
+      0 100%
+    );
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-links {
+    gap: 14px;
+  }
+
+  .nav-link {
+    display: none;
+  }
+
+  .hero {
+    padding: 56px 20px 72px;
+  }
+
+  .hero-title {
+    font-size: 34px;
+  }
+
+  .hero-subtitle {
+    font-size: 17px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    /* Column flips the axis: stretch is what keeps both buttons full width. */
+    align-items: stretch;
+  }
+
+  .hero-rings {
+    opacity: 0.5;
+  }
+
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .proof {
+    padding: 0 20px 64px;
+  }
+
+  .proof-after {
+    font-size: 38px;
+  }
+
+  .faq {
+    padding: 56px 20px 64px;
+  }
+
+  .faq-question-text {
+    font-size: 17px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .seam-to-light,
+  .seam-to-dark {
+    /* Drives height, row heights, and cell width at once — see the rule above. */
+    --h: 20px;
+  }
+}

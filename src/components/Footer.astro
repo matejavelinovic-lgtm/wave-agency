@@ -1,0 +1,27 @@
+---
+// Site footer.
+import { SITE_NAME, PERSON } from '../consts';
+import copy from '../content/copy.json';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-mark" src="/WaveWeb_Logo.png" alt={SITE_NAME} width="28" height="28" />
+      <p class="footer-text">
+        © {year} {SITE_NAME}. <span data-edit="footer.text">{copy.footer.text}</span>
+      </p>
+    </div>
+    <div class="footer-links">
+      <!-- The four service pages are not built yet, so the footer links to the
+           homepage sections instead. -->
+      <a class="footer-link" href="/#services">Services</a>
+      <a class="footer-link" href="/#process">Process</a>
+      <a class="footer-link" href="/#faq">FAQ</a>
+      <a class="footer-link" href="/#contact">Contact</a>
+      <a class="footer-link" href={PERSON.linkedin} rel="noopener" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>

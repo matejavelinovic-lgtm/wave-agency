@@ -1,0 +1,228 @@
+---
+/*
+ * Dev-only inline text editor.
+ *
+ * Layout renders this component under import.meta.env.DEV, and the script
+ * guards itself again so a production build compiles the whole body away. Every
+ * element carrying data-edit becomes editable when the mode is on; the value
+ * saves back into src/content/copy.json through the dev endpoint in
+ * src/dev/copy-editor.mjs.
+ *
+ * All markup and styling is built at runtime so nothing here can leak into the
+ * production CSS or HTML.
+ */
+---
+
+<script>
+  if (import.meta.env.DEV) {
+    const ENDPOINT = '/__copy-edit';
+    const MODE_KEY = 'copy-editor-on';
+
+    /* The mode survives the page reload Vite triggers after every save. */
+    let on = sessionStorage.getItem(MODE_KEY) === '1';
+
+    /* Firefox before 136 ignores plaintext-only and would paste markup. */
+    const probe = document.createElement('div');
+    probe.setAttribute('contenteditable', 'plaintext-only');
+    const editableValue = probe.contentEditable === 'plaintext-only' ? 'plaintext-only' : 'true';
+
+    const style = document.createElement('style');
+    style.textContent = `
+      .copy-editor-toggle {
+        position: fixed;
+        left: 16px;
+        bottom: 16px;
+        z-index: 2147483000;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        background: #17171b;
+        color: #f4f4f2;
+        font: 500 13px/1 system-ui, sans-serif;
+        cursor: pointer;
+      }
+      .copy-editor-toggle[data-on='1'] { background: #efed90; color: #101014; border-color: #efed90; }
+      .copy-editor-toast {
+        position: fixed;
+        left: 16px;
+        bottom: 62px;
+        z-index: 2147483000;
+        padding: 8px 13px;
+        border-radius: 8px;
+        background: #17171b;
+        color: #f4f4f2;
+        font: 500 13px/1.3 system-ui, sans-serif;
+        max-width: 320px;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 0.15s ease, transform 0.15s ease;
+        pointer-events: none;
+      }
+      .copy-editor-toast[data-show='1'] { opacity: 1; transform: none; }
+      .copy-editor-toast[data-tone='error'] { background: #7f1d1d; }
+      body.copy-editing [data-edit] {
+        outline: 1px dashed rgba(239, 237, 144, 0.5);
+        outline-offset: 3px;
+        cursor: text;
+        border-radius: 2px;
+      }
+      body.copy-editing [data-edit]:hover { background: rgba(239, 237, 144, 0.09); }
+      body.copy-editing [data-edit]:focus {
+        outline: 2px solid #efed90;
+        background: rgba(239, 237, 144, 0.12);
+      }
+    `;
+    document.head.appendChild(style);
+
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'copy-editor-toggle';
+    document.body.appendChild(toggle);
+
+    const toast = document.createElement('div');
+    toast.className = 'copy-editor-toast';
+    document.body.appendChild(toast);
+
+    let toastTimer = 0;
+    function flash(message: string, tone: 'ok' | 'error' = 'ok') {
+      toast.textContent = message;
+      toast.dataset.tone = tone;
+      toast.dataset.show = '1';
+      clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => (toast.dataset.show = '0'), tone === 'error' ? 5000 : 1600);
+    }
+
+    const fields = () => Array.from(document.querySelectorAll<HTMLElement>('[data-edit]'));
+
+    /* Last saved text per field, so blur can tell an edit from a stray focus. */
+    const saved = new WeakMap<HTMLElement, string>();
+
+    /* textContent, never innerText: innerText returns what CSS renders, so an
+       eyebrow styled text-transform: uppercase would save back as SERVICES, and
+       a collapsed FAQ panel would save back as an empty string. */
+    const read = (el: HTMLElement) => (el.textContent || '').replace(/\s+/g, ' ').trim();
+
+    /* One request per save, so the page reloads once when Vite notices the
+       write instead of racing several writes against one reload. */
+    async function saveAll(elements: HTMLElement[]) {
+      const pending: { el: HTMLElement; path: string; value: string }[] = [];
+
+      for (const el of elements) {
+        const path = el.dataset.edit;
+        const value = read(el);
+        if (!path || value === saved.get(el)) continue;
+        if (!value) {
+          flash('Empty text is not saved. Press Escape to undo.', 'error');
+          continue;
+        }
+        pending.push({ el, path, value });
+      }
+
+      if (!pending.length) return;
+
+      try {
+        const response = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ edits: pending.map(({ path, value }) => ({ path, value })) }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
+        pending.forEach(({ el, value }) => saved.set(el, value));
+        flash(pending.length === 1 ? `Saved ${pending[0].path}` : `Saved ${pending.length} fields`);
+      } catch (error) {
+        flash(`Save failed: ${(error as Error).message}`, 'error');
+      }
+    }
+
+    const save = (el: HTMLElement) => saveAll([el]);
+
+    function setMode(next: boolean) {
+      /* Only a real on → off transition flushes. Page load calls this with the
+         stored mode, and at that point no field has been snapshotted yet, so a
+         flush would post every string on the page back to disk — which rewrites
+         the file, which reloads the page, which calls this again. */
+      const leavingEditMode = on && !next;
+      on = next;
+      sessionStorage.setItem(MODE_KEY, on ? '1' : '0');
+      document.body.classList.toggle('copy-editing', on);
+      toggle.dataset.on = on ? '1' : '0';
+      toggle.textContent = on ? '✕ Done editing' : '✎ Edit text';
+      /* index.astro reads this to park the card tilt while you type. */
+      (window as any).__copyEditing = on;
+
+      const all = fields();
+
+      if (on) {
+        all.forEach((el) => {
+          saved.set(el, read(el));
+          el.setAttribute('contenteditable', editableValue);
+          el.spellcheck = false;
+        });
+      } else {
+        /* Leaving the mode flushes anything the focusout handler missed — the
+           field still holding focus, or one changed without a blur. */
+        if (leavingEditMode) saveAll(all);
+        all.forEach((el) => el.removeAttribute('contenteditable'));
+      }
+    }
+
+    toggle.addEventListener('click', () => setMode(!on));
+
+    /* Capture phase: a field inside a link or the FAQ button would otherwise
+       navigate or collapse the panel on the click that places the caret. */
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (!on) return;
+        const field = (event.target as HTMLElement | null)?.closest('[data-edit]');
+        if (!field) return;
+        event.preventDefault();
+        event.stopPropagation();
+      },
+      true
+    );
+
+    document.addEventListener('focusout', (event) => {
+      if (!on) return;
+      const field = (event.target as HTMLElement | null)?.closest<HTMLElement>('[data-edit]');
+      if (field) save(field);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const field = (event.target as HTMLElement | null)?.closest<HTMLElement>('[data-edit]');
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'e') {
+        event.preventDefault();
+        setMode(!on);
+        return;
+      }
+
+      if (!on || !field) return;
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
+        event.preventDefault();
+        save(field);
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        field.textContent = saved.get(field) ?? field.textContent;
+        field.blur();
+        return;
+      }
+
+      /* Enter would push a line break into a heading that has no room for one. */
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        field.blur();
+      }
+    });
+
+    setMode(on);
+  }
+</script>

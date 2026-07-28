@@ -1,0 +1,595 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import { SITE_URL, SITE_NAME, PERSON, PERSON_PHOTO } from '../consts';
+import copy from '../content/copy.json';
+
+/*
+ * Every visible sentence on this page lives in src/content/copy.json, and each
+ * one renders inside an element carrying data-edit="<its dot path>". The
+ * dev-only editor in src/components/DevCopyEditor.astro reads that attribute to
+ * write an edit straight back into the JSON. New copy means a new key there and
+ * a data-edit pointing at it — text hardcoded in the markup below is text
+ * nobody can edit in the browser.
+ */
+const { hero, proof, problem, services, founder, faq, contact } = copy;
+const steps = copy.process.steps;
+
+const scope = ['DeFi', 'Exchanges', 'Wallets', 'RWA', 'Payments', 'Neobanks', 'Trading platforms'];
+
+/*
+ * The proof numbers are illustrative until real audits back them, and they line
+ * up with claims made elsewhere on the page on purpose: 52 sits inside the 40
+ * to 65 range the FAQ cites, 97 clears the "above 95" the speed card promises,
+ * and 4.1s matches the four second paint the first problem card describes.
+ * Change one of them in copy.json and check the other three still agree.
+ *
+ * The four service category pages do not exist yet, so the cards describe the
+ * work and stop there. Add an href and a CTA back once /speed, /aeo, and the
+ * two migration pages ship.
+ */
+
+const serviceSchema = services.cards.map((s) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: s.title,
+  description: s.text,
+  url: `${SITE_URL}/#services`,
+  serviceType: s.title,
+  provider: { '@id': `${SITE_URL}/#organization` },
+  areaServed: 'Worldwide',
+  audience: {
+    '@type': 'Audience',
+    audienceType: 'Web3 and fintech companies',
+  },
+}));
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.items.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Layout>
+  <section class="hero">
+    <svg class="hero-rings" viewBox="0 0 400 400" aria-hidden="true">
+      <circle
+        class="hero-ring"
+        cx="400"
+        cy="200"
+        r="120"
+        fill="none"
+        stroke="#efed90"
+        stroke-width="2"
+        opacity="0.7"></circle>
+      <circle
+        class="hero-ring"
+        cx="400"
+        cy="200"
+        r="200"
+        fill="none"
+        stroke="#efed90"
+        stroke-width="2"
+        opacity="0.45"></circle>
+      <circle
+        class="hero-ring"
+        cx="400"
+        cy="200"
+        r="280"
+        fill="none"
+        stroke="#efed90"
+        stroke-width="2"
+        opacity="0.25"></circle>
+    </svg>
+    <div class="hero-inner">
+      <span class="hero-eyebrow"
+        ><span class="hero-eyebrow-dot"></span><span data-edit="hero.eyebrow">{hero.eyebrow}</span
+        ></span
+      >
+      {/* Three fields, not one: the accent span needs its own editable target,
+          and the spaces around it stay in the markup where an edit cannot eat
+          them. */}
+      <h1 class="hero-title">
+        <span data-edit="hero.titleStart">{hero.titleStart}</span>{' '}
+        <span class="hero-title-em" data-edit="hero.titleAccent">{hero.titleAccent}</span>{' '}
+        <span data-edit="hero.titleEnd">{hero.titleEnd}</span>
+      </h1>
+      <p class="hero-subtitle" data-edit="hero.subtitle">{hero.subtitle}</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#contact" data-edit="hero.ctaPrimary"
+          >{hero.ctaPrimary}</a
+        >
+        <a class="btn-secondary" href="#services" data-edit="hero.ctaSecondary"
+          >{hero.ctaSecondary}</a
+        >
+      </div>
+      <div class="hero-scope">
+        <span class="hero-scope-label" data-edit="hero.scopeLabel">{hero.scopeLabel}</span>
+        {scope.map((s) => <span class="scope-chip">{s}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="proof" id="proof">
+    <div class="proof-inner">
+      <h2 class="proof-title" data-edit="proof.title">{proof.title}</h2>
+      <div class="proof-grid">
+        {
+          proof.items.map((p, i) => (
+            <div class="proof-item">
+              <p class="proof-figures">
+                {p.before && <span class="proof-before" data-edit={`proof.items.${i}.before`}>{p.before}</span>}
+                {p.before && <span class="proof-arrow" aria-hidden="true" />}
+                <span class="proof-after" data-edit={`proof.items.${i}.after`}>{p.after}</span>
+              </p>
+              <h3 class="proof-label" data-edit={`proof.items.${i}.label`}>{p.label}</h3>
+              <p class="proof-note" data-edit={`proof.items.${i}.note`}>{p.note}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-to-light"></div>
+
+  <section class="problem" id="problem">
+    <div class="problem-inner">
+      <div class="problem-title-col">
+        <h2 class="problem-title" data-edit="problem.title">{problem.title}</h2>
+      </div>
+      <div class="problem-deck">
+        {
+          problem.cards.map((p, i) => (
+            <div class="problem-card">
+              <h3 class="problem-card-title" data-edit={`problem.cards.${i}.title`}>{p.title}</h3>
+              <p class="problem-card-text" data-edit={`problem.cards.${i}.text`}>{p.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="services-inner">
+      <span class="section-eyebrow" data-edit="services.eyebrow">{services.eyebrow}</span>
+      <h2 class="section-title" data-edit="services.title">{services.title}</h2>
+      <p class="section-subtitle" data-edit="services.subtitle">{services.subtitle}</p>
+      <div class="service-grid">
+        {
+          services.cards.map((s, i) => (
+            <div class="service-card">
+              <h3 class="service-title" data-edit={`services.cards.${i}.title`}>{s.title}</h3>
+              <p class="service-text" data-edit={`services.cards.${i}.text`}>{s.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-to-dark"></div>
+
+  <section class="process" id="process">
+    <div class="process-inner">
+      <div class="process-header">
+        <span class="process-eyebrow" data-edit="process.eyebrow">{copy.process.eyebrow}</span>
+        <h2 class="process-title" data-edit="process.title">{copy.process.title}</h2>
+      </div>
+      <div class="chain-row chain-row--hover1">
+        {
+          steps.map((p, i) => (
+            <>
+              <div class="chain-block">
+                <span class="chain-hash">BLOCK_<span data-edit={`process.steps.${i}.n`}>{p.n}</span></span>
+                <h3 class="chain-block-title" data-edit={`process.steps.${i}.title`}>{p.title}</h3>
+                <p class="chain-block-text" data-edit={`process.steps.${i}.text`}>{p.text}</p>
+              </div>
+              {i < steps.length - 1 && <div class="chain-link"></div>}
+            </>
+          ))
+        }
+      </div>
+      <noscript>
+        <style>
+          .chain-row .chain-block, .chain-row .chain-link::before { transform: none; }
+        </style>
+      </noscript>
+    </div>
+  </section>
+
+  <script>
+    const chainRow = document.querySelector('.chain-row');
+    if (chainRow) {
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                chainRow.classList.add('in-view');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.25 }
+        );
+        observer.observe(chainRow);
+      } else {
+        chainRow.classList.add('in-view');
+      }
+    }
+  </script>
+
+  <section class="founder" id="founder">
+    <div class="founder-inner">
+      <div class="founder-media">
+        <Image
+          class="founder-photo"
+          src={PERSON_PHOTO}
+          alt={`${PERSON.name}, founder of ${SITE_NAME}`}
+          width={600}
+          height={930}
+          widths={[320, 600, 1200]}
+          sizes="(max-width: 900px) 320px, 600px"
+          format="webp"
+          quality={72}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="founder-content">
+        <span class="founder-eyebrow" data-edit="founder.eyebrow">{founder.eyebrow}</span>
+        <h2 class="founder-title" data-edit="founder.title">{founder.title}</h2>
+        <p class="founder-text" data-edit="founder.text">{founder.text}</p>
+        <p class="founder-role">
+          {PERSON.name}, founder of {SITE_NAME}.
+          <a
+            class="founder-link"
+            href={PERSON.linkedin}
+            rel="noopener"
+            target="_blank"
+            data-edit="founder.linkLabel">{founder.linkLabel}</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-to-light"></div>
+
+  <section class="faq" id="faq">
+    <div class="faq-inner">
+      <div class="faq-head">
+        <span class="faq-eyebrow" data-edit="faq.eyebrow">{faq.eyebrow}</span>
+        <h2 class="faq-title" data-edit="faq.title">{faq.title}</h2>
+        <p class="faq-text" data-edit="faq.text">{faq.text}</p>
+      </div>
+      <div class="faq-list">
+        {
+          faq.items.map((f, i) => (
+            <div class="faq-item">
+              <button
+                class="faq-question"
+                type="button"
+                id={`faq-trigger-${i}`}
+                aria-expanded="false"
+                aria-controls={`faq-panel-${i}`}
+              >
+                <span class="faq-question-text" data-edit={`faq.items.${i}.q`}>{f.q}</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-panel" id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-trigger-${i}`}>
+                <div class="faq-panel-clip">
+                  <p class="faq-answer" data-edit={`faq.items.${i}.a`}>{f.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <noscript>
+        {/* is:inline keeps this rule inside the noscript — without it Astro
+            hoists it into the global bundle and every panel stays open. */}
+        <style is:inline>
+          .faq-panel { grid-template-rows: 1fr; visibility: visible; }
+          .faq-icon { display: none; }
+        </style>
+      </noscript>
+    </div>
+  </section>
+
+  <script>
+    // One panel open at a time; the button owns aria state, the item owns the
+    // CSS state class that drives the grid-row height transition.
+    const faqItems = Array.from(document.querySelectorAll('.faq-item'));
+
+    faqItems.forEach((item) => {
+      const trigger = item.querySelector('.faq-question');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', () => {
+        const willOpen = !item.classList.contains('is-open');
+
+        faqItems.forEach((other) => {
+          other.classList.remove('is-open');
+          other.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
+        });
+
+        if (willOpen) {
+          item.classList.add('is-open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+
+  <div class="seam-to-dark"></div>
+
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div>
+        <span class="contact-eyebrow" data-edit="contact.eyebrow">{contact.eyebrow}</span>
+        <h2 class="contact-title" data-edit="contact.title">{contact.title}</h2>
+        <p class="contact-text" data-edit="contact.text">{contact.text}</p>
+      </div>
+      <form class="contact-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="name" data-edit="contact.labelName">{contact.labelName}</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Your name" />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="email" data-edit="contact.labelEmail">{contact.labelEmail}</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="you@company.com" />
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="site" data-edit="contact.labelSite">{contact.labelSite}</label>
+          <input class="form-input" type="url" id="site" name="site" placeholder="https://" />
+        </div>
+        <div class="form-field" role="radiogroup" aria-labelledby="need-label">
+          <span class="form-label" id="need-label" data-edit="contact.labelNeed">{contact.labelNeed}</span>
+          <div class="choice-grid">
+            {
+              contact.needs.map((n, i) => (
+                <label class="choice">
+                  <input class="choice-input" type="radio" name="need" value={n} checked={i === 0} />
+                  <span class="choice-chip" data-edit={`contact.needs.${i}`}>
+                    {n}
+                  </span>
+                </label>
+              ))
+            }
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="message" data-edit="contact.labelMessage">{contact.labelMessage}</label>
+          <textarea
+            class="form-textarea"
+            id="message"
+            name="message"
+            placeholder="What bothers you about the site, and when do you need it fixed?"></textarea>
+        </div>
+        <button class="form-submit" type="submit" data-edit="contact.submit">{contact.submit}</button>
+      </form>
+    </div>
+  </section>
+
+  {serviceSchema.map((s) => <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />)}
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+  <script>
+    // GSAP and Lenis weigh ~136 kB raw. Phones get neither: smooth scroll
+    // fights native touch scrolling anyway, and the entrance tweens are
+    // decoration the content does not depend on. Every element animated below
+    // is visible without JavaScript, so skipping the import costs a phone
+    // nothing but the animation. Dynamic import keeps the bytes out of the
+    // initial chunk instead of downloading them and branching afterwards.
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isSmallScreen = window.matchMedia('(max-width: 900px)').matches;
+
+    if (!prefersReducedMotion && !isSmallScreen) {
+      const [{ gsap }, { ScrollTrigger }, { default: Lenis }] = await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+        import('lenis'),
+      ]);
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ── Smooth scroll ───────────────────────────────────────────
+      const lenis = new Lenis({
+        duration: 0.9,
+        smoothWheel: true,
+      });
+
+      lenis.on('scroll', ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      gsap.ticker.lagSmoothing(0);
+
+      // ── Header ──────────────────────────────────────────────────
+      // No upward y-offset here: .site-header sits at the very top of the
+      // document, so translating it from a negative y would momentarily
+      // create scrollable space above y=0 while the tween plays.
+      gsap.from('.site-header', { opacity: 0, duration: 0.7, ease: 'power2.out' });
+      gsap.from('.nav-link, .nav-cta', {
+        y: 10,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.06,
+        delay: 0.25,
+        ease: 'power2.out',
+      });
+
+      // ── Hero ────────────────────────────────────────────────────
+      gsap
+        .timeline({ defaults: { ease: 'power3.out' } })
+        .from('.hero-eyebrow', { y: 16, opacity: 0, duration: 0.6 }, 0.15)
+        .from('.hero-title', { y: 34, opacity: 0, duration: 0.85 }, 0.3)
+        .from('.hero-subtitle', { y: 20, opacity: 0, duration: 0.7 }, 0.55)
+        .from('.hero-actions', { y: 18, opacity: 0, duration: 0.6 }, 0.7)
+        .from('.hero-scope', { y: 16, opacity: 0, duration: 0.6 }, 0.8)
+        .from('.hero-rings', { opacity: 0, scale: 0.82, duration: 1.2, ease: 'power2.out' }, 0.25);
+
+      // ── Proof ───────────────────────────────────────────────────
+      gsap.from('.proof-item', {
+        scrollTrigger: { trigger: '.proof', start: 'top 88%' },
+        y: 22,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      // ── Services ────────────────────────────────────────────────
+      gsap.from(['.section-eyebrow', '.section-title', '.section-subtitle'], {
+        scrollTrigger: { trigger: '.services', start: 'top 70%' },
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.service-card', {
+        scrollTrigger: { trigger: '.service-grid', start: 'top 80%' },
+        y: 44,
+        opacity: 0,
+        duration: 0.65,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      document.querySelectorAll('.service-card').forEach((el) => {
+        el.style.transformPerspective = '700px';
+        el.style.transformStyle = 'preserve-3d';
+
+        const tiltX = gsap.quickTo(el, 'rotationY', { duration: 0.5, ease: 'power3.out' });
+        const tiltY = gsap.quickTo(el, 'rotationX', { duration: 0.5, ease: 'power3.out' });
+        const lift = gsap.quickTo(el, 'y', { duration: 0.4, ease: 'power3.out' });
+
+        el.addEventListener('mousemove', (e) => {
+          // A card that tilts under the cursor is a card you cannot type into.
+          // The dev-only text editor sets this flag while its mode is on.
+          if ((window as any).__copyEditing) return;
+          const rect = el.getBoundingClientRect();
+          const px = (e.clientX - rect.left) / rect.width - 0.5;
+          const py = (e.clientY - rect.top) / rect.height - 0.5;
+          tiltX(px * 10);
+          tiltY(py * -10);
+          lift(-6);
+        });
+
+        el.addEventListener('mouseleave', () => {
+          tiltX(0);
+          tiltY(0);
+          lift(0);
+        });
+      });
+
+      // ── Founder ─────────────────────────────────────────────────
+      gsap.set('.founder-photo', { scale: 1.12, transformOrigin: 'center center' });
+
+      gsap.from('.founder-media', {
+        scrollTrigger: { trigger: '.founder', start: 'top 75%' },
+        x: -50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+      });
+
+      gsap.from(['.founder-eyebrow', '.founder-title', '.founder-text', '.founder-role'], {
+        scrollTrigger: { trigger: '.founder', start: 'top 75%' },
+        y: 26,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.to('.founder-photo', {
+        yPercent: -8,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.founder',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.6,
+        },
+      });
+
+      // ── FAQ ─────────────────────────────────────────────────────
+      gsap.from(['.faq-eyebrow', '.faq-title', '.faq-text'], {
+        scrollTrigger: { trigger: '.faq', start: 'top 75%' },
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.faq-item', {
+        scrollTrigger: { trigger: '.faq-list', start: 'top 82%' },
+        y: 20,
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.07,
+        ease: 'power3.out',
+      });
+
+      // ── Contact ─────────────────────────────────────────────────
+      gsap.from('.contact-inner', {
+        scrollTrigger: { trigger: '.contact', start: 'top 78%' },
+        scale: 0.97,
+        duration: 0.9,
+        ease: 'power3.out',
+      });
+
+      gsap.from(['.contact-eyebrow', '.contact-title', '.contact-text'], {
+        scrollTrigger: { trigger: '.contact', start: 'top 75%' },
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.form-field, .form-submit', {
+        scrollTrigger: { trigger: '.contact-form', start: 'top 80%' },
+        y: 20,
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.08,
+        ease: 'power3.out',
+      });
+
+      // ── Footer ──────────────────────────────────────────────────
+      gsap.from('.footer-inner', {
+        scrollTrigger: { trigger: '.site-footer', start: 'top 92%' },
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power3.out',
+      });
+
+      // Fonts/images finishing late (or a scroll position restored by the
+      // browser/dev tooling before Lenis takes over) can leave Lenis and
+      // ScrollTrigger holding stale bounds. Recompute once everything has
+      // actually settled.
+      window.addEventListener('load', () => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+      });
+    }
+  </script>
+</Layout>

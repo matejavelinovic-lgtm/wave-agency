@@ -1,0 +1,168 @@
+{
+  "hero": {
+    "eyebrow": "Speed, AEO, and migrations",
+    "titleStart": "I make Web3 and fintech sites load",
+    "titleAccent": "fast",
+    "titleEnd": "and show up in AI answers.",
+    "subtitle": "Whether you have a site or a blank domain, I make it load fast, show up in ChatGPT and Claude, and sit on the right platform for your team.",
+    "ctaPrimary": "Let’s talk",
+    "ctaSecondary": "See the four services",
+    "scopeLabel": "Built for"
+  },
+  "proof": {
+    "title": "Before and after, on sites I shipped.",
+    "items": [
+      {
+        "before": "35",
+        "after": "97",
+        "label": "Mobile PageSpeed",
+        "note": "Median across the last five projects"
+      },
+      {
+        "before": "4.1s",
+        "after": "1.2s",
+        "label": "Largest contentful paint",
+        "note": "Moto G4, 4G throttled"
+      },
+      {
+        "before": "",
+        "after": "14",
+        "label": "Sites optimized",
+        "note": "Since 2022"
+      }
+    ]
+  },
+  "problem": {
+    "title": "You landed here for one of four reasons.",
+    "cards": [
+      {
+        "title": "Your site takes four seconds to load.",
+        "text": "A visitor on a phone waits, gives up, and taps back to the search results. You paid to get that person to the page, and you lose them before your product appears."
+      },
+      {
+        "title": "ChatGPT and Claude cannot see you.",
+        "text": "You ask an AI about your own category and it names three competitors. Your pages carry no structure a model can lift an answer from, so the model quotes someone who does."
+      },
+      {
+        "title": "You vibe coded it, and it broke.",
+        "text": "The site went live in a weekend and looked fine at launch. Traffic grew, the content piled up, and the pages started to buckle under both."
+      },
+      {
+        "title": "You have no site yet, and you need one.",
+        "text": "You are launching, or the current page is a form and a logo. You want a site built right the first time, fast on a phone and readable to an AI from day one, instead of one you pay to fix a year later."
+      }
+    ]
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "Four ways I make a site earn its traffic.",
+    "subtitle": "You name the problem. I take the work from first measurement to shipped result, and I send you the numbers when it lands.",
+    "cards": [
+      {
+        "title": "Performance optimization",
+        "text": "I strip render blocking scripts, compress your hero media, and cut the JavaScript your visitors download without ever running. You get a mobile score above 90 and a page that paints before a thumb reaches the scroll."
+      },
+      {
+        "title": "Answer engine optimization",
+        "text": "I structure your pages so ChatGPT, Claude, Perplexity, and Google AI Overviews can lift a clean answer out of them. You land inside the answer with your name on it, instead of on page two of a link list."
+      },
+      {
+        "title": "Migration into Webflow",
+        "text": "Your marketing team waits on an engineer to fix a typo. I move the site into Webflow, map every URL before anything changes, and hand your team a CMS they run without a ticket."
+      },
+      {
+        "title": "Migration out of Webflow",
+        "text": "You outgrew the platform. I rebuild your site as code your team owns, keep the design you paid for, keep the URLs that earn traffic, and hand your engineers a repo."
+      }
+    ]
+  },
+  "founder": {
+    "eyebrow": "Who is behind this",
+    "title": "You work with me, from the first email to the last test.",
+    "text": "I read your first message, run the audit, optimise your website, and send you the before and after. No account manager sits between us and no handoff loses the detail you mentioned on the first call. I have built in Webflow since 2022, and I reach for custom code when a project earns it.",
+    "linkLabel": "LinkedIn"
+  },
+  "process": {
+    "eyebrow": "Process",
+    "title": "From audit to measured result, in four steps.",
+    "steps": [
+      {
+        "n": "01",
+        "title": "Audit",
+        "text": "I profile your site on a real phone and list what costs you speed, traffic, and visibility."
+      },
+      {
+        "n": "02",
+        "title": "Plan",
+        "text": "You get a fix list ranked by what each line earns, with the effort it takes next to it."
+      },
+      {
+        "n": "03",
+        "title": "Ship",
+        "text": "I do the work in Webflow or in code, and you review all of it on a staging URL first."
+      },
+      {
+        "n": "04",
+        "title": "Measure",
+        "text": "I run the same tests again and send you the before and after, with the raw reports."
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Answers before the first call.",
+    "text": "The questions teams ask most, answered without the sales detour.",
+    "items": [
+      {
+        "q": "Do you build websites from scratch?",
+        "a": "Yes. If you have nothing yet, or a landing page holding the spot, I build the site from the ground up in Webflow or in code, and it ships fast on a phone and readable to an AI on day one. Most of my work is still sites that already exist and underperform, and that experience is what a new build gets you."
+      },
+      {
+        "q": "What PageSpeed score should my Web3 site have?",
+        "a": "90 or above on mobile. Most Web3 landing pages I audit score between 40 and 65. The causes repeat: uncompressed hero video, wallet connect scripts loading before anything renders, animation libraries pulled in on every page. All three get fixed without touching the design."
+      },
+      {
+        "q": "What is AEO and how does it differ from SEO?",
+        "a": "SEO puts you in Google’s ranked list. AEO gets you quoted inside the answer that ChatGPT, Perplexity, and Google AI Overviews write. The work overlaps, though AEO leans harder on structured data, semantic HTML, and content shaped so a model can lift a clean answer out of it."
+      },
+      {
+        "q": "Do you work in Webflow or custom code?",
+        "a": "Both. I have built in Webflow since 2022, and I use Ship Studio with Claude Code where the project calls for code I own outright. The tool follows the project. Agencies that sell one stack will recommend that stack no matter what you need."
+      },
+      {
+        "q": "How do you choose between Webflow and custom code?",
+        "a": "By who edits the site after launch. A marketing team shipping pages every week belongs in Webflow. A product team with engineers who own the repo belongs in custom code. Traffic, CMS depth, and budget move the answer around, but that one question settles most projects on the first call."
+      },
+      {
+        "q": "Will migrating my site hurt my rankings?",
+        "a": "Not when the redirect map holds. Ranking drops after migration trace back to broken URLs, dropped metadata, and pages that vanish without a replacement. I map every existing URL before anything moves, keep the structure that earns traffic, and watch Search Console through the first month."
+      },
+      {
+        "q": "Who does the work?",
+        "a": "I do. WaveWeb stays small on purpose, so you talk to the person writing the code instead of an account manager passing messages along. When a project needs a designer or a second developer, I bring one in and keep responsibility for the result."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Tell me about your site.",
+    "text": "Send the URL and the part that bothers you. I reply within a day with what I would fix first.",
+    "labelName": "Name",
+    "labelEmail": "Email",
+    "labelSite": "Your site URL",
+    "labelNeed": "What do you need?",
+    "needs": [
+      "Speed",
+      "AEO",
+      "Migration into Webflow",
+      "Migration out of Webflow",
+      "A new site from scratch",
+      "Audit first"
+    ],
+    "labelMessage": "Message",
+    "submit": "Send it"
+  },
+  "footer": {
+    "text": "I speed up Web3 and fintech sites."
+  }
+}

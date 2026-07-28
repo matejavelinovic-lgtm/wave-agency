@@ -1,0 +1,84 @@
+---
+// Site header / navigation. Every element carries a semantic class defined in
+// src/styles/main.css — click any of them in the visual editor to edit its rule.
+import { SITE_NAME } from '../consts';
+---
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a class="nav-brand" href="/">
+      <img class="nav-mark" src="/WaveWeb_Logo.png" alt={SITE_NAME} width="34" height="34" />
+      <span class="nav-wordmark">{SITE_NAME}</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="/#services">Services</a>
+      <a class="nav-link" href="/#process">Process</a>
+      <a class="nav-link" href="/#faq">FAQ</a>
+      <a class="nav-cta" href="/#contact">Let’s talk</a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const MATRIX_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!<>-_/[]{}=+*^#';
+
+  function randChar() {
+    return MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)];
+  }
+
+  function splitLetters(el: Element) {
+    const text = el.textContent ?? '';
+    el.textContent = '';
+    const spans: HTMLSpanElement[] = [];
+    for (const ch of text) {
+      if (ch === ' ') {
+        el.appendChild(document.createTextNode(' '));
+        continue;
+      }
+      const span = document.createElement('span');
+      span.className = 'nav-letter';
+      span.textContent = ch;
+      span.dataset.final = ch;
+      el.appendChild(span);
+      spans.push(span);
+    }
+    return spans;
+  }
+
+  function scramble(span: HTMLSpanElement, delay: number, duration: number, frame: number) {
+    const start = performance.now() + delay;
+    const end = start + duration;
+    function tick(now: number) {
+      if (now < start) {
+        requestAnimationFrame(tick);
+        return;
+      }
+      if (now >= end) {
+        span.textContent = span.dataset.final ?? '';
+        return;
+      }
+      span.textContent = randChar();
+      setTimeout(() => requestAnimationFrame(tick), frame);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    document.querySelectorAll<HTMLAnchorElement>('.nav-link').forEach((link) => {
+      const spans = splitLetters(link);
+      link.addEventListener('mouseenter', () => {
+        link.classList.add('is-decoding');
+        let maxFinish = 0;
+        spans.forEach((span, i) => {
+          const delay = i * 35;
+          const duration = 160;
+          scramble(span, delay, duration, 35);
+          maxFinish = Math.max(maxFinish, delay + duration);
+        });
+        setTimeout(() => link.classList.remove('is-decoding'), maxFinish + 20);
+      });
+    });
+  }
+</script>
