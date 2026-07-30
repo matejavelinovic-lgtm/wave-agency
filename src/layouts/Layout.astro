@@ -1,5 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
+import Analytics from '@vercel/analytics/astro';
 import '../styles/main.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -158,5 +159,6 @@ const breadcrumbList = {
     </main>
     <Footer />
     {import.meta.env.DEV && <DevCopyEditor />}
+    <Analytics />
   </body>
 </html>
