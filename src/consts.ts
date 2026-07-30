@@ -41,6 +41,21 @@ export const SITE_ALT_NAME = 'Wave Web';
  */
 export const ORG_PROFILES: string[] = ['https://www.linkedin.com/company/waveweb3'];
 
+/*
+ * Where the work is done, for Organization.address. Locality and country only —
+ * there is no shopfront to put a street outside of, and a made-up street is a
+ * worse signal than none. No GeoCoordinates either: a lat/long would claim a
+ * precise point this business does not occupy. What this earns is the entity
+ * signal ("the WaveWeb in Serbia", which none of the six namesakes are) rather
+ * than a place in the local pack, which needs a verified Google Business
+ * Profile and a real address regardless of what the markup says.
+ */
+export const LOCATION = {
+  locality: 'Sombor',
+  region: 'Vojvodina',
+  country: 'RS',
+};
+
 /**
  * The portrait ships through astro:assets, so Astro emits a resized, hashed
  * webp instead of the 776 KB camera original. The original lives in

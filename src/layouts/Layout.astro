@@ -5,7 +5,15 @@ import '../styles/main.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import DevCopyEditor from '../components/DevCopyEditor.astro';
-import { SITE_URL, SITE_NAME, SITE_ALT_NAME, ORG_PROFILES, PERSON, PERSON_PHOTO } from '../consts';
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_ALT_NAME,
+  ORG_PROFILES,
+  LOCATION,
+  PERSON,
+  PERSON_PHOTO,
+} from '../consts';
 
 /*
  * Schema image. Referencing PERSON_PHOTO.src here would publish the 5495px
@@ -49,7 +57,13 @@ const canonical = new URL(Astro.url.pathname, SITE_URL).href;
  */
 const organization = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  /*
+   * Two types, not one. ProfessionalService is a LocalBusiness, which is an
+   * Organization, so the pair costs nothing and says both things at once: a
+   * company, and a consultancy someone hires. Keeping Organization in the list
+   * spares any consumer that matches on the plain type.
+   */
+  '@type': ['Organization', 'ProfessionalService'],
   '@id': `${SITE_URL}/#organization`,
   name: SITE_NAME,
   alternateName: SITE_ALT_NAME,
@@ -65,6 +79,14 @@ const organization = {
     'Webflow development',
     'Website migration',
   ],
+  // Based in one place, sells into every other. See LOCATION in consts.ts for
+  // why the address stops at the town.
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: LOCATION.locality,
+    addressRegion: LOCATION.region,
+    addressCountry: LOCATION.country,
+  },
   areaServed: 'Worldwide',
   ...(ORG_PROFILES.length > 0 && { sameAs: ORG_PROFILES }),
 };
