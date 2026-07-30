@@ -1,11 +1,14 @@
 /**
  * Site-wide constants. Everything that appears in more than one place, or that
  * feeds JSON-LD, lives here so there is one line to edit.
- *
- * TODO before launch: SITE_URL.
  */
 
-export const SITE_URL = 'https://waveweb.io';
+/*
+ * The www host, not the apex: waveweb.agency answers with a 308 to
+ * www.waveweb.agency, and a canonical that points at a redirect makes crawlers
+ * resolve one more hop to find the page they were already on.
+ */
+export const SITE_URL = 'https://www.waveweb.agency';
 
 export const SITE_NAME = 'WaveWeb';
 
