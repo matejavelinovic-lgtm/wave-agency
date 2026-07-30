@@ -1656,20 +1656,9 @@ section {
   margin: 0 auto;
   padding: 22px 28px 44px;
   border-top: 1px solid var(--border-on-dark);
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px 24px;
 }
 
 .footer-copy {
-  font-size: 13px;
-  color: rgba(237, 237, 230, 0.45);
-  margin: 0;
-}
-
-.footer-place {
   font-size: 13px;
   color: rgba(237, 237, 230, 0.45);
   margin: 0;

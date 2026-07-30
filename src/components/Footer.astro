@@ -7,7 +7,7 @@
  * sentence, and the inline editor is for prose. The one editable string is the
  * tagline under the wordmark.
  */
-import { SITE_NAME, PERSON, LOCATION } from '../consts';
+import { SITE_NAME, PERSON } from '../consts';
 import copy from '../content/copy.json';
 
 const year = new Date().getFullYear();
@@ -60,16 +60,7 @@ const year = new Date().getFullYear();
     </nav>
   </div>
 
-  <!--
-    The place line reads off LOCATION rather than out of copy.json on purpose:
-    it is the same fact the Organization schema publishes as a PostalAddress,
-    and an address a visitor can edit into disagreeing with the one a crawler
-    reads is worse than an address nobody can edit at all.
-  -->
   <div class="footer-bottom">
     <p class="footer-copy">© {year} {SITE_NAME}. All rights reserved.</p>
-    <p class="footer-place">
-      {LOCATION.locality}, {LOCATION.countryName} — working worldwide
-    </p>
   </div>
 </footer>
