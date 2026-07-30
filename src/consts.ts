@@ -12,6 +12,35 @@ export const SITE_URL = 'https://www.waveweb.agency';
 
 export const SITE_NAME = 'WaveWeb';
 
+/*
+ * Every other outfit trading on this name spells it "Wave Web", and a search
+ * for the brand returns all of them. Declaring the spaced form as an
+ * alternateName is how the markup says the two strings are one entity.
+ */
+export const SITE_ALT_NAME = 'Wave Web';
+
+/*
+ * Profiles that belong to the company, for Organization.sameAs — the property
+ * Google uses to decide that "WaveWeb" the string and this domain are the same
+ * thing. Six other outfits trade under some spelling of the name, so this list
+ * is what settles which of them owns it here.
+ *
+ * Add a URL only once it answers 200: a sameAs pointing at a 404 is worse than
+ * no sameAs at all. The obvious ones still missing are a Crunchbase profile, a
+ * Google Business Profile, and any client or directory page that names WaveWeb
+ * and links back — each is another vote, and this is the cheapest SEO work
+ * available to this site.
+ *
+ * The founder's personal LinkedIn is NOT one of these. It hangs off PERSON
+ * below, and the two schema nodes are already wired together by
+ * founder/worksFor, so the entity graph joins them without muddling a person's
+ * profile into the company's.
+ *
+ * The link must point both ways to count for much: the LinkedIn page's own
+ * website field has to carry https://www.waveweb.agency back.
+ */
+export const ORG_PROFILES: string[] = ['https://www.linkedin.com/company/waveweb3'];
+
 /**
  * The portrait ships through astro:assets, so Astro emits a resized, hashed
  * webp instead of the 776 KB camera original. The original lives in

@@ -5,7 +5,7 @@ import '../styles/main.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import DevCopyEditor from '../components/DevCopyEditor.astro';
-import { SITE_URL, SITE_NAME, PERSON, PERSON_PHOTO } from '../consts';
+import { SITE_URL, SITE_NAME, SITE_ALT_NAME, ORG_PROFILES, PERSON, PERSON_PHOTO } from '../consts';
 
 /*
  * Schema image. Referencing PERSON_PHOTO.src here would publish the 5495px
@@ -36,16 +36,55 @@ const {
 
 const canonical = new URL(Astro.url.pathname, SITE_URL).href;
 
+/*
+ * The brand node. Six other outfits trade under some spelling of this name, so
+ * everything here exists to answer one question for a crawler: which "WaveWeb"
+ * is this? name and alternateName claim both spellings, logo and image give it
+ * a face, founder ties it to a named person who carries a real profile, and
+ * sameAs — drawn from ORG_PROFILES — is the part that actually settles the
+ * argument. Read the note above it in consts.ts before adding a URL there.
+ *
+ * sameAs is spread in conditionally rather than emitted empty: [] is a claim to
+ * have no profiles at all, a missing key is no claim either way.
+ */
 const organization = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   '@id': `${SITE_URL}/#organization`,
   name: SITE_NAME,
+  alternateName: SITE_ALT_NAME,
   url: SITE_URL,
   logo: `${SITE_URL}/WaveWeb_Logo.png`,
+  image: `${SITE_URL}/WaveWeb_Logo.png`,
   description,
   founder: { '@id': `${SITE_URL}/#person` },
-  sameAs: [PERSON.linkedin],
+  employee: { '@id': `${SITE_URL}/#person` },
+  knowsAbout: [
+    'Core Web Vitals',
+    'Answer Engine Optimization',
+    'Webflow development',
+    'Website migration',
+  ],
+  areaServed: 'Worldwide',
+  ...(ORG_PROFILES.length > 0 && { sameAs: ORG_PROFILES }),
+};
+
+/*
+ * The WebSite node is what a search engine reads to name the site itself,
+ * separate from the company that runs it — it is the string Google prints
+ * above a result instead of the bare domain. publisher points back at the
+ * Organization so the two are one entity and not two.
+ */
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE_URL}/#website`,
+  name: SITE_NAME,
+  alternateName: SITE_ALT_NAME,
+  url: SITE_URL,
+  description,
+  inLanguage: 'en',
+  publisher: { '@id': `${SITE_URL}/#organization` },
 };
 
 const person = {
@@ -88,6 +127,18 @@ const breadcrumbList = {
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" href="/WaveWeb_Logo.png" />
     <meta name="generator" content={Astro.generator} />
+
+    <!--
+      index,follow is the default, so the value of this tag is the rest of it:
+      without max-snippet and max-image-preview a search engine is free to clip
+      the description to a couple of lines and show a thumbnail or nothing.
+      These ask for the full text and a large image, which is what a result for
+      a brand nobody has heard of needs.
+    -->
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE_NAME} />
@@ -203,6 +254,7 @@ const breadcrumbList = {
     </style>
 
     <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(website)} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(person)} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbList)} />
   </head>

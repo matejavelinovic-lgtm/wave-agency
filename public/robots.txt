@@ -1,0 +1,13 @@
+# Everything is public and everything is meant to be indexed, by search
+# crawlers and by the AI answer engines this site sells work on alike — an
+# answer engine that cannot read the page cannot quote it. So there is no
+# Disallow here, and none of GPTBot, ClaudeBot, PerplexityBot or the rest is
+# singled out to be blocked.
+#
+# /api/* is left out on purpose rather than disallowed: it answers POST only,
+# so a crawler that finds it gets a 405 and drops it.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.waveweb.agency/sitemap-index.xml
