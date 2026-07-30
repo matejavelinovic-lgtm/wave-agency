@@ -113,6 +113,14 @@ export default async function handler(request, response) {
       return response.status(502).json({ error: 'Could not send the message' });
     }
 
+    /*
+     * A 2xx from Resend means accepted for delivery, not delivered, so log the
+     * id it hands back: without it a submission that never reaches the inbox
+     * leaves nothing to trace, and there is no way to tell "Resend dropped it"
+     * apart from "the key belongs to some other Resend account".
+     */
+    console.log(`contact: resend accepted as`, await sent.text(), `from=${FROM} to=${TO}`);
+
     return response.status(200).json({ ok: true });
   } catch (error) {
     console.error('contact: request to resend failed', error);
