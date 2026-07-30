@@ -97,12 +97,20 @@ const breadcrumbList = {
     <meta name="twitter:card" content="summary_large_image" />
 
     <!--
-      Only the two weights that paint above the fold get preloaded. Regular
-      carries body copy, Semibold carries the H1 and every button.
+      All three weights paint above the fold, so all three get preloaded: Regular
+      carries body copy, Semibold the H1 and every button, Medium the nav links
+      and the scope chips under the hero. They are ~12 kB each.
     -->
     <link
       rel="preload"
       href="/fonts/BlauerNue-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/BlauerNue-Medium.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -145,6 +153,52 @@ const breadcrumbList = {
         font-weight: 600 700;
         font-style: normal;
         font-display: swap;
+      }
+
+      /*
+       * The anti-CLS half of the font setup. font-display: swap paints the page
+       * in whatever the system offers, then repaints it in Blauer Nue — and a
+       * plain Arial is ~10% narrower, which was enough to wrap the 68px H1 onto
+       * a third line and drop everything under it by one line height. That one
+       * reflow was the whole 0.27 CLS on desktop.
+       *
+       * So the fallback is not plain Arial: it is Arial stretched to Blauer
+       * Nue's own measurements, per weight. size-adjust is the ratio of the two
+       * average advance widths (measured on a canvas at 100px against a mixed
+       * sample of this page's own copy), so a line of text occupies the same
+       * width in both and breaks in the same places. ascent/descent-override
+       * put the baseline where Blauer Nue puts it — 94% / 26% of the em — and
+       * each is divided by its own size-adjust because the browser applies the
+       * override first and scales the result.
+       *
+       * Re-measure all six numbers if the font files are ever replaced.
+       */
+      @font-face {
+        font-family: 'Blauer Fallback';
+        src: local('Arial'), local('Liberation Sans'), local('Helvetica Neue'), local('Roboto');
+        font-weight: 400;
+        size-adjust: 110.61%;
+        ascent-override: 84.98%;
+        descent-override: 23.51%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'Blauer Fallback';
+        src: local('Arial'), local('Liberation Sans'), local('Helvetica Neue'), local('Roboto');
+        font-weight: 500;
+        size-adjust: 109.74%;
+        ascent-override: 85.66%;
+        descent-override: 23.69%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'Blauer Fallback';
+        src: local('Arial'), local('Liberation Sans'), local('Helvetica Neue'), local('Roboto');
+        font-weight: 600 700;
+        size-adjust: 103.52%;
+        ascent-override: 90.80%;
+        descent-override: 25.12%;
+        line-gap-override: 0%;
       }
     </style>
 
