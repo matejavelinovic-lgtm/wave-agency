@@ -1576,20 +1576,25 @@ section {
   border-top: 1px solid var(--border-on-dark);
 }
 
+/*
+ * Three columns, widest first: the brand needs room for a sentence, the two
+ * link columns need only their longest label. Everything sits above a rule with
+ * the copyright and the place line under it.
+ */
 .footer-inner {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 48px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  padding: 66px 28px 44px;
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 1fr;
+  gap: 48px;
 }
 
 .footer-brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 12px;
+  margin-bottom: 18px;
 }
 
 .footer-mark {
@@ -1599,14 +1604,39 @@ section {
   display: block;
 }
 
-.footer-text {
-  font-size: 14px;
-  color: var(--text-on-dark-muted);
+.footer-wordmark {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-on-dark);
 }
 
-.footer-links {
+.footer-text {
+  font-size: 15px;
+  color: var(--text-on-dark-muted);
+  margin: 0;
+  line-height: 1.5;
+  max-width: 21.25em;
+}
+
+.footer-col-title {
+  /* A span, so it needs telling it is a block before the margin below counts. */
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-on-dark);
+  margin: 0 0 20px;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  gap: 26px;
+  flex-direction: column;
+  gap: 13px;
 }
 
 .footer-link {
@@ -1616,7 +1646,33 @@ section {
 }
 
 .footer-link:hover {
-  color: var(--text-on-dark);
+  color: var(--accent);
+}
+
+/* The rule is on this box rather than on .footer-inner so it stops at the
+   content width instead of running the full bleed of the page. */
+.footer-bottom {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 22px 28px 44px;
+  border-top: 1px solid var(--border-on-dark);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+}
+
+.footer-copy {
+  font-size: 13px;
+  color: rgba(237, 237, 230, 0.45);
+  margin: 0;
+}
+
+.footer-place {
+  font-size: 13px;
+  color: rgba(237, 237, 230, 0.45);
+  margin: 0;
 }
 
 /* ── Service pages ───────────────────────────────────────────────── */
@@ -2107,6 +2163,17 @@ section {
       0 100%
     );
   }
+
+  /* Two columns, with the brand across the top of both — the link columns are
+     narrow enough to sit side by side long after the brand sentence is not. */
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footer-brand-col {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 640px) {
@@ -2165,8 +2232,13 @@ section {
   }
 
   .footer-inner {
-    flex-direction: column;
-    text-align: center;
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 52px 20px 36px;
+  }
+
+  .footer-bottom {
+    padding: 22px 20px 40px;
   }
 
   .seam-to-light,

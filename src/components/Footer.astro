@@ -1,6 +1,13 @@
 ---
-// Site footer.
-import { SITE_NAME, PERSON } from '../consts';
+/*
+ * Site footer: three columns over a rule, then a thin bottom bar.
+ *
+ * Column headings and nav labels are hardcoded here rather than kept in
+ * copy.json, matching Header.astro — chrome that names a destination is not a
+ * sentence, and the inline editor is for prose. The one editable string is the
+ * tagline under the wordmark.
+ */
+import { SITE_NAME, PERSON, LOCATION } from '../consts';
 import copy from '../content/copy.json';
 
 const year = new Date().getFullYear();
@@ -8,26 +15,61 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <img class="footer-mark" src="/WaveWeb_Logo.png" alt={SITE_NAME} width="28" height="28" />
-      <p class="footer-text">
-        © {year} {SITE_NAME}. <span data-edit="footer.text">{copy.footer.text}</span>
-      </p>
+    <div class="footer-brand-col">
+      <a class="footer-brand" href="/">
+        {/* alt="" — the wordmark beside it already says the name, and a screen
+            reader that hears it twice learns nothing the second time. */}
+        <img class="footer-mark" src="/WaveWeb_Logo.png" alt="" width="28" height="28" />
+        <span class="footer-wordmark">{SITE_NAME}</span>
+      </a>
+      <p class="footer-text" data-edit="footer.text">{copy.footer.text}</p>
     </div>
+
     <!--
       The four service pages, straight from the list that builds them, so a new
       service appears here the moment it exists in copy.json. Crumb rather than
-      the page's own H1: the H1 is a sentence, this is a label in a row.
+      the page's own H1: the H1 is a sentence, this is a label in a column.
     -->
-    <nav class="footer-links" aria-label="Services">
-      {copy.servicePages.map((page) => (
-        <a class="footer-link" href={`/${page.slug}/`}>{page.crumb}</a>
-      ))}
+    {/*
+      A span rather than a heading. aria-labelledby names the nav either way, so
+      nothing is lost to a screen reader — and two more h2s per page, saying
+      "Services" and "More" on all five, would be noise in the heading outline a
+      crawler reads.
+    */}
+    <nav class="footer-col" aria-labelledby="footer-services">
+      <span class="footer-col-title" id="footer-services">Services</span>
+      <ul class="footer-list">
+        {copy.servicePages.map((page) => (
+          <li>
+            <a class="footer-link" href={`/${page.slug}/`}>{page.crumb}</a>
+          </li>
+        ))}
+      </ul>
     </nav>
-    <div class="footer-links">
-      <a class="footer-link" href="/#faq">FAQ</a>
-      <a class="footer-link" href="/#contact">Contact</a>
-      <a class="footer-link" href={PERSON.linkedin} rel="noopener" target="_blank">LinkedIn</a>
-    </div>
+
+    <nav class="footer-col" aria-labelledby="footer-more">
+      <span class="footer-col-title" id="footer-more">More</span>
+      <ul class="footer-list">
+        <li><a class="footer-link" href="/#process">Process</a></li>
+        <li><a class="footer-link" href="/#faq">FAQ</a></li>
+        <li><a class="footer-link" href="/#contact">Contact</a></li>
+        <li>
+          <a class="footer-link" href={PERSON.linkedin} rel="noopener" target="_blank">LinkedIn</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!--
+    The place line reads off LOCATION rather than out of copy.json on purpose:
+    it is the same fact the Organization schema publishes as a PostalAddress,
+    and an address a visitor can edit into disagreeing with the one a crawler
+    reads is worse than an address nobody can edit at all.
+  -->
+  <div class="footer-bottom">
+    <p class="footer-copy">© {year} {SITE_NAME}. All rights reserved.</p>
+    <p class="footer-place">
+      {LOCATION.locality}, {LOCATION.countryName} — working worldwide
+    </p>
   </div>
 </footer>

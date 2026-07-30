@@ -53,7 +53,9 @@ export const ORG_PROFILES: string[] = ['https://www.linkedin.com/company/waveweb
 export const LOCATION = {
   locality: 'Sombor',
   region: 'Vojvodina',
+  /** ISO code for schema. `countryName` is the same fact spelled for people. */
   country: 'RS',
+  countryName: 'Serbia',
 };
 
 /**
