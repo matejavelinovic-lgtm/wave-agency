@@ -14,11 +14,17 @@ const year = new Date().getFullYear();
         © {year} {SITE_NAME}. <span data-edit="footer.text">{copy.footer.text}</span>
       </p>
     </div>
+    <!--
+      The four service pages, straight from the list that builds them, so a new
+      service appears here the moment it exists in copy.json. Crumb rather than
+      the page's own H1: the H1 is a sentence, this is a label in a row.
+    -->
+    <nav class="footer-links" aria-label="Services">
+      {copy.servicePages.map((page) => (
+        <a class="footer-link" href={`/${page.slug}/`}>{page.crumb}</a>
+      ))}
+    </nav>
     <div class="footer-links">
-      <!-- The four service pages are not built yet, so the footer links to the
-           homepage sections instead. -->
-      <a class="footer-link" href="/#services">Services</a>
-      <a class="footer-link" href="/#process">Process</a>
       <a class="footer-link" href="/#faq">FAQ</a>
       <a class="footer-link" href="/#contact">Contact</a>
       <a class="footer-link" href={PERSON.linkedin} rel="noopener" target="_blank">LinkedIn</a>

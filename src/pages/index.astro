@@ -23,18 +23,35 @@ const scope = ['DeFi', 'Exchanges', 'Wallets', 'RWA', 'Payments', 'Neobanks', 'T
  * to 65 range the FAQ cites, 97 clears the "above 95" the speed card promises,
  * and 4.1s matches the four second paint the first problem card describes.
  * Change one of them in copy.json and check the other three still agree.
- *
- * The four service category pages do not exist yet, so the cards describe the
- * work and stop there. Add an href and a CTA back once /speed, /aeo, and the
- * two migration pages ship.
  */
 
-const serviceSchema = services.cards.map((s) => ({
+/*
+ * The cards and the service pages are two parallel lists: services.cards[i]
+ * describes the same service servicePages[i] sells, so card i links to page i.
+ * Parallel arrays drift, so this refuses to build rather than shipping a card
+ * pointing at the wrong page — the alternative was a slug on every card, which
+ * would put the same URL in copy.json twice.
+ */
+if (services.cards.length !== copy.servicePages.length) {
+  throw new Error(
+    `copy.json: services.cards has ${services.cards.length} entries and servicePages has ` +
+      `${copy.servicePages.length}. Each card links to the page at its own index, so the two ` +
+      `lists must stay the same length and the same order.`
+  );
+}
+
+/*
+ * One Service node per service, sharing an @id with the node its own page
+ * emits. Same @id means a crawler merges the two into one service described in
+ * two places, rather than reading eight services from a site that sells four.
+ */
+const serviceSchema = services.cards.map((s, i) => ({
   '@context': 'https://schema.org',
   '@type': 'Service',
+  '@id': `${SITE_URL}/${copy.servicePages[i].slug}/#service`,
   name: s.title,
   description: s.text,
-  url: `${SITE_URL}/#services`,
+  url: `${SITE_URL}/${copy.servicePages[i].slug}/`,
   serviceType: s.title,
   provider: { '@id': `${SITE_URL}/#organization` },
   areaServed: 'Worldwide',
@@ -164,10 +181,13 @@ const faqSchema = {
       <div class="service-grid">
         {
           services.cards.map((s, i) => (
-            <div class="service-card">
+            <a class="service-card" href={`/${copy.servicePages[i].slug}/`}>
               <h3 class="service-title" data-edit={`services.cards.${i}.title`}>{s.title}</h3>
               <p class="service-text" data-edit={`services.cards.${i}.text`}>{s.text}</p>
-            </div>
+              {/* Decorative, not copy: an arrow has nothing to translate and
+                  nothing to edit, so it stays out of copy.json. */}
+              <span class="service-more" aria-hidden="true"></span>
+            </a>
           ))
         }
       </div>

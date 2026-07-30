@@ -1,0 +1,251 @@
+---
+/*
+ * The four service pages, from one template.
+ *
+ * Each entry in copy.servicePages is a page, and its `slug` is its URL. One
+ * template rather than four files because the pages differ only in their words:
+ * a change to the shape of a service page should be one edit, not four that
+ * drift apart. Adding a fifth service means adding an entry to copy.json — no
+ * file here, no route to register, and @astrojs/sitemap picks it up on the next
+ * build because getStaticPaths declared it.
+ *
+ * Every visible sentence still lives in src/content/copy.json and still renders
+ * inside a data-edit, same contract as the homepage. The paths are indexed —
+ * `servicePages.0.subtitle` — because the dev editor's path pattern allows only
+ * letters, digits and underscores, and every slug here has a hyphen in it. That
+ * makes the ORDER of the array load bearing: reordering it repoints every
+ * data-edit on these pages. Add to the end.
+ */
+import Layout from '../layouts/Layout.astro';
+import { SITE_URL } from '../consts';
+import copy from '../content/copy.json';
+
+export function getStaticPaths() {
+  return copy.servicePages.map((page, index) => ({
+    params: { service: page.slug },
+    props: { page, index },
+  }));
+}
+
+const { page, index } = Astro.props;
+const base = `servicePages.${index}`;
+
+/*
+ * Trailing slash, because Astro's directory build format makes that the real
+ * URL and the canonical Layout emits carries it. Every href to a service page —
+ * here, the homepage cards, the footer — spells it the same way, so no internal
+ * link costs a redirect and no crawler sees two spellings of one page.
+ */
+const url = `${SITE_URL}/${page.slug}/`;
+
+/*
+ * The Service node points its provider at the homepage Organization by @id
+ * rather than describing the company again, so a crawler reading any of these
+ * five pages assembles one company with four services instead of four
+ * companies. Layout emits the Organization itself on every page.
+ */
+const service = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${url}#service`,
+  name: page.crumb,
+  description: page.metaDescription,
+  url,
+  serviceType: page.crumb,
+  provider: { '@id': `${SITE_URL}/#organization` },
+  areaServed: 'Worldwide',
+  audience: {
+    '@type': 'Audience',
+    audienceType: 'Web3 and fintech companies',
+  },
+};
+
+/*
+ * The page's own FAQPage, built from the same four questions the page renders.
+ * One source: the questions cannot say one thing to a reader and another to a
+ * crawler, because there is only one copy of them.
+ */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${url}#faq`,
+  mainEntity: page.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+/* The other three, for the footer of this page. Never links to itself. */
+const siblings = copy.servicePages.filter((other) => other.slug !== page.slug);
+---
+
+<Layout
+  title={page.metaTitle}
+  description={page.metaDescription}
+  breadcrumbs={[{ name: page.crumb, path: `/${page.slug}/` }]}
+>
+  <section class="svc-hero">
+    <div class="svc-hero-inner">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="crumb-link" href="/">Home</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <span class="crumb-here" data-edit={`${base}.crumb`}>{page.crumb}</span>
+      </nav>
+      <span class="svc-eyebrow" data-edit={`${base}.eyebrow`}>{page.eyebrow}</span>
+      {/* Three fields, not one — the accent span needs its own editable target
+          and the spaces around it stay in the markup, same as the homepage H1. */}
+      <h1 class="svc-title">
+        <span data-edit={`${base}.titleStart`}>{page.titleStart}</span>{' '}
+        <span class="svc-title-em" data-edit={`${base}.titleAccent`}>{page.titleAccent}</span>{' '}
+        <span data-edit={`${base}.titleEnd`}>{page.titleEnd}</span>
+      </h1>
+      <p class="svc-subtitle" data-edit={`${base}.subtitle`}>{page.subtitle}</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#svc-cta" data-edit={`${base}.ctaPrimary`}>{page.ctaPrimary}</a>
+        <a class="btn-secondary" href="/#services" data-edit={`${base}.ctaSecondary`}
+          >{page.ctaSecondary}</a
+        >
+      </div>
+      <div class="hero-scope">
+        <span class="hero-scope-label" data-edit={`${base}.signalsLabel`}>{page.signalsLabel}</span>
+        {page.signals.map((s, i) => (
+          <span class="scope-chip" data-edit={`${base}.signals.${i}`}>{s}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-to-light"></div>
+
+  <section class="svc-pain">
+    <div class="svc-pain-inner">
+      <h2 class="section-title" data-edit={`${base}.painTitle`}>{page.painTitle}</h2>
+      <div class="svc-pain-grid">
+        {page.pain.map((item, i) => (
+          <div class="svc-pain-card">
+            <h3 class="svc-pain-card-title" data-edit={`${base}.pain.${i}.title`}>{item.title}</h3>
+            <p class="svc-pain-card-text" data-edit={`${base}.pain.${i}.text`}>{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-to-dark"></div>
+
+  <section class="svc-works">
+    <div class="svc-works-inner">
+      <h2 class="svc-works-title" data-edit={`${base}.worksTitle`}>{page.worksTitle}</h2>
+      <ol class="svc-works-list">
+        {page.works.map((item, i) => (
+          <li class="svc-work">
+            <span class="svc-work-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div class="svc-work-body">
+              <h3 class="svc-work-title" data-edit={`${base}.works.${i}.title`}>{item.title}</h3>
+              <p class="svc-work-text" data-edit={`${base}.works.${i}.text`}>{item.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="svc-proof">
+    <div class="svc-proof-inner">
+      <h2 class="svc-proof-title" data-edit={`${base}.proofTitle`}>{page.proofTitle}</h2>
+      <p class="svc-proof-text" data-edit={`${base}.proofText`}>{page.proofText}</p>
+    </div>
+  </section>
+
+  <div class="seam-to-light"></div>
+
+  <section class="faq">
+    <div class="svc-faq-inner">
+      <h2 class="section-title" data-edit={`${base}.faqTitle`}>{page.faqTitle}</h2>
+      <div class="faq-list">
+        {page.faq.map((item, i) => (
+          <div class="faq-item">
+            <button
+              class="faq-question"
+              type="button"
+              id={`faq-trigger-${i}`}
+              aria-expanded="false"
+              aria-controls={`faq-panel-${i}`}
+            >
+              <span class="faq-question-text" data-edit={`${base}.faq.${i}.q`}>{item.q}</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div
+              class="faq-panel"
+              id={`faq-panel-${i}`}
+              role="region"
+              aria-labelledby={`faq-trigger-${i}`}
+            >
+              <div class="faq-panel-clip">
+                <p class="faq-answer" data-edit={`${base}.faq.${i}.a`}>{item.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <noscript>
+        {/* is:inline keeps this rule inside the noscript — without it Astro
+            hoists it into the global bundle and every panel stays open. */}
+        <style is:inline>
+          .faq-panel { grid-template-rows: 1fr; visibility: visible; }
+          .faq-icon { display: none; }
+        </style>
+      </noscript>
+    </div>
+  </section>
+
+  <div class="seam-to-dark"></div>
+
+  <section class="svc-cta" id="svc-cta">
+    <div class="svc-cta-inner">
+      <h2 class="svc-cta-title" data-edit={`${base}.ctaTitle`}>{page.ctaTitle}</h2>
+      <p class="svc-cta-text" data-edit={`${base}.ctaText`}>{page.ctaText}</p>
+      {/*
+        The form lives on the homepage and posts to one endpoint. Sending people
+        there rather than repeating the form keeps a single submit handler and a
+        single place for the honeypot; the hash lands them on it directly.
+      */}
+      <a class="btn-primary" href="/#contact" data-edit={`${base}.ctaButton`}>{page.ctaButton}</a>
+      <div class="svc-siblings">
+        <span class="svc-siblings-label">The other three</span>
+        {siblings.map((other) => (
+          <a class="svc-sibling" href={`/${other.slug}/`}>{other.crumb}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(service)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+  <script>
+    // Same accordion as the homepage: one panel open at a time, the button owns
+    // the aria state, the item owns the class that drives the height animation.
+    const faqItems = Array.from(document.querySelectorAll('.faq-item'));
+
+    faqItems.forEach((item) => {
+      const trigger = item.querySelector('.faq-question');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', () => {
+        const willOpen = !item.classList.contains('is-open');
+
+        faqItems.forEach((other) => {
+          other.classList.remove('is-open');
+          other.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
+        });
+
+        if (willOpen) {
+          item.classList.add('is-open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+</Layout>

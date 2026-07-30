@@ -74,11 +74,10 @@ export const PERSON = {
   linkedin: 'https://www.linkedin.com/in/mateja-velinovic/',
 };
 
-/** Service pages one level down. The homepage links out, never explains them. */
-export const SERVICE_PATHS = {
-  audit: '/audit',
-  speed: '/speed',
-  aeo: '/aeo',
-  toWebflow: '/migrate-to-webflow',
-  fromWebflow: '/migrate-from-webflow',
-};
+/*
+ * The service pages are no longer listed here. Each one's URL is the `slug` on
+ * its entry in servicePages in src/content/copy.json, which is the single list
+ * src/pages/[service].astro builds the routes from — a path in two places is a
+ * path that eventually disagrees with itself. Import copy.json to link to them,
+ * as the homepage service cards and the footer do.
+ */

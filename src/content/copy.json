@@ -167,5 +167,323 @@
   },
   "footer": {
     "text": "I speed up Web3 and fintech sites."
-  }
+  },
+  "servicePages": [
+    {
+      "slug": "performance-optimization",
+      "metaTitle": "Website performance optimization for Web3 and fintech | WaveWeb",
+      "metaDescription": "I profile your site on a real phone, cut what costs you the paint, and ship Core Web Vitals in the green — with the before and after reports to prove it.",
+      "crumb": "Performance optimization",
+      "eyebrow": "Performance optimization",
+      "titleStart": "Your visitors leave",
+      "titleAccent": "before",
+      "titleEnd": "your product finishes loading.",
+      "subtitle": "I profile your site on a real phone, find what costs you the paint, and ship the fixes. You get Core Web Vitals in the green and the raw reports that prove it.",
+      "ctaPrimary": "Get a speed audit",
+      "ctaSecondary": "See the other services",
+      "signalsLabel": "I work on",
+      "signals": [
+        "Largest contentful paint",
+        "Cumulative layout shift",
+        "Interaction to next paint",
+        "Core Web Vitals",
+        "Real phone testing"
+      ],
+      "painTitle": "What a slow site actually costs you.",
+      "pain": [
+        {
+          "title": "You pay twice for every visitor.",
+          "text": "Ads and content bring someone to the page, then a four second paint sends them back to the search results. You paid for that click and got nothing for it."
+        },
+        {
+          "title": "Google ranks the wait.",
+          "text": "Core Web Vitals are a ranking signal. A failing largest contentful paint holds a page down no matter how good the copy on it is."
+        },
+        {
+          "title": "The desktop score is not the problem.",
+          "text": "A green number on a desktop test means little when your buyer is on a mid range Android over 4G. That is the device I test on."
+        }
+      ],
+      "worksTitle": "What I actually change.",
+      "works": [
+        {
+          "title": "The critical path",
+          "text": "Render blocking scripts and stylesheets come out of the head, fonts get preloaded and metric matched, and the browser paints text on the first pass instead of the third."
+        },
+        {
+          "title": "The JavaScript you ship and never run",
+          "text": "Most sites download a whole framework to animate three sections. I cut what is dead, defer what can wait, and load the rest only where it earns its bytes."
+        },
+        {
+          "title": "Media that holds the paint hostage",
+          "text": "Hero images get sized, converted, and served at the width the layout actually asks for. Video that autoplays above the fold stops blocking the first frame."
+        },
+        {
+          "title": "Layout shift",
+          "text": "Everything that arrives late gets its space reserved before it lands — images, embeds, and the font swap that quietly drops your headline one line down the page."
+        }
+      ],
+      "proofTitle": "What lands in your inbox.",
+      "proofText": "The same tests, run before and after, with the raw reports attached. Median mobile PageSpeed across the last five projects is 97, up from 35, and largest contentful paint went from 4.1s to 1.2s on a throttled Moto G4.",
+      "faqTitle": "Speed questions, answered.",
+      "faq": [
+        {
+          "q": "How fast can you make my site?",
+          "a": "Most sites I take on land above 90 on mobile. What I promise before the audit is the measurement, not a number: I profile the site first, tell you what each fix is worth, and you decide how far down the list to go."
+        },
+        {
+          "q": "Will you break my design?",
+          "a": "No. Speed work is plumbing — the page looks the same and arrives sooner. Anything that would change a layout goes on a staging URL for you to review before it ships."
+        },
+        {
+          "q": "Does this work on Webflow?",
+          "a": "Yes. Webflow has its own ceiling and I know where it sits: what to cut, what to move out of the head, and the point where the platform itself is the bottleneck and a migration is the honest answer."
+        },
+        {
+          "q": "How long does it take?",
+          "a": "A typical pass runs one to two weeks from audit to shipped, depending on how much of the site is custom and how quickly your review comes back."
+        }
+      ],
+      "ctaTitle": "Send me the URL.",
+      "ctaText": "I run the audit and reply within a day with what I would fix first and what it is worth.",
+      "ctaButton": "Get a speed audit"
+    },
+    {
+      "slug": "answer-engine-optimization",
+      "metaTitle": "Answer engine optimization (AEO) for Web3 and fintech | WaveWeb",
+      "metaDescription": "I structure your pages so ChatGPT, Claude, Perplexity and Google AI Overviews quote you by name instead of a competitor — and I measure it on the same prompts.",
+      "crumb": "Answer engine optimization",
+      "eyebrow": "Answer engine optimization",
+      "titleStart": "AI answers your buyer’s question",
+      "titleAccent": "without",
+      "titleEnd": "naming you.",
+      "subtitle": "Ask a model about your own category and it lists three competitors. I structure your pages so the answer comes out of yours, with your name attached.",
+      "ctaPrimary": "Get an AEO audit",
+      "ctaSecondary": "See the other services",
+      "signalsLabel": "I work on",
+      "signals": [
+        "ChatGPT",
+        "Claude",
+        "Perplexity",
+        "Google AI Overviews",
+        "Schema.org"
+      ],
+      "painTitle": "Why the answer names someone else.",
+      "pain": [
+        {
+          "title": "The click is disappearing.",
+          "text": "Your buyer asks a model instead of typing a query, reads the answer it gives, and never sees the ten blue links you optimised for."
+        },
+        {
+          "title": "Models quote what they can parse.",
+          "text": "A page built out of nested divs and text baked into images gives a model nothing to lift. Structure, a clear question, and a direct answer give it a paragraph to quote."
+        },
+        {
+          "title": "You cannot win a question you never answer.",
+          "text": "Most sites describe a product. An answer engine is looking for the sentence that answers the question your buyer actually asked, in the words they asked it."
+        }
+      ],
+      "worksTitle": "What I actually change.",
+      "works": [
+        {
+          "title": "Structured data that matches the page",
+          "text": "Organization, Person, Service, FAQPage and breadcrumbs, wired into one entity graph so a crawler knows what the company is and who stands behind it, instead of nine disconnected blobs."
+        },
+        {
+          "title": "Answers written to be lifted",
+          "text": "The question goes in a heading and the answer goes in the first two sentences under it. No preamble for a model to wade through before it reaches the part worth quoting."
+        },
+        {
+          "title": "Crawlable to the machines that matter",
+          "text": "A robots.txt that lets GPTBot, ClaudeBot and PerplexityBot in, a sitemap that stays current on its own, and content that renders in HTML rather than after a JavaScript bundle."
+        },
+        {
+          "title": "Entity signals off the page",
+          "text": "The profiles, mentions and links that tell a search engine which company owns your name. Most AEO packages skip this part, and it is the part that decides whether you show up at all."
+        }
+      ],
+      "proofTitle": "How you tell whether it worked.",
+      "proofText": "I record the answers first: the same prompts, in the same models, before anything changes. After the work we run them again and you see where your name now appears and where it still does not. No agency dashboard, just the transcripts.",
+      "faqTitle": "AEO questions, answered.",
+      "faq": [
+        {
+          "q": "What is AEO and how is it different from SEO?",
+          "a": "SEO earns a link in a list. AEO earns a sentence inside the answer. The work overlaps — both want a fast, crawlable, well structured page — but AEO optimises for being quoted rather than being clicked."
+        },
+        {
+          "q": "Can you guarantee ChatGPT will mention me?",
+          "a": "No, and anyone who guarantees it is selling you something. Models change and none of them publishes a ranking. What I can do is remove every reason a model has to skip you, then measure the difference on the same prompts."
+        },
+        {
+          "q": "Does AEO work hurt my Google rankings?",
+          "a": "The opposite. Structured data, fast pages and clear answers are what classic SEO has asked for all along. AEO is that same work, aimed at a reader that happens to be a model."
+        },
+        {
+          "q": "How long before it shows up?",
+          "a": "Weeks, not days. Models refresh their view of the web on their own schedule, and a brand new domain waits longer than an established one."
+        }
+      ],
+      "ctaTitle": "Ask a model about your category.",
+      "ctaText": "Send me what it said and your URL. I reply within a day with why it named them and not you.",
+      "ctaButton": "Get an AEO audit"
+    },
+    {
+      "slug": "webflow-migration",
+      "metaTitle": "Webflow migration: move your site into Webflow | WaveWeb",
+      "metaDescription": "I move your site into Webflow without losing a URL or a ranking, and hand your marketing team a CMS they can run without filing a ticket.",
+      "crumb": "Migration into Webflow",
+      "eyebrow": "Migration into Webflow",
+      "titleStart": "Your marketing team waits on an engineer",
+      "titleAccent": "to fix",
+      "titleEnd": "a typo.",
+      "subtitle": "I move your site into Webflow, map every URL before anything changes, and hand your team a CMS they run themselves.",
+      "ctaPrimary": "Plan the migration",
+      "ctaSecondary": "See the other services",
+      "signalsLabel": "I move sites from",
+      "signals": [
+        "WordPress",
+        "Custom code",
+        "Squarespace",
+        "Wix",
+        "Framer"
+      ],
+      "painTitle": "Why teams move.",
+      "pain": [
+        {
+          "title": "Every change is a ticket.",
+          "text": "A price, a headline, a new case study — each one waits behind a developer queue. The site stops reflecting what you actually sell."
+        },
+        {
+          "title": "Nobody wants to touch the theme.",
+          "text": "The site runs on a stack one person understood, and that person left. Updates feel risky, so nothing gets updated."
+        },
+        {
+          "title": "A bad migration costs the traffic you already earned.",
+          "text": "Change the URLs without a map and the rankings you spent years building go with them. That is the part most migrations get wrong."
+        }
+      ],
+      "worksTitle": "How I run it.",
+      "works": [
+        {
+          "title": "The URL map comes first",
+          "text": "Before a single page is built I inventory every URL you have, match it to where it will land, and write the redirects. Nothing ships until that map is complete."
+        },
+        {
+          "title": "The design survives",
+          "text": "You keep the site you paid for. I rebuild it in Webflow as a proper class system rather than a pile of one-off styles, so the next change is an edit instead of a rebuild."
+        },
+        {
+          "title": "Content becomes a Collection",
+          "text": "Blog posts, case studies, job listings — whatever repeats becomes a CMS Collection your team fills through a form, with the template locked so nobody can break the layout."
+        },
+        {
+          "title": "It ships fast, not just finished",
+          "text": "Webflow will happily serve a six megabyte page. The build goes out with the same speed work as everything else here: sized media, trimmed scripts, Core Web Vitals in the green."
+        }
+      ],
+      "proofTitle": "What the handover looks like.",
+      "proofText": "A staging URL you review before anything goes live, the full redirect map as a spreadsheet, a walkthrough of the CMS with your team on the call, and the speed reports before and after. Then the DNS switch, with me watching Search Console through the week that follows.",
+      "faqTitle": "Migration questions, answered.",
+      "faq": [
+        {
+          "q": "Will migrating hurt my rankings?",
+          "a": "Not when the redirects are right. Traffic usually dips for a week or two while Google re-crawls, then recovers. The damage happens when URLs change without a map, which is why the map is the first thing I build."
+        },
+        {
+          "q": "Can you move my WordPress blog?",
+          "a": "Yes. Posts, categories, authors and images come across into CMS Collections, and the old URLs keep working through redirects."
+        },
+        {
+          "q": "Will my team actually be able to run it?",
+          "a": "That is the point of the move. I lock the templates so an editor can change text and images without touching layout, and I walk your team through it before handover."
+        },
+        {
+          "q": "How long does a migration take?",
+          "a": "Two to six weeks for most marketing sites, depending on page count and how much of the design has to be rebuilt rather than carried over."
+        }
+      ],
+      "ctaTitle": "Send me the site you want moved.",
+      "ctaText": "I reply within a day with the page count, the URLs that carry risk, and what the move would take.",
+      "ctaButton": "Plan the migration"
+    },
+    {
+      "slug": "migration-out-of-webflow",
+      "metaTitle": "Migrate out of Webflow into code your team owns | WaveWeb",
+      "metaDescription": "You outgrew the platform. I rebuild your Webflow site as code in a repo your engineers own, keeping the design and every URL that earns traffic.",
+      "crumb": "Migration out of Webflow",
+      "eyebrow": "Migration out of Webflow",
+      "titleStart": "You outgrew the platform",
+      "titleAccent": "you",
+      "titleEnd": "started on.",
+      "subtitle": "I rebuild your site as code your team owns, keep the design you paid for, keep the URLs that earn traffic, and hand your engineers a repository.",
+      "ctaPrimary": "Plan the move",
+      "ctaSecondary": "See the other services",
+      "signalsLabel": "I rebuild into",
+      "signals": [
+        "Astro",
+        "Next.js",
+        "Git",
+        "Vercel",
+        "Headless CMS"
+      ],
+      "painTitle": "Why teams leave.",
+      "pain": [
+        {
+          "title": "The seat bill outgrew the site.",
+          "text": "You are paying per editor and per site for a platform you now use as a static host and little else."
+        },
+        {
+          "title": "The thing you need next is not on the roadmap.",
+          "text": "A real search, a gated area, a pricing calculator that talks to your API. Every workaround is another embed, and every embed is more weight on the page."
+        },
+        {
+          "title": "Your engineers cannot review a change.",
+          "text": "There is no diff, no branch, no pull request. Things go live because somebody clicked publish."
+        }
+      ],
+      "worksTitle": "How I run it.",
+      "works": [
+        {
+          "title": "Same pixels, different engine",
+          "text": "The rebuild matches the site you have — nothing gets redesigned unless you ask for it. What changes is everything underneath."
+        },
+        {
+          "title": "URL parity, checked line by line",
+          "text": "Every live URL comes across at the same path, and I diff the two sitemaps before the switch. Anything that genuinely has to move gets a 301."
+        },
+        {
+          "title": "A repository your team recognises",
+          "text": "Astro or Next depending on what your engineers already run, plain components, and no framework tax you did not ask for. It builds on Vercel or wherever you host today."
+        },
+        {
+          "title": "Content stays editable",
+          "text": "Marketing does not lose the ability to publish. Copy lands in a CMS or in structured files, and we agree on that editing path before the first component is written."
+        }
+      ],
+      "proofTitle": "What you own afterwards.",
+      "proofText": "A Git repository with the full history, a build that runs on your own hosting, the redirect map, and the speed reports before and after. No part of the site needs me around to keep it running.",
+      "faqTitle": "Questions about leaving Webflow.",
+      "faq": [
+        {
+          "q": "Will the site look different?",
+          "a": "No, unless you want it to. The default is a faithful rebuild: same design, same content, same URLs, new foundation underneath."
+        },
+        {
+          "q": "What do you rebuild it in?",
+          "a": "Astro for a marketing site that is mostly content, Next.js when there is real application behaviour. If your engineers already run one of them, that settles it."
+        },
+        {
+          "q": "Can marketing still publish without a developer?",
+          "a": "Yes, and it is a requirement rather than an extra. We agree on the editing path — a headless CMS or structured content files — before I write the first component."
+        },
+        {
+          "q": "What happens to my Webflow CMS content?",
+          "a": "It comes with you. Collections export cleanly, and I map every field onto whatever replaces it."
+        }
+      ],
+      "ctaTitle": "Send me your Webflow URL.",
+      "ctaText": "I reply within a day with what the rebuild involves and where the platform is actually costing you.",
+      "ctaButton": "Plan the move"
+    }
+  ]
 }

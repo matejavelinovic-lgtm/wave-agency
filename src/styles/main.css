@@ -734,6 +734,32 @@ section {
   );
 }
 
+/* The card is a link now, so it gets a hover state and an arrow that leans into
+   it. The GSAP tilt on the same element rides on transform; this rides on
+   background and the arrow's own translate, so the two never fight. */
+.service-card:hover {
+  background: var(--block-strong);
+}
+
+.service-more {
+  display: block;
+  width: 11px;
+  height: 11px;
+  /* auto, not a fixed gap: the four cards carry different amounts of text, and
+     this lines every arrow up on the card's bottom edge instead of leaving each
+     one under its own paragraph. The clearance above it is .service-text's
+     bottom margin — padding here would stretch the rotated square out of shape. */
+  margin-top: auto;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.service-card:hover .service-more {
+  transform: rotate(45deg) translate(3px, -3px);
+}
+
 .service-index {
   font-size: 13px;
   font-weight: 700;
@@ -752,7 +778,8 @@ section {
 .service-text {
   font-size: 15px;
   color: var(--text-on-dark-muted);
-  margin: 0;
+  /* The bottom margin is the clearance under the text for .service-more. */
+  margin: 0 0 22px;
   line-height: 1.3;
 }
 
@@ -1592,6 +1619,310 @@ section {
   color: var(--text-on-dark);
 }
 
+/* ── Service pages ───────────────────────────────────────────────── */
+/*
+ * Everything prefixed svc- belongs to src/pages/[service].astro and to nothing
+ * else. The page reuses the homepage's buttons, chips, seams and FAQ accordion
+ * as they are; these rules cover only the parts that have no homepage
+ * equivalent. The background alternates dark, light, dark, light, dark down the
+ * page, and every seam between them is a .seam-to-* div in the markup.
+ */
+.svc-hero {
+  background: var(--bg-dark);
+  padding: 56px 28px 88px;
+}
+
+.svc-hero-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  margin-bottom: 30px;
+}
+
+.crumb-link {
+  color: var(--text-on-dark-muted);
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.crumb-link:hover {
+  color: var(--accent);
+  border-bottom-color: rgba(239, 237, 144, 0.4);
+}
+
+.crumb-sep {
+  color: rgba(237, 237, 230, 0.3);
+}
+
+.crumb-here {
+  color: var(--text-on-dark);
+  font-weight: 500;
+}
+
+.svc-eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 22px;
+}
+
+.svc-title {
+  font-size: 54px;
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin: 0 0 26px;
+  max-width: 15.94em;
+  color: var(--text-on-dark);
+}
+
+.svc-title-em {
+  color: var(--accent);
+}
+
+.svc-subtitle {
+  font-size: 19px;
+  color: var(--text-on-dark-muted);
+  margin: 0 0 40px;
+  max-width: 31.87em;
+}
+
+.svc-pain {
+  background: var(--bg-light);
+  padding: 84px 28px 88px;
+}
+
+.svc-pain-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.svc-pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 44px;
+}
+
+.svc-pain-card {
+  background: var(--block);
+  padding: 30px 26px;
+  color: var(--text-on-dark);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 28px) 0,
+    calc(100% - 28px) 14px,
+    calc(100% - 14px) 14px,
+    calc(100% - 14px) 28px,
+    100% 28px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.svc-pain-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+
+.svc-pain-card-text {
+  font-size: 15px;
+  color: rgba(237, 237, 230, 0.78);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.svc-works {
+  background: var(--bg-dark);
+  padding: 92px 28px 40px;
+}
+
+.svc-works-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.svc-works-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+  margin: 0 0 48px;
+  max-width: 13.28em;
+  line-height: 1.2;
+}
+
+/* Numbered, so it reads as a sequence of work rather than a feature list. The
+   counter is decorative and aria-hidden in the markup; the ol carries the
+   ordering for anything that cannot see it. */
+.svc-works-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px 56px;
+}
+
+.svc-work {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.svc-work-n {
+  flex: 0 0 auto;
+  font-family: monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  padding-top: 4px;
+}
+
+.svc-work-body {
+  min-width: 0;
+}
+
+.svc-work-title {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-on-dark);
+  margin: 0 0 8px;
+}
+
+.svc-work-text {
+  font-size: 15px;
+  color: var(--text-on-dark-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.svc-proof {
+  background: var(--bg-dark);
+  padding: 56px 28px 96px;
+}
+
+/* The one block on the page that states an outcome, so it gets the accent rule
+   down its left edge and nothing else on the page does. */
+.svc-proof-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  border-left: 2px solid var(--accent);
+  padding-left: 26px;
+}
+
+.svc-proof-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-on-dark);
+  margin: 0 0 12px;
+}
+
+.svc-proof-text {
+  font-size: 17px;
+  color: var(--text-on-dark-muted);
+  margin: 0;
+  max-width: 38.51em;
+  line-height: 1.45;
+}
+
+/* The homepage FAQ is a two column grid with a sticky heading beside the list.
+   Here the heading sits above a full width list, so the grid does not apply. */
+.svc-faq-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.svc-cta {
+  background: var(--bg-dark);
+  padding: 96px 28px 104px;
+}
+
+.svc-cta-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  background: var(--block);
+  padding: 60px 64px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 56px) 0,
+    calc(100% - 56px) 28px,
+    calc(100% - 28px) 28px,
+    calc(100% - 28px) 56px,
+    100% 56px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.svc-cta-title {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+  margin: 0 0 14px;
+  max-width: 12.62em;
+  line-height: 1.2;
+}
+
+.svc-cta-text {
+  font-size: 17px;
+  color: rgba(237, 237, 230, 0.78);
+  margin: 0 0 30px;
+  max-width: 30.54em;
+  line-height: 1.4;
+}
+
+.svc-siblings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 44px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(237, 237, 230, 0.18);
+}
+
+.svc-siblings-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(237, 237, 230, 0.6);
+  margin-right: 6px;
+}
+
+.svc-sibling {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-on-dark);
+  border: 1px solid rgba(237, 237, 230, 0.25);
+  border-radius: 100px;
+  padding: 7px 16px;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.svc-sibling:hover {
+  border-color: var(--accent);
+  background: rgba(239, 237, 144, 0.12);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
 /* ── Motion ──────────────────────────────────────────────────────── */
 @keyframes ring-pulse {
   0% {
@@ -1749,6 +2080,33 @@ section {
       0 100%
     );
   }
+
+  .svc-title {
+    font-size: 40px;
+  }
+
+  .svc-pain-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .svc-works-list {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .svc-cta-inner {
+    padding: 40px 28px;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 32px) 0,
+      calc(100% - 32px) 16px,
+      calc(100% - 16px) 16px,
+      calc(100% - 16px) 32px,
+      100% 32px,
+      100% 100%,
+      0 100%
+    );
+  }
 }
 
 @media (max-width: 640px) {
@@ -1815,5 +2173,33 @@ section {
   .seam-to-dark {
     /* Drives height, row heights, and cell width at once — see the rule above. */
     --h: 20px;
+  }
+
+  .svc-hero {
+    padding: 40px 20px 64px;
+  }
+
+  .svc-title {
+    font-size: 31px;
+  }
+
+  .svc-subtitle {
+    font-size: 17px;
+  }
+
+  .svc-pain,
+  .svc-works,
+  .svc-proof,
+  .svc-cta {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .svc-works-title {
+    font-size: 30px;
+  }
+
+  .svc-cta-title {
+    font-size: 27px;
   }
 }
