@@ -1,0 +1,231 @@
+---
+/*
+ * /blog/ — the listing.
+ *
+ * The chrome (eyebrow, H1, subtitle, empty state, CTA) lives in copy.blog and
+ * renders inside data-edit elements, same contract as every other page. The
+ * posts themselves come from the content collection, so this file never needs
+ * touching when one is published.
+ */
+import Layout from '../../layouts/Layout.astro';
+import { SITE_URL, SITE_NAME } from '../../consts';
+import copy from '../../content/copy.json';
+import { getPublishedPosts, formatDate, readingTime } from '../../lib/blog';
+
+const { blog } = copy;
+const posts = await getPublishedPosts();
+
+const url = `${SITE_URL}/blog/`;
+
+/*
+ * The Blog node names the section itself and hangs it off the same Organization
+ * and Person every other page references by @id, so a crawler reads one company
+ * that also publishes, not a second site living at /blog/. blogPost lists the
+ * posts by @id only — each post page describes itself in full, and repeating
+ * that here would be two descriptions to keep in step.
+ */
+const blogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': `${url}#blog`,
+  name: `${SITE_NAME} blog`,
+  description: blog.metaDescription,
+  url,
+  inLanguage: 'en',
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  author: { '@id': `${SITE_URL}/#person` },
+  ...(posts.length > 0 && {
+    blogPost: posts.map((post) => ({
+      '@type': 'BlogPosting',
+      '@id': `${SITE_URL}/blog/${post.id}/#post`,
+    })),
+  }),
+};
+---
+
+<Layout
+  title={blog.metaTitle}
+  description={blog.metaDescription}
+  breadcrumbs={[{ name: 'Blog', path: '/blog/' }]}
+>
+  <section class="blog-hero">
+    <div class="blog-hero-inner">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="crumb-link" href="/">Home</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <span class="crumb-here">Blog</span>
+      </nav>
+      <span class="svc-eyebrow" data-edit="blog.eyebrow">{blog.eyebrow}</span>
+      {/* Three fields, not one — the accent span needs its own editable target
+          and the spaces around it stay in the markup, same as every other H1. */}
+      <h1 class="svc-title">
+        <span data-edit="blog.titleStart">{blog.titleStart}</span>{' '}
+        <span class="svc-title-em" data-edit="blog.titleAccent">{blog.titleAccent}</span>{' '}
+        <span data-edit="blog.titleEnd">{blog.titleEnd}</span>
+      </h1>
+      <p class="svc-subtitle" data-edit="blog.subtitle">{blog.subtitle}</p>
+    </div>
+  </section>
+
+  <div class="seam-to-light"></div>
+
+  <section class="blog-list-section">
+    <div class="blog-list-inner">
+      {
+        posts.length === 0 ? (
+          <div class="blog-empty">
+            <h2 class="section-title" data-edit="blog.emptyTitle">
+              {blog.emptyTitle}
+            </h2>
+            <p class="blog-empty-text" data-edit="blog.emptyText">
+              {blog.emptyText}
+            </p>
+            <a class="btn-primary" href="/#contact">
+              {blog.ctaButton}
+            </a>
+          </div>
+        ) : (
+          <ol class="blog-list">
+            {posts.map((post) => (
+              <li class="blog-item">
+                {/*
+                  The whole row is the link, so the target is the card and not a
+                  four-word "read more" — but the H2 still carries the words a
+                  crawler and a screen reader read as the link text.
+                */}
+                <a class="blog-card" href={`/blog/${post.id}/`}>
+                  <div class="blog-card-meta">
+                    <time class="blog-card-date" datetime={post.data.pubDate.toISOString()}>
+                      {formatDate(post.data.pubDate)}
+                    </time>
+                    <span class="blog-card-dot" aria-hidden="true" />
+                    <span class="blog-card-time">{readingTime(post.body ?? '')} min read</span>
+                    {post.data.draft && <span class="blog-card-draft">Draft</span>}
+                  </div>
+                  <h2 class="blog-card-title">{post.data.title}</h2>
+                  <p class="blog-card-text">{post.data.description}</p>
+                  {post.data.tags.length > 0 && (
+                    <div class="blog-tags">
+                      {post.data.tags.map((tag) => (
+                        <span class="blog-tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                  <span class="blog-card-more" aria-hidden="true">
+                    Read the post →
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        )
+      }
+    </div>
+  </section>
+
+  <div class="seam-to-dark"></div>
+
+  <section class="svc-cta">
+    <div class="svc-cta-inner">
+      <h2 class="svc-cta-title" data-edit="blog.ctaTitle">{blog.ctaTitle}</h2>
+      <p class="svc-cta-text" data-edit="blog.ctaText">{blog.ctaText}</p>
+      {/* The form lives on the homepage and posts to one endpoint — same reason
+          the service pages send people there rather than repeating it. */}
+      <a class="btn-primary" href="/#contact" data-edit="blog.ctaButton">{blog.ctaButton}</a>
+      <div class="svc-siblings">
+        <span class="svc-siblings-label">Services</span>
+        {
+          copy.servicePages.map((page) => (
+            <a class="svc-sibling" href={`/${page.slug}/`}>
+              {page.crumb}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(blogSchema)} />
+
+  <script>
+    // Same motion contract as every other page: GSAP and Lenis load only on a
+    // pointer-capable screen that has not asked for reduced motion, so phones
+    // download neither and every element below is visible without JavaScript.
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isSmallScreen = window.matchMedia('(max-width: 900px)').matches;
+
+    if (!prefersReducedMotion && !isSmallScreen) {
+      const [{ gsap }, { ScrollTrigger }, { default: Lenis }] = await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+        import('lenis'),
+      ]);
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const lenis = new Lenis({ duration: 0.9, smoothWheel: true });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+
+      // No upward y-offset on the header: it sits at the top of the document,
+      // and translating it from a negative y opens scrollable space above y=0.
+      gsap.from('.site-header', { opacity: 0, duration: 0.7, ease: 'power2.out' });
+      gsap.from('.nav-link, .nav-cta', {
+        y: 10,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.06,
+        delay: 0.25,
+        ease: 'power2.out',
+      });
+
+      gsap
+        .timeline({ defaults: { ease: 'power3.out' } })
+        .from('.crumbs', { y: 12, opacity: 0, duration: 0.5 }, 0.1)
+        .from('.svc-eyebrow', { y: 16, opacity: 0, duration: 0.6 }, 0.2)
+        .from('.svc-title', { y: 34, opacity: 0, duration: 0.85 }, 0.32)
+        .from('.svc-subtitle', { y: 20, opacity: 0, duration: 0.7 }, 0.55);
+
+      gsap.from('.blog-item, .blog-empty', {
+        scrollTrigger: { trigger: '.blog-list-inner', start: 'top 85%' },
+        y: 32,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.svc-cta-inner', {
+        scrollTrigger: { trigger: '.svc-cta', start: 'top 78%' },
+        scale: 0.97,
+        duration: 0.9,
+        ease: 'power3.out',
+      });
+
+      gsap.from(['.svc-cta-title', '.svc-cta-text', '.svc-cta .btn-primary', '.svc-siblings'], {
+        scrollTrigger: { trigger: '.svc-cta', start: 'top 75%' },
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.footer-inner', {
+        scrollTrigger: { trigger: '.site-footer', start: 'top 92%' },
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power3.out',
+      });
+
+      // Fonts and images finishing late leave Lenis and ScrollTrigger holding
+      // stale bounds. Recompute once everything has settled.
+      window.addEventListener('load', () => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+      });
+    }
+  </script>
+</Layout>

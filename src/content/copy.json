@@ -168,6 +168,23 @@
   "footer": {
     "text": "I speed up Web3 and fintech sites."
   },
+  "blog": {
+    "metaTitle": "Blog | Speed, AEO, and migrations, written down | WaveWeb",
+    "metaDescription": "Notes from the work: what actually moves Core Web Vitals, how pages get quoted by AI search, and what a migration costs you when it goes wrong.",
+    "eyebrow": "Writing",
+    "titleStart": "What I learn shipping",
+    "titleAccent": "fast",
+    "titleEnd": "sites, written down.",
+    "subtitle": "Notes from real projects: what moved the numbers, what did nothing, and what I would do differently the next time.",
+    "emptyTitle": "The first post is on its way.",
+    "emptyText": "Nothing published yet. Send me the part of your site that bothers you in the meantime and I will reply with what I would fix first.",
+    "ctaTitle": "Want this run on your own site?",
+    "ctaText": "Send the URL and the part that bothers you. I reply within a day with what I would fix first and what it is worth.",
+    "ctaButton": "Let’s talk",
+    "moreTitle": "Keep reading",
+    "takeawaysTitle": "Key takeaways",
+    "faqTitle": "Questions, answered."
+  },
   "servicePages": [
     {
       "slug": "performance-optimization",

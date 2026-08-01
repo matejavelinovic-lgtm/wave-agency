@@ -33,6 +33,14 @@ interface Props {
   description?: string;
   /** Trailing crumbs after Home. Omit on the homepage. */
   breadcrumbs?: { name: string; path: string }[];
+  /**
+   * og:type. "article" on a blog post, which is what a share card reads to show
+   * a byline and a date instead of a plain site preview; "website" everywhere
+   * else. Nothing else on this site is an article.
+   */
+  ogType?: 'website' | 'article';
+  /** Share image, site-relative or absolute. Resolved against SITE_URL below. */
+  image?: string;
 }
 
 const {
@@ -40,7 +48,16 @@ const {
   description =
     'I speed up Web3 and fintech sites, get them quoted by AI search, and migrate them into Webflow or out of Webflow into custom code.',
   breadcrumbs = [],
+  ogType = 'website',
+  image,
 } = Astro.props;
+
+/*
+ * og:image has to be absolute — a relative path is ignored by every scraper
+ * that reads it. Pages that pass nothing fall back to the logo, which is a
+ * poorer card than a real image but a far better one than no image at all.
+ */
+const ogImage = new URL(image ?? '/WaveWeb_Logo.png', SITE_URL).href;
 
 const canonical = new URL(Astro.url.pathname, SITE_URL).href;
 
@@ -162,12 +179,14 @@ const breadcrumbList = {
       content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
     />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     <!--
       All three weights paint above the fold, so all three get preloaded: Regular

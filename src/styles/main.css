@@ -1968,6 +1968,650 @@ section {
   transform: translateY(-2px);
 }
 
+/* ── Blog: listing ───────────────────────────────────────────────── */
+/* The hero is the service hero with less under it — same paddings, same
+   .svc-eyebrow / .svc-title / .svc-subtitle inside, so the two page types open
+   identically and there is one set of type rules to keep in step. */
+.blog-hero {
+  background: var(--bg-dark);
+  padding: 56px 28px 88px;
+}
+
+.blog-hero-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.blog-list-section {
+  background: var(--bg-light);
+  padding: 84px 28px 92px;
+}
+
+.blog-list-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.blog-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 22px;
+}
+
+.blog-item {
+  display: block;
+}
+
+/* The whole row is one link. Default is a pale surface on the light band; hover
+   flips it to the purple block the rest of the site uses for card surfaces, so
+   the entry a cursor is on is the only coloured thing on screen. */
+.blog-card {
+  display: block;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--border-on-light);
+  padding: 32px 34px 30px;
+  color: var(--text-on-light);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 34px) 0,
+    calc(100% - 34px) 17px,
+    calc(100% - 17px) 17px,
+    calc(100% - 17px) 34px,
+    100% 34px,
+    100% 100%,
+    0 100%
+  );
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.blog-card:hover {
+  background: var(--block);
+  color: var(--text-on-dark);
+  transform: translateY(-3px);
+}
+
+.blog-card:focus-visible {
+  outline: 2px solid var(--block);
+  outline-offset: 4px;
+}
+
+.blog-card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-on-light-muted);
+  margin-bottom: 14px;
+  transition: color 0.2s ease;
+}
+
+.blog-card:hover .blog-card-meta {
+  color: rgba(237, 237, 230, 0.72);
+}
+
+.blog-card-date {
+  text-transform: uppercase;
+}
+
+.blog-card-dot {
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.blog-card-time {
+  text-transform: uppercase;
+}
+
+/* Dev only in practice: a draft never reaches a build, so this badge exists to
+   stop a post being read as live while it is still being written. */
+.blog-card-draft {
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+}
+
+.blog-card-title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+  margin: 0 0 12px;
+  max-width: 18.07em;
+}
+
+.blog-card-text {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-on-light-muted);
+  margin: 0;
+  max-width: 41.56em;
+  transition: color 0.2s ease;
+}
+
+.blog-card:hover .blog-card-text {
+  color: rgba(237, 237, 230, 0.82);
+}
+
+.blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.blog-tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  border-radius: 100px;
+  padding: 4px 12px;
+  opacity: 0.7;
+}
+
+.blog-card-more {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--block);
+  margin-top: 20px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.blog-card:hover .blog-card-more {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+/* What /blog/ shows before the first post exists. A short page that offers the
+   contact form beats an empty grid that offers nothing. */
+.blog-empty {
+  border-left: 2px solid var(--block);
+  padding-left: 28px;
+}
+
+.blog-empty-text {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--text-on-light-muted);
+  margin: 0 0 30px;
+  max-width: 33.55em;
+}
+
+/* ── Blog: post ──────────────────────────────────────────────────── */
+.post-hero {
+  background: var(--bg-dark);
+  padding: 56px 28px 76px;
+}
+
+.post-hero-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* Narrower than the service H1 and a notch smaller: this one is a sentence a
+   reader is about to read 1500 more words of, not a claim shouted at a stranger. */
+.post-title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin: 0 0 22px;
+  max-width: 15.06em;
+  color: var(--text-on-dark);
+}
+
+.post-lede {
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--text-on-dark-muted);
+  margin: 0 0 28px;
+  max-width: 31.87em;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-on-dark-muted);
+}
+
+.post-author {
+  font-weight: 600;
+  color: var(--text-on-dark);
+}
+
+.post-meta-dot {
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.post-date {
+  letter-spacing: 0.01em;
+}
+
+.post-time {
+  letter-spacing: 0.01em;
+}
+
+.post-updated {
+  font-size: 13px;
+  color: rgba(237, 237, 230, 0.45);
+  margin: 12px 0 0;
+}
+
+.post-body-section {
+  background: var(--bg-light);
+  padding: 64px 28px 80px;
+}
+
+/* The measure. Everything a reader reads lives inside this column, and 40em is
+   ~72 characters in Blauer Nue — long enough not to break every clause, short
+   enough that the eye finds the next line without hunting for it. */
+.post-body-inner {
+  max-width: 40em;
+  margin: 0 auto;
+}
+
+.post-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 44px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 40px) 0,
+    calc(100% - 40px) 20px,
+    calc(100% - 20px) 20px,
+    calc(100% - 20px) 40px,
+    100% 40px,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* The summary above the article: the claims on their own, before the prose that
+   argues them. Purple surface with the same notched corner as every other card
+   surface on the site, so it reads as a block and not as a first paragraph. */
+.post-takeaways {
+  background: var(--block);
+  color: var(--text-on-dark);
+  padding: 28px 32px 30px;
+  margin: 0 0 44px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 34px) 0,
+    calc(100% - 34px) 17px,
+    calc(100% - 17px) 17px,
+    calc(100% - 17px) 34px,
+    100% 34px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.post-takeaways-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.post-takeaways-list {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 10px;
+  font-size: 16px;
+  line-height: 1.45;
+  color: rgba(237, 237, 230, 0.86);
+}
+
+.post-takeaways-list li::marker {
+  color: var(--accent);
+}
+
+.post-toc {
+  border-left: 2px solid var(--block);
+  padding: 4px 0 4px 22px;
+  margin: 0 0 44px;
+}
+
+.post-toc-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--block);
+  margin-bottom: 12px;
+}
+
+.post-toc-list {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 7px;
+  font-size: 15px;
+  color: var(--text-on-light-muted);
+}
+
+.post-toc-link {
+  color: var(--text-on-light);
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.post-toc-link:hover {
+  color: var(--block);
+  border-bottom-color: var(--block);
+}
+
+/*
+ * The article body, and the one exception to the one-class-per-element rule at
+ * the top of this file: markdown produces these tags, so there is no class to
+ * hang a rule on. Every selector below is scoped under .post-body and reaches
+ * nothing outside it — the exception stays inside the article.
+ */
+.post-body {
+  font-size: 18px;
+  line-height: 1.72;
+  color: var(--text-on-light);
+}
+
+.post-body > :first-child {
+  margin-top: 0;
+}
+
+.post-body p {
+  margin: 0 0 24px;
+}
+
+/* scroll-margin-top clears the sticky header when a TOC link jumps here —
+   without it the heading lands underneath the bar it just scrolled past. */
+.post-body h2 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 52px 0 16px;
+  scroll-margin-top: 100px;
+}
+
+.post-body h3 {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin: 36px 0 12px;
+  scroll-margin-top: 100px;
+}
+
+.post-body h4 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 28px 0 10px;
+  scroll-margin-top: 100px;
+}
+
+.post-body a {
+  color: var(--block-strong);
+  border-bottom: 1px solid rgba(86, 40, 164, 0.35);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.post-body a:hover {
+  color: var(--block);
+  border-bottom-color: var(--block);
+}
+
+.post-body strong {
+  font-weight: 700;
+}
+
+.post-body ul,
+.post-body ol {
+  margin: 0 0 24px;
+  padding-left: 24px;
+}
+
+.post-body li {
+  margin-bottom: 10px;
+}
+
+.post-body li::marker {
+  color: var(--block);
+}
+
+.post-body blockquote {
+  margin: 32px 0;
+  padding: 4px 0 4px 24px;
+  border-left: 3px solid var(--block);
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--text-on-light);
+}
+
+.post-body blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.post-body code {
+  font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.88em;
+  background: rgba(7, 7, 7, 0.08);
+  padding: 2px 6px;
+}
+
+/* Astro's Shiki highlighter paints its own background on the block, so this
+   rule sets the frame and lets the theme keep the colours inside it. */
+.post-body pre {
+  margin: 32px 0;
+  padding: 22px 24px;
+  overflow-x: auto;
+  border-left: 3px solid var(--accent);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.post-body pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.post-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 36px 0;
+}
+
+.post-body figure {
+  margin: 36px 0;
+}
+
+.post-body figcaption {
+  font-size: 14px;
+  color: var(--text-on-light-muted);
+  margin-top: 10px;
+}
+
+.post-body hr {
+  border: 0;
+  border-top: 1px solid var(--border-on-light);
+  margin: 48px 0;
+}
+
+/* display: block is what lets a wide table scroll inside the measure instead of
+   pushing the whole page sideways on a phone. */
+.post-body table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 32px 0;
+  font-size: 15px;
+}
+
+.post-body th {
+  text-align: left;
+  font-weight: 700;
+  padding: 10px 14px 10px 0;
+  border-bottom: 2px solid var(--border-on-light);
+  white-space: nowrap;
+}
+
+.post-body td {
+  padding: 10px 14px 10px 0;
+  border-bottom: 1px solid var(--border-on-light);
+}
+
+.post-share {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 52px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border-on-light);
+  font-size: 15px;
+}
+
+.post-share-label {
+  color: var(--text-on-light-muted);
+}
+
+.post-share-link {
+  font-weight: 600;
+  color: var(--block-strong);
+  border-bottom: 1px solid rgba(86, 40, 164, 0.35);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.post-share-link:hover {
+  color: var(--block);
+  border-bottom-color: var(--block);
+}
+
+/* The post FAQ reuses .faq for the light band and the whole accordion, and this
+   rule only takes back the top padding: the body section above it already ends
+   in 80px, and two paddings stacked read as a missing section. Later in the
+   file at the same specificity, so it wins over .faq without an override. */
+.post-faq {
+  padding: 8px 28px 88px;
+}
+
+/* Same measure as the article, so the questions sit in the column the reader's
+   eye has been tracking for 1200 words rather than jumping to full width. */
+.post-faq-inner {
+  max-width: 40em;
+  margin: 0 auto;
+  border-top: 1px solid var(--border-on-light);
+  padding-top: 52px;
+}
+
+.post-faq-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-on-light);
+  margin: 0 0 20px;
+  scroll-margin-top: 100px;
+}
+
+.post-nav {
+  background: var(--bg-dark);
+  padding: 76px 28px 20px;
+}
+
+.post-nav-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.post-nav-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 22px;
+}
+
+.post-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.post-nav-card {
+  display: block;
+  border: 1px solid var(--border-on-dark);
+  padding: 24px 26px;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.post-nav-card:hover {
+  border-color: var(--accent);
+  background: rgba(239, 237, 144, 0.07);
+  transform: translateY(-2px);
+}
+
+.post-nav-dir {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+  margin-bottom: 10px;
+}
+
+.post-nav-card-title {
+  display: block;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--text-on-dark);
+}
+
+.post-nav-all {
+  display: inline-block;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  transition: transform 0.15s ease;
+}
+
+.post-nav-all:hover {
+  transform: translateX(4px);
+}
+
 /* ── Motion ──────────────────────────────────────────────────────── */
 @keyframes ring-pulse {
   0% {
@@ -2153,6 +2797,18 @@ section {
     );
   }
 
+  .post-title {
+    font-size: 38px;
+  }
+
+  .post-body h2 {
+    font-size: 27px;
+  }
+
+  .post-nav-grid {
+    grid-template-columns: 1fr;
+  }
+
   /* Two columns, with the brand across the top of both — the link columns are
      narrow enough to sit side by side long after the brand sentence is not. */
   .footer-inner {
@@ -2262,5 +2918,87 @@ section {
 
   .svc-cta-title {
     font-size: 27px;
+  }
+
+  .blog-hero,
+  .post-hero {
+    padding: 40px 20px 56px;
+  }
+
+  .blog-list-section,
+  .post-body-section,
+  .post-faq,
+  .post-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .post-takeaways {
+    padding: 24px 22px 26px;
+    /* The notch scales with the block — 34px cut out of a 22px gutter would eat
+       into the label above the list. */
+    clip-path: polygon(
+      0 0,
+      calc(100% - 24px) 0,
+      calc(100% - 24px) 12px,
+      calc(100% - 12px) 12px,
+      calc(100% - 12px) 24px,
+      100% 24px,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .post-takeaways-list {
+    font-size: 15px;
+  }
+
+  .post-faq-title {
+    font-size: 24px;
+  }
+
+  .blog-card {
+    padding: 26px 22px 24px;
+    /* The notch scales with the card: 34px cut out of a 22px gutter would eat
+       into the first line of the meta row. */
+    clip-path: polygon(
+      0 0,
+      calc(100% - 24px) 0,
+      calc(100% - 24px) 12px,
+      calc(100% - 12px) 12px,
+      calc(100% - 12px) 24px,
+      100% 24px,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .blog-card-title {
+    font-size: 22px;
+  }
+
+  .post-title {
+    font-size: 30px;
+  }
+
+  .post-lede {
+    font-size: 17px;
+  }
+
+  .post-body {
+    font-size: 17px;
+  }
+
+  .post-body h2 {
+    font-size: 24px;
+    margin-top: 42px;
+  }
+
+  .post-body h3 {
+    font-size: 19px;
+  }
+
+  .post-body blockquote {
+    font-size: 18px;
   }
 }
