@@ -712,7 +712,7 @@ section {
 
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
@@ -745,7 +745,7 @@ section {
   display: block;
   width: 11px;
   height: 11px;
-  /* auto, not a fixed gap: the four cards carry different amounts of text, and
+  /* auto, not a fixed gap: the three cards carry different amounts of text, and
      this lines every arrow up on the card's bottom edge instead of leaving each
      one under its own paragraph. The clearance above it is .service-text's
      bottom margin — padding here would stretch the rotated square out of shape. */
@@ -2680,8 +2680,10 @@ section {
     font-size: 46px;
   }
 
+  /* One column, not two: three cards in a two-column grid leave the last one
+     alone on its row. */
   .service-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 
   .proof-grid {
@@ -2850,10 +2852,6 @@ section {
 
   .hero-rings {
     opacity: 0.5;
-  }
-
-  .service-grid {
-    grid-template-columns: 1fr;
   }
 
   .proof {

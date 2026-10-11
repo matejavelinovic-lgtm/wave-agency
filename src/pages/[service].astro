@@ -1,11 +1,11 @@
 ---
 /*
- * The four service pages, from one template.
+ * The three service pages, from one template.
  *
  * Each entry in copy.servicePages is a page, and its `slug` is its URL. One
- * template rather than four files because the pages differ only in their words:
- * a change to the shape of a service page should be one edit, not four that
- * drift apart. Adding a fifth service means adding an entry to copy.json — no
+ * template rather than three files because the pages differ only in their words:
+ * a change to the shape of a service page should be one edit, not three that
+ * drift apart. Adding a fourth service means adding an entry to copy.json — no
  * file here, no route to register, and @astrojs/sitemap picks it up on the next
  * build because getStaticPaths declared it.
  *
@@ -41,7 +41,7 @@ const url = `${SITE_URL}/${page.slug}/`;
 /*
  * The Service node points its provider at the homepage Organization by @id
  * rather than describing the company again, so a crawler reading any of these
- * five pages assembles one company with four services instead of four
+ * four pages assembles one company with three services instead of three
  * companies. Layout emits the Organization itself on every page.
  */
 const service = {

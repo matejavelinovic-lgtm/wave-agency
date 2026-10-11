@@ -43,7 +43,7 @@ if (services.cards.length !== copy.servicePages.length) {
 /*
  * One Service node per service, sharing an @id with the node its own page
  * emits. Same @id means a crawler merges the two into one service described in
- * two places, rather than reading eight services from a site that sells four.
+ * two places, rather than reading six services from a site that sells three.
  */
 const serviceSchema = services.cards.map((s, i) => ({
   '@context': 'https://schema.org',

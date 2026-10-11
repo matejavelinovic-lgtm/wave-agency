@@ -1,12 +1,12 @@
 {
   "hero": {
-    "eyebrow": "Speed, AEO, and migrations",
+    "eyebrow": "Speed, AEO, and Astro",
     "titleStart": "I make Web3 and fintech sites load",
     "titleAccent": "fast",
     "titleEnd": "and show up in AI answers.",
-    "subtitle": "Whether you have a site or a blank domain, I make it load fast, show up in ChatGPT and Claude, and sit on the right platform for your team.",
+    "subtitle": "Whether you have a site or a blank domain, I make it load fast, show up in ChatGPT and Claude, and run on Astro, built to stay that way.",
     "ctaPrimary": "Let’s talk",
-    "ctaSecondary": "See the four services",
+    "ctaSecondary": "See the three services",
     "scopeLabel": "Built for"
   },
   "proof": {
@@ -55,7 +55,7 @@
   },
   "services": {
     "eyebrow": "Services",
-    "title": "Four ways I make a site earn its traffic.",
+    "title": "Three ways I make a site earn its traffic.",
     "subtitle": "You name the problem. I take the work from first measurement to shipped result, and I send you the numbers when it lands.",
     "cards": [
       {
@@ -67,19 +67,15 @@
         "text": "I structure your pages so ChatGPT, Claude, Perplexity, and Google AI Overviews can lift a clean answer out of them. You land inside the answer with your name on it, instead of on page two of a link list."
       },
       {
-        "title": "Migration into Webflow",
-        "text": "Your marketing team waits on an engineer to fix a typo. I move the site into Webflow, map every URL before anything changes, and hand your team a CMS they run without a ticket."
-      },
-      {
         "title": "Migration out of Webflow",
-        "text": "You outgrew the platform. I rebuild your site as code your team owns, keep the design you paid for, keep the URLs that earn traffic, and hand your engineers a repo."
+        "text": "You outgrew the platform. I rebuild your site in Astro, keep the design you paid for, keep the URLs that earn traffic, and hand your team a repo they own."
       }
     ]
   },
   "founder": {
     "eyebrow": "Who is behind this",
     "title": "You work with me, from the first email to the last test.",
-    "text": "I read your first message, run the audit, optimise your website, and send you the before and after. No account manager sits between us and no handoff loses the detail you mentioned on the first call. I have built in Webflow since 2022, and I reach for custom code when a project earns it.",
+    "text": "I read your first message, run the audit, optimise your website, and send you the before and after. No account manager sits between us and no handoff loses the detail you mentioned on the first call. I build in Astro, because it ships finished HTML and almost no JavaScript, which is most of the speed work done before it starts.",
     "linkLabel": "LinkedIn"
   },
   "process": {
@@ -99,7 +95,7 @@
       {
         "n": "03",
         "title": "Ship",
-        "text": "I do the work in Webflow or in code, and you review all of it on a staging URL first."
+        "text": "I do the work in Astro, and you review all of it on a staging URL first."
       },
       {
         "n": "04",
@@ -115,7 +111,7 @@
     "items": [
       {
         "q": "Do you build websites from scratch?",
-        "a": "Yes. If you have nothing yet, or a landing page holding the spot, I build the site from the ground up in Webflow or in code, and it ships fast on a phone and readable to an AI on day one. Most of my work is still sites that already exist and underperform, and that experience is what a new build gets you."
+        "a": "Yes. If you have nothing yet, or a landing page holding the spot, I build the site from the ground up in Astro, and it ships fast on a phone and readable to an AI on day one. Most of my work is still sites that already exist and underperform, and that experience is what a new build gets you."
       },
       {
         "q": "What PageSpeed score should my Web3 site have?",
@@ -126,12 +122,12 @@
         "a": "SEO puts you in Google’s ranked list. AEO gets you quoted inside the answer that ChatGPT, Perplexity, and Google AI Overviews write. The work overlaps, though AEO leans harder on structured data, semantic HTML, and content shaped so a model can lift a clean answer out of it."
       },
       {
-        "q": "Do you work in Webflow or custom code?",
-        "a": "Both. I have built in Webflow since 2022, and I use Ship Studio with Claude Code where the project calls for code I own outright. The tool follows the project. Agencies that sell one stack will recommend that stack no matter what you need."
+        "q": "What do you build in?",
+        "a": "Astro, every time. It serves finished HTML and loads JavaScript only where a page actually needs it, so a site starts fast instead of being tuned fast later. I use Ship Studio with Claude Code on top of it, which gives your team a visual editor without giving up a codebase you own outright."
       },
       {
-        "q": "How do you choose between Webflow and custom code?",
-        "a": "By who edits the site after launch. A marketing team shipping pages every week belongs in Webflow. A product team with engineers who own the repo belongs in custom code. Traffic, CMS depth, and budget move the answer around, but that one question settles most projects on the first call."
+        "q": "Can my team still edit the site without a developer?",
+        "a": "Yes. Content lives in a CMS or in structured files, and Ship Studio adds a visual editor on top of Astro, so your team changes text and images by clicking. We agree on that editing path on the first call, before any of the build starts."
       },
       {
         "q": "Will migrating my site hurt my rankings?",
@@ -154,7 +150,6 @@
     "needs": [
       "Speed",
       "AEO",
-      "Migration into Webflow",
       "Migration out of Webflow",
       "A new site from scratch",
       "Audit first"
@@ -253,8 +248,8 @@
           "a": "No. Speed work is plumbing — the page looks the same and arrives sooner. Anything that would change a layout goes on a staging URL for you to review before it ships."
         },
         {
-          "q": "Does this work on Webflow?",
-          "a": "Yes. Webflow has its own ceiling and I know where it sits: what to cut, what to move out of the head, and the point where the platform itself is the bottleneck and a migration is the honest answer."
+          "q": "What if my platform is the bottleneck?",
+          "a": "Then I tell you. Every builder has a ceiling, and I know where it sits: what to cut, what to move out of the head, and the point where the honest answer is a rebuild in Astro rather than another round of tuning."
         },
         {
           "q": "How long does it take?",
@@ -345,103 +340,24 @@
       "ctaButton": "Get an AEO audit"
     },
     {
-      "slug": "webflow-migration",
-      "metaTitle": "Webflow migration: move your site into Webflow | WaveWeb",
-      "metaDescription": "I move your site into Webflow without losing a URL or a ranking, and hand your marketing team a CMS they can run without filing a ticket.",
-      "crumb": "Migration into Webflow",
-      "eyebrow": "Migration into Webflow",
-      "titleStart": "Your marketing team waits on an engineer",
-      "titleAccent": "to fix",
-      "titleEnd": "a typo.",
-      "subtitle": "I move your site into Webflow, map every URL before anything changes, and hand your team a CMS they run themselves.",
-      "ctaPrimary": "Plan the migration",
-      "ctaSecondary": "See the other services",
-      "signalsLabel": "I move sites from",
-      "signals": [
-        "WordPress",
-        "Custom code",
-        "Squarespace",
-        "Wix",
-        "Framer"
-      ],
-      "painTitle": "Why teams move.",
-      "pain": [
-        {
-          "title": "Every change is a ticket.",
-          "text": "A price, a headline, a new case study — each one waits behind a developer queue. The site stops reflecting what you actually sell."
-        },
-        {
-          "title": "Nobody wants to touch the theme.",
-          "text": "The site runs on a stack one person understood, and that person left. Updates feel risky, so nothing gets updated."
-        },
-        {
-          "title": "A bad migration costs the traffic you already earned.",
-          "text": "Change the URLs without a map and the rankings you spent years building go with them. That is the part most migrations get wrong."
-        }
-      ],
-      "worksTitle": "How I run it.",
-      "works": [
-        {
-          "title": "The URL map comes first",
-          "text": "Before a single page is built I inventory every URL you have, match it to where it will land, and write the redirects. Nothing ships until that map is complete."
-        },
-        {
-          "title": "The design survives",
-          "text": "You keep the site you paid for. I rebuild it in Webflow as a proper class system rather than a pile of one-off styles, so the next change is an edit instead of a rebuild."
-        },
-        {
-          "title": "Content becomes a Collection",
-          "text": "Blog posts, case studies, job listings — whatever repeats becomes a CMS Collection your team fills through a form, with the template locked so nobody can break the layout."
-        },
-        {
-          "title": "It ships fast, not just finished",
-          "text": "Webflow will happily serve a six megabyte page. The build goes out with the same speed work as everything else here: sized media, trimmed scripts, Core Web Vitals in the green."
-        }
-      ],
-      "proofTitle": "What the handover looks like.",
-      "proofText": "A staging URL you review before anything goes live, the full redirect map as a spreadsheet, a walkthrough of the CMS with your team on the call, and the speed reports before and after. Then the DNS switch, with me watching Search Console through the week that follows.",
-      "faqTitle": "Migration questions, answered.",
-      "faq": [
-        {
-          "q": "Will migrating hurt my rankings?",
-          "a": "Not when the redirects are right. Traffic usually dips for a week or two while Google re-crawls, then recovers. The damage happens when URLs change without a map, which is why the map is the first thing I build."
-        },
-        {
-          "q": "Can you move my WordPress blog?",
-          "a": "Yes. Posts, categories, authors and images come across into CMS Collections, and the old URLs keep working through redirects."
-        },
-        {
-          "q": "Will my team actually be able to run it?",
-          "a": "That is the point of the move. I lock the templates so an editor can change text and images without touching layout, and I walk your team through it before handover."
-        },
-        {
-          "q": "How long does a migration take?",
-          "a": "Two to six weeks for most marketing sites, depending on page count and how much of the design has to be rebuilt rather than carried over."
-        }
-      ],
-      "ctaTitle": "Send me the site you want moved.",
-      "ctaText": "I reply within a day with the page count, the URLs that carry risk, and what the move would take.",
-      "ctaButton": "Plan the migration"
-    },
-    {
       "slug": "migration-out-of-webflow",
-      "metaTitle": "Migrate out of Webflow into code your team owns | WaveWeb",
-      "metaDescription": "You outgrew the platform. I rebuild your Webflow site as code in a repo your engineers own, keeping the design and every URL that earns traffic.",
+      "metaTitle": "Migrate out of Webflow into Astro | WaveWeb",
+      "metaDescription": "You outgrew the platform. I rebuild your Webflow site in Astro, in a repo your team owns, keeping the design and every URL that earns traffic.",
       "crumb": "Migration out of Webflow",
       "eyebrow": "Migration out of Webflow",
       "titleStart": "You outgrew the platform",
       "titleAccent": "you",
       "titleEnd": "started on.",
-      "subtitle": "I rebuild your site as code your team owns, keep the design you paid for, keep the URLs that earn traffic, and hand your engineers a repository.",
+      "subtitle": "I rebuild your site in Astro, keep the design you paid for, keep the URLs that earn traffic, and hand your team a repository they own.",
       "ctaPrimary": "Plan the move",
       "ctaSecondary": "See the other services",
-      "signalsLabel": "I rebuild into",
+      "signalsLabel": "I rebuild with",
       "signals": [
         "Astro",
-        "Next.js",
         "Git",
         "Vercel",
-        "Headless CMS"
+        "Headless CMS",
+        "Ship Studio"
       ],
       "painTitle": "Why teams leave.",
       "pain": [
@@ -470,7 +386,7 @@
         },
         {
           "title": "A repository your team recognises",
-          "text": "Astro or Next depending on what your engineers already run, plain components, and no framework tax you did not ask for. It builds on Vercel or wherever you host today."
+          "text": "Astro, plain components, and no framework tax you did not ask for. Pages ship as finished HTML, and JavaScript loads only where a section actually needs it. It builds on Vercel or wherever you host today."
         },
         {
           "title": "Content stays editable",
@@ -487,7 +403,7 @@
         },
         {
           "q": "What do you rebuild it in?",
-          "a": "Astro for a marketing site that is mostly content, Next.js when there is real application behaviour. If your engineers already run one of them, that settles it."
+          "a": "Astro. It serves finished HTML with almost no JavaScript, which is why the rebuild lands faster than the site it replaces, and it is plain enough that any engineer you hire later can pick it up."
         },
         {
           "q": "Can marketing still publish without a developer?",
