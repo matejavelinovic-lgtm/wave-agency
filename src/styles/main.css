@@ -1968,6 +1968,364 @@ section {
   transform: translateY(-2px);
 }
 
+/* ── Pricing ─────────────────────────────────────────────────────── */
+/*
+ * Everything prefixed price- belongs to src/pages/pricing.astro. The hero, the
+ * FAQ and the closing CTA reuse the svc- and faq rules as they are. Background
+ * runs dark, light (plans), dark (terms, guarantee), light (care, FAQ), dark.
+ */
+.price-plans {
+  background: var(--bg-light);
+  padding: 72px 28px 96px;
+}
+
+.price-plans-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* A segmented switch: one bordered strip, the selected half filled in ink. */
+.price-tabs {
+  display: inline-flex;
+  border: 1px solid var(--border-on-light);
+  margin-bottom: 40px;
+}
+
+.price-tab {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-on-light);
+  background: transparent;
+  border: 0;
+  padding: 13px 24px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.price-tab:hover {
+  background: rgba(7, 7, 7, 0.06);
+}
+
+.price-tab[aria-selected='true'] {
+  background: var(--ink);
+  color: var(--text-on-dark);
+}
+
+.price-tab:focus-visible {
+  outline: 2px solid var(--block);
+  outline-offset: 2px;
+}
+
+/* No display here on purpose: the hidden attribute is what switches panels,
+   and any author display value would override it. Removing hidden restarts the
+   animation, so every switch fades the new set of cards in. */
+.price-panel {
+  animation: price-panel-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes price-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Read by screen readers and crawlers, shown only in the no-JavaScript
+   fallback, where the tabs that normally name each panel are gone. */
+.price-group-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* auto-fit, so the same rule lays out three migration plans in thirds and two
+   new-site plans in halves, with no modifier per group. */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.price-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: var(--block);
+  color: var(--text-on-dark);
+  padding: 32px 28px 30px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 32px) 0,
+    calc(100% - 32px) 16px,
+    calc(100% - 16px) 16px,
+    calc(100% - 16px) 32px,
+    100% 32px,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* The most chosen plan goes to ink: the one card on the light section that
+   carries the strongest contrast, and the only one with the accent button. */
+.price-card.is-featured {
+  background: var(--ink);
+}
+
+.price-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin-bottom: 22px;
+}
+
+.price-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(237, 237, 230, 0.78);
+  margin: 0;
+}
+
+.price-badge {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  background: var(--accent);
+  padding: 4px 10px;
+}
+
+.price-amount {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text-on-dark);
+  margin: 0 0 16px;
+}
+
+.price-prefix {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(237, 237, 230, 0.7);
+}
+
+.price-period {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(237, 237, 230, 0.7);
+}
+
+.price-text {
+  font-size: 15px;
+  color: rgba(237, 237, 230, 0.78);
+  margin: 0 0 24px;
+  line-height: 1.4;
+  max-width: 22em;
+}
+
+/* flex-grow pushes every button onto the card's bottom edge, so a row of
+   cards with lists of different lengths still lines its buttons up. */
+.price-features {
+  list-style: none;
+  margin: 0 0 30px;
+  padding: 22px 0 0;
+  border-top: 1px solid rgba(237, 237, 230, 0.18);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  align-self: stretch;
+}
+
+/* The care card ends on its list, with no button under it to clear. */
+.price-features:last-child {
+  margin-bottom: 0;
+}
+
+/* A square bullet in the accent — the same pixel the notches and seams cut. */
+.price-feature {
+  position: relative;
+  padding-left: 20px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--text-on-dark);
+}
+
+.price-feature::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+}
+
+.price-terms {
+  background: var(--bg-dark);
+  padding: 92px 28px 40px;
+}
+
+.price-terms-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.price-terms-title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-on-dark);
+  margin: 0 0 26px;
+  line-height: 1.2;
+}
+
+.price-included-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 36px;
+}
+
+.price-included-item {
+  position: relative;
+  padding-left: 20px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--text-on-dark-muted);
+}
+
+.price-included-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 7px;
+  height: 7px;
+  background: var(--block);
+}
+
+.price-excluded-text {
+  font-size: 15px;
+  color: var(--text-on-dark-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.price-guarantee {
+  background: var(--bg-dark);
+  padding: 56px 28px 96px;
+}
+
+/* The page's one promise, so it takes the accent rule, as .svc-proof does on
+   the service pages. */
+.price-guarantee-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  border-left: 2px solid var(--accent);
+  padding-left: 26px;
+}
+
+.price-guarantee-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+  margin: 0 0 16px;
+  max-width: 15em;
+  line-height: 1.15;
+}
+
+.price-guarantee-text {
+  font-size: 17px;
+  color: var(--text-on-dark-muted);
+  margin: 0 0 18px;
+  max-width: 38.51em;
+  line-height: 1.45;
+}
+
+.price-guarantee-note {
+  font-size: 14px;
+  color: rgba(237, 237, 230, 0.45);
+  margin: 0;
+  max-width: 44em;
+  line-height: 1.45;
+}
+
+.price-care {
+  background: var(--bg-light);
+  padding: 84px 28px 20px;
+}
+
+.price-care-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.price-care-text {
+  font-size: 17px;
+  color: var(--text-on-light-muted);
+  margin: 0;
+  max-width: 26em;
+  line-height: 1.4;
+}
+
+.price-care-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--block);
+  color: var(--text-on-dark);
+  padding: 32px 28px 30px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 32px) 0,
+    calc(100% - 32px) 16px,
+    calc(100% - 16px) 16px,
+    calc(100% - 16px) 32px,
+    100% 32px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.price-care-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
 /* ── Blog: listing ───────────────────────────────────────────────── */
 /* The hero is the service hero with less under it — same paddings, same
    .svc-eyebrow / .svc-title / .svc-subtitle inside, so the two page types open
@@ -2672,6 +3030,10 @@ section {
   .faq-icon::before {
     transition: none;
   }
+
+  .price-panel {
+    animation: none;
+  }
 }
 
 /* ── Responsive (one breakpoint set; mirror rules above) ─────────── */
@@ -2799,6 +3161,24 @@ section {
     );
   }
 
+  .price-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .price-terms-inner {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .price-care-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .price-guarantee-title {
+    font-size: 32px;
+  }
+
   .post-title {
     font-size: 38px;
   }
@@ -2916,6 +3296,42 @@ section {
 
   .svc-cta-title {
     font-size: 27px;
+  }
+
+  .price-plans,
+  .price-terms,
+  .price-guarantee,
+  .price-care {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Full width, halves of equal size: "Migration out of Webflow" wraps to two
+     lines before it pushes the switch off the side of a phone. */
+  .price-tabs {
+    display: flex;
+  }
+
+  .price-tab {
+    flex: 1 1 0;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .price-card {
+    padding: 28px 22px 26px;
+  }
+
+  .price-amount {
+    font-size: 40px;
+  }
+
+  .price-included-list {
+    grid-template-columns: 1fr;
+  }
+
+  .price-guarantee-title {
+    font-size: 28px;
   }
 
   .blog-hero,

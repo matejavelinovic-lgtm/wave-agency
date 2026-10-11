@@ -180,6 +180,167 @@
     "takeawaysTitle": "Key takeaways",
     "faqTitle": "Questions, answered."
   },
+  "pricing": {
+    "metaTitle": "Pricing: fixed prices for Astro builds and Webflow migrations | WaveWeb",
+    "metaDescription": "Fixed prices, agreed before I start. Migrations out of Webflow from $5,000 and new Astro sites from $4,000, priced by templates and integrations, not page count.",
+    "eyebrow": "Pricing",
+    "titleStart": "Fixed prices, agreed",
+    "titleAccent": "before",
+    "titleEnd": "I start.",
+    "subtitle": "Price follows templates, CMS collections, and integrations, not page count. A blog with 300 posts is one template. You know the number before the first line of code, and it does not move unless the scope does.",
+    "badge": "Most chosen",
+    "groups": [
+      {
+        "label": "Migration out of Webflow",
+        "plans": [
+          {
+            "name": "Launch",
+            "pricePrefix": "",
+            "price": "$5,000",
+            "text": "For a marketing site that outgrew Webflow.",
+            "featured": false,
+            "features": [
+              "Up to 8 templates",
+              "1 CMS collection (blog or news)",
+              "Core interactions rebuilt",
+              "Schema markup and llms.txt",
+              "Redirect map and sitemap diff",
+              "3–4 weeks",
+              "15 days of post-launch support"
+            ],
+            "cta": "Plan the move"
+          },
+          {
+            "name": "Scale",
+            "pricePrefix": "",
+            "price": "$9,500",
+            "text": "For fintech and Web3 teams with content, data, and a marketing team that publishes weekly.",
+            "featured": true,
+            "features": [
+              "Up to 20 templates",
+              "Up to 4 CMS collections, with a headless CMS your team edits",
+              "Live data blocks: TVL, APY, token price, loaded only where they appear",
+              "AEO structure: FAQ and comparison pages built to be quoted",
+              "5–6 weeks",
+              "30 days of post-launch support"
+            ],
+            "cta": "Plan the move"
+          },
+          {
+            "name": "Protocol",
+            "pricePrefix": "From",
+            "price": "$15,000",
+            "text": "For protocols, exchanges, and regulated fintech.",
+            "featured": false,
+            "features": [
+              "Unlimited templates and collections",
+              "Localization and multi-market setup",
+              "API and product integrations",
+              "Security and compliance review before launch",
+              "Full AEO strategy",
+              "Timeline agreed in scope",
+              "60 days of post-launch support"
+            ],
+            "cta": "Book a scoping call"
+          }
+        ]
+      },
+      {
+        "label": "New site",
+        "plans": [
+          {
+            "name": "Launch site",
+            "pricePrefix": "",
+            "price": "$4,000",
+            "text": "A new site built right the first time.",
+            "featured": false,
+            "features": [
+              "Up to 6 pages",
+              "Design included: 1 direction, 2 rounds of changes",
+              "Mobile 90+ and AI-readable from day one",
+              "Forms and analytics connected",
+              "2–3 weeks"
+            ],
+            "cta": "Start the build"
+          },
+          {
+            "name": "Growth site",
+            "pricePrefix": "",
+            "price": "$9,000",
+            "text": "For teams that publish and need a CMS from the start.",
+            "featured": true,
+            "features": [
+              "Up to 15 pages plus CMS",
+              "Design included: 2 directions, 3 rounds of changes",
+              "CMS structure your marketing team runs alone",
+              "AEO structure built in",
+              "6–8 weeks"
+            ],
+            "cta": "Start the build"
+          }
+        ]
+      }
+    ],
+    "includedTitle": "Included in every project",
+    "included": [
+      "A URL inventory and redirect map, checked before the switch",
+      "A staging URL where you review everything first",
+      "Forms, analytics, and tracking connected and tested",
+      "Code and hosting on your accounts, not mine",
+      "Before and after reports with the raw Lighthouse data",
+      "The 90+ mobile guarantee"
+    ],
+    "excludedTitle": "Not included",
+    "excludedText": "New copywriting, rebranding or logo work, smart contracts and dApp functionality, translations, and third-party plans like hosting or CMS seats. I can bring in a specialist for any of these, quoted separately.",
+    "guaranteeTitle": "90+ on mobile, or I keep working for free.",
+    "guaranteeText": "Before kickoff we agree on the pages that matter most. At launch I measure them with Lighthouse on mobile. If any of them scores under 90, I keep working on it at no cost until it does.",
+    "guaranteeNote": "Excludes third-party scripts you choose to keep, such as chat widgets, heavy trackers, and embedded video players. I flag every one of them in the audit, with what it costs you in speed.",
+    "careTitle": "After launch",
+    "careText": "Your site stays fast after I hand it over. Care plans are available to every client once the project ships.",
+    "careLabel": "Care retainer",
+    "careName": "Care+",
+    "carePrice": "$1,500",
+    "carePeriod": "/ month",
+    "careFeatures": [
+      "Weekly reports and alerts when a score drops",
+      "Up to 12 hours of changes, new pages and sections included",
+      "A/B tests"
+    ],
+    "faqTitle": "Pricing questions, answered.",
+    "faq": [
+      {
+        "q": "Why do you price by templates instead of pages?",
+        "a": "Because templates are where the work is. Fifty pages built on five layouts take less time than ten pages with ten unique layouts. Content moves with scripts, so a blog with 300 posts costs the same as one with 30."
+      },
+      {
+        "q": "What if my site does not fit a package?",
+        "a": "Most sites land in one of them. If yours sits between two, the audit tells us which, and you get a fixed quote before anything starts. If it needs more, it goes into Protocol and gets scoped line by line."
+      },
+      {
+        "q": "Why Astro?",
+        "a": "Astro ships almost no JavaScript by default, so pages paint fast on a phone without a fight."
+      },
+      {
+        "q": "Will my Google rankings drop after the migration?",
+        "a": "Not when the redirect map holds. I keep every URL that earns traffic at the same path, diff the old and new sitemaps before the switch, and watch Search Console through the first month."
+      },
+      {
+        "q": "Can my marketing team still publish without a developer?",
+        "a": "Yes. We agree on the editing path, a headless CMS or structured content files, before I write the first component. Publishing without a ticket is a requirement, not an extra."
+      },
+      {
+        "q": "Do I own the code?",
+        "a": "Yes. The repository, the hosting, and the CMS sit on your accounts from day one. Nothing on the site needs me around to keep running."
+      },
+      {
+        "q": "What does hosting cost after I leave Webflow?",
+        "a": "For most marketing sites, close to nothing. A static Astro site runs on the free or entry tiers of Vercel, Netlify, or Cloudflare. A headless CMS can add a monthly fee, and I list it in the quote so there are no surprises."
+      }
+    ],
+    "ctaTitle": "Tell me about your site.",
+    "ctaText": "Send the URL and the part that bothers you. I reply within a day with what I would fix first and which package it lands in.",
+    "ctaButton": "Let’s talk"
+  },
   "servicePages": [
     {
       "slug": "performance-optimization",

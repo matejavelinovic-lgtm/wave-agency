@@ -1,0 +1,478 @@
+---
+/*
+ * /pricing/ — the packages, what every project includes, the guarantee, and
+ * the care retainer after launch.
+ *
+ * Every visible sentence lives in copy.pricing and renders inside a data-edit,
+ * same contract as every other page. The plans are indexed paths —
+ * `pricing.groups.0.plans.1.price` — so the ORDER of groups, plans and features
+ * is load bearing: reordering an array repoints every data-edit inside it.
+ */
+import Layout from '../layouts/Layout.astro';
+import { SITE_URL } from '../consts';
+import copy from '../content/copy.json';
+
+const { pricing } = copy;
+const url = `${SITE_URL}/pricing/`;
+
+/* "$15,000" → 15000. The copy carries the display string; schema wants a number. */
+const toNumber = (price: string) => Number(price.replace(/[^0-9.]/g, ''));
+
+/*
+ * One Offer per plan, plus the retainer, hung off the same Organization every
+ * other page references by @id. A plan with a prefix ("From $15,000") is a
+ * floor, not a price, so it says minPrice instead of claiming an exact figure.
+ */
+const offerCatalog = {
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  '@id': `${url}#offers`,
+  name: 'WaveWeb pricing',
+  url,
+  provider: { '@id': `${SITE_URL}/#organization` },
+  itemListElement: [
+    ...pricing.groups.flatMap((group) =>
+      group.plans.map((plan) => ({
+        '@type': 'Offer',
+        name: `${group.label}: ${plan.name}`,
+        description: plan.text,
+        url,
+        seller: { '@id': `${SITE_URL}/#organization` },
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'USD',
+          ...(plan.pricePrefix
+            ? { minPrice: toNumber(plan.price) }
+            : { price: toNumber(plan.price) }),
+        },
+      })),
+    ),
+    {
+      '@type': 'Offer',
+      name: pricing.careName,
+      description: pricing.careFeatures.join('. '),
+      url,
+      seller: { '@id': `${SITE_URL}/#organization` },
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: toNumber(pricing.carePrice),
+        priceCurrency: 'USD',
+        referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' },
+      },
+    },
+  ],
+};
+
+/* Same single source as the service pages: one list, read by people and crawlers. */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${url}#faq`,
+  mainEntity: pricing.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<Layout
+  title={pricing.metaTitle}
+  description={pricing.metaDescription}
+  breadcrumbs={[{ name: 'Pricing', path: '/pricing/' }]}
+>
+  <section class="svc-hero">
+    <div class="svc-hero-inner">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="crumb-link" href="/">Home</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <span class="crumb-here">Pricing</span>
+      </nav>
+      <span class="svc-eyebrow" data-edit="pricing.eyebrow">{pricing.eyebrow}</span>
+      <h1 class="svc-title">
+        <span data-edit="pricing.titleStart">{pricing.titleStart}</span>{' '}
+        <span class="svc-title-em" data-edit="pricing.titleAccent">{pricing.titleAccent}</span>{' '}
+        <span data-edit="pricing.titleEnd">{pricing.titleEnd}</span>
+      </h1>
+      <p class="svc-subtitle" data-edit="pricing.subtitle">{pricing.subtitle}</p>
+    </div>
+  </section>
+
+  <div class="seam-to-light"></div>
+
+  <section class="price-plans" id="plans">
+    <div class="price-plans-inner">
+      {/*
+        Tabs, with a no-JavaScript fallback: the second panel ships with hidden
+        so the page paints at its final height, and the noscript rule below
+        drops the switcher and shows every group under its own heading instead.
+      */}
+      <div class="price-tabs" role="tablist" aria-label="Project type">
+        {pricing.groups.map((group, g) => (
+          <button
+            class="price-tab"
+            type="button"
+            role="tab"
+            id={`price-tab-${g}`}
+            aria-controls={`price-panel-${g}`}
+            aria-selected={g === 0 ? 'true' : 'false'}
+            tabindex={g === 0 ? 0 : -1}
+          >
+            {/* data-edit on a span, not the button — same as .faq-question-text,
+                so typing a space in the editor does not click the tab. */}
+            <span data-edit={`pricing.groups.${g}.label`}>{group.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {pricing.groups.map((group, g) => (
+        <div
+          class="price-panel"
+          id={`price-panel-${g}`}
+          role="tabpanel"
+          aria-labelledby={`price-tab-${g}`}
+          hidden={g !== 0}
+        >
+          <h2 class="price-group-title">{group.label}</h2>
+          <div class="price-grid">
+            {group.plans.map((plan, p) => {
+              const base = `pricing.groups.${g}.plans.${p}`;
+              return (
+                <article class:list={['price-card', { 'is-featured': plan.featured }]}>
+                  <div class="price-card-head">
+                    <h3 class="price-name" data-edit={`${base}.name`}>{plan.name}</h3>
+                    {plan.featured && (
+                      <span class="price-badge" data-edit="pricing.badge">{pricing.badge}</span>
+                    )}
+                  </div>
+                  <p class="price-amount">
+                    {plan.pricePrefix && (
+                      <span class="price-prefix" data-edit={`${base}.pricePrefix`}>
+                        {plan.pricePrefix}
+                      </span>
+                    )}
+                    <span data-edit={`${base}.price`}>{plan.price}</span>
+                  </p>
+                  <p class="price-text" data-edit={`${base}.text`}>{plan.text}</p>
+                  <ul class="price-features">
+                    {plan.features.map((feature, f) => (
+                      <li class="price-feature" data-edit={`${base}.features.${f}`}>{feature}</li>
+                    ))}
+                  </ul>
+                  {/* The form lives on the homepage, same as every other CTA. */}
+                  <a
+                    class={plan.featured ? 'btn-primary' : 'btn-secondary'}
+                    href="/#contact"
+                    data-edit={`${base}.cta`}
+                  >
+                    {plan.cta}
+                  </a>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+
+      <noscript>
+        {/* is:inline keeps these rules inside the noscript, same as the FAQ. */}
+        <style is:inline>
+          .price-tabs { display: none; }
+          .price-panel[hidden] { display: block; margin-top: 64px; }
+          .price-group-title {
+            position: static; width: auto; height: auto; margin: 0 0 28px;
+            overflow: visible; clip: auto; white-space: normal;
+            font-size: 26px; font-weight: 700; color: var(--text-on-light);
+          }
+        </style>
+      </noscript>
+    </div>
+  </section>
+
+  <div class="seam-to-dark"></div>
+
+  <section class="price-terms">
+    <div class="price-terms-inner">
+      <div class="price-included">
+        <h2 class="price-terms-title" data-edit="pricing.includedTitle">{pricing.includedTitle}</h2>
+        <ul class="price-included-list">
+          {pricing.included.map((item, i) => (
+            <li class="price-included-item" data-edit={`pricing.included.${i}`}>{item}</li>
+          ))}
+        </ul>
+      </div>
+      <div class="price-excluded">
+        <h2 class="price-terms-title" data-edit="pricing.excludedTitle">{pricing.excludedTitle}</h2>
+        <p class="price-excluded-text" data-edit="pricing.excludedText">{pricing.excludedText}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="price-guarantee">
+    <div class="price-guarantee-inner">
+      <h2 class="price-guarantee-title" data-edit="pricing.guaranteeTitle">{pricing.guaranteeTitle}</h2>
+      <p class="price-guarantee-text" data-edit="pricing.guaranteeText">{pricing.guaranteeText}</p>
+      <p class="price-guarantee-note" data-edit="pricing.guaranteeNote">{pricing.guaranteeNote}</p>
+    </div>
+  </section>
+
+  <div class="seam-to-light"></div>
+
+  <section class="price-care">
+    <div class="price-care-inner">
+      <div class="price-care-head">
+        <h2 class="section-title" data-edit="pricing.careTitle">{pricing.careTitle}</h2>
+        <p class="price-care-text" data-edit="pricing.careText">{pricing.careText}</p>
+      </div>
+      <div class="price-care-card">
+        <span class="price-care-label" data-edit="pricing.careLabel">{pricing.careLabel}</span>
+        <div class="price-card-head">
+          <h3 class="price-name" data-edit="pricing.careName">{pricing.careName}</h3>
+        </div>
+        <p class="price-amount">
+          <span data-edit="pricing.carePrice">{pricing.carePrice}</span>
+          <span class="price-period" data-edit="pricing.carePeriod">{pricing.carePeriod}</span>
+        </p>
+        <ul class="price-features">
+          {pricing.careFeatures.map((feature, i) => (
+            <li class="price-feature" data-edit={`pricing.careFeatures.${i}`}>{feature}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="svc-faq-inner">
+      <h2 class="section-title" data-edit="pricing.faqTitle">{pricing.faqTitle}</h2>
+      <div class="faq-list">
+        {pricing.faq.map((item, i) => (
+          <div class="faq-item">
+            <button
+              class="faq-question"
+              type="button"
+              id={`faq-trigger-${i}`}
+              aria-expanded="false"
+              aria-controls={`faq-panel-${i}`}
+            >
+              <span class="faq-question-text" data-edit={`pricing.faq.${i}.q`}>{item.q}</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div
+              class="faq-panel"
+              id={`faq-panel-${i}`}
+              role="region"
+              aria-labelledby={`faq-trigger-${i}`}
+            >
+              <div class="faq-panel-clip">
+                <p class="faq-answer" data-edit={`pricing.faq.${i}.a`}>{item.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <noscript>
+        <style is:inline>
+          .faq-panel { grid-template-rows: 1fr; visibility: visible; }
+          .faq-icon { display: none; }
+        </style>
+      </noscript>
+    </div>
+  </section>
+
+  <div class="seam-to-dark"></div>
+
+  <section class="svc-cta" id="svc-cta">
+    <div class="svc-cta-inner">
+      <h2 class="svc-cta-title" data-edit="pricing.ctaTitle">{pricing.ctaTitle}</h2>
+      <p class="svc-cta-text" data-edit="pricing.ctaText">{pricing.ctaText}</p>
+      <a class="btn-primary" href="/#contact" data-edit="pricing.ctaButton">{pricing.ctaButton}</a>
+      <div class="svc-siblings">
+        <span class="svc-siblings-label">Services</span>
+        {copy.servicePages.map((page) => (
+          <a class="svc-sibling" href={`/${page.slug}/`}>{page.crumb}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(offerCatalog)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+  <script>
+    // Plan tabs. Arrow keys move between tabs and select as they go, Home and
+    // End jump to the ends — the WAI-ARIA tabs pattern with automatic activation.
+    const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.price-tab'));
+
+    function selectTab(next: HTMLButtonElement) {
+      tabs.forEach((tab) => {
+        const selected = tab === next;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        const panel = document.getElementById(tab.getAttribute('aria-controls') ?? '');
+        if (panel) panel.hidden = !selected;
+      });
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', (event) => {
+        const last = tabs.length - 1;
+        const target =
+          event.key === 'ArrowRight' ? tabs[i === last ? 0 : i + 1]
+          : event.key === 'ArrowLeft' ? tabs[i === 0 ? last : i - 1]
+          : event.key === 'Home' ? tabs[0]
+          : event.key === 'End' ? tabs[last]
+          : null;
+        if (!target) return;
+        event.preventDefault();
+        selectTab(target);
+        target.focus();
+      });
+    });
+  </script>
+
+  <script>
+    // Same accordion as every other FAQ: one panel open at a time.
+    const faqItems = Array.from(document.querySelectorAll('.faq-item'));
+
+    faqItems.forEach((item) => {
+      const trigger = item.querySelector('.faq-question');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', () => {
+        const willOpen = !item.classList.contains('is-open');
+
+        faqItems.forEach((other) => {
+          other.classList.remove('is-open');
+          other.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
+        });
+
+        if (willOpen) {
+          item.classList.add('is-open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+
+  <script>
+    // Same motion contract as every other page: GSAP and Lenis load only on a
+    // pointer-capable screen that has not asked for reduced motion. The plan
+    // cards are left out on purpose — the hidden panel has no box for a
+    // ScrollTrigger to measure, and its cards would stay at opacity 0 the first
+    // time someone switched to it. .price-panel fades in from CSS instead.
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isSmallScreen = window.matchMedia('(max-width: 900px)').matches;
+
+    if (!prefersReducedMotion && !isSmallScreen) {
+      const [{ gsap }, { ScrollTrigger }, { default: Lenis }] = await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+        import('lenis'),
+      ]);
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const lenis = new Lenis({ duration: 0.9, smoothWheel: true });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+
+      // No upward y-offset on the header: it sits at the top of the document,
+      // and translating it from a negative y opens scrollable space above y=0.
+      gsap.from('.site-header', { opacity: 0, duration: 0.7, ease: 'power2.out' });
+      gsap.from('.nav-link, .nav-cta', {
+        y: 10,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.06,
+        delay: 0.25,
+        ease: 'power2.out',
+      });
+
+      gsap
+        .timeline({ defaults: { ease: 'power3.out' } })
+        .from('.crumbs', { y: 12, opacity: 0, duration: 0.5 }, 0.1)
+        .from('.svc-eyebrow', { y: 16, opacity: 0, duration: 0.6 }, 0.2)
+        .from('.svc-title', { y: 34, opacity: 0, duration: 0.85 }, 0.32)
+        .from('.svc-subtitle', { y: 20, opacity: 0, duration: 0.7 }, 0.55)
+        .from('.price-tabs', { y: 16, opacity: 0, duration: 0.6 }, 0.7);
+
+      gsap.from(['.price-included', '.price-excluded'], {
+        scrollTrigger: { trigger: '.price-terms', start: 'top 78%' },
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: 'power3.out',
+      });
+
+      gsap.from(['.price-guarantee-title', '.price-guarantee-text', '.price-guarantee-note'], {
+        scrollTrigger: { trigger: '.price-guarantee', start: 'top 78%' },
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.from(['.price-care-head', '.price-care-card'], {
+        scrollTrigger: { trigger: '.price-care', start: 'top 78%' },
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.faq .section-title', {
+        scrollTrigger: { trigger: '.faq', start: 'top 78%' },
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.faq-item', {
+        scrollTrigger: { trigger: '.faq-list', start: 'top 82%' },
+        y: 20,
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.07,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.svc-cta-inner', {
+        scrollTrigger: { trigger: '.svc-cta', start: 'top 78%' },
+        scale: 0.97,
+        duration: 0.9,
+        ease: 'power3.out',
+      });
+
+      gsap.from(['.svc-cta-title', '.svc-cta-text', '.svc-cta .btn-primary', '.svc-siblings'], {
+        scrollTrigger: { trigger: '.svc-cta', start: 'top 75%' },
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.footer-inner', {
+        scrollTrigger: { trigger: '.site-footer', start: 'top 92%' },
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power3.out',
+      });
+
+      // Fonts and images finishing late leave Lenis and ScrollTrigger holding
+      // stale bounds. Recompute once everything has settled.
+      window.addEventListener('load', () => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+      });
+    }
+  </script>
+</Layout>
