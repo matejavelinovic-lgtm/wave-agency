@@ -605,7 +605,7 @@ section {
 /* ── Founder ─────────────────────────────────────────────────────── */
 .founder {
   background: var(--bg-dark);
-  padding: 56px 28px 56px;
+  padding: 96px 28px 108px;
 }
 
 .founder-inner {
@@ -818,7 +818,7 @@ section {
 /* ── Services ────────────────────────────────────────────────────── */
 .services {
   background: var(--bg-light);
-  padding: 56px 28px 56px;
+  padding: 96px 28px 100px;
 }
 
 .services-inner {
@@ -930,7 +930,7 @@ section {
 /* ── Process ─────────────────────────────────────────────────────── */
 .process {
   background: var(--bg-dark);
-  padding: 56px 28px 56px;
+  padding: 100px 28px 104px;
 }
 
 .process-inner {
@@ -1771,7 +1771,7 @@ section {
 /* ── Problem reel ────────────────────────────────────────────────── */
 .preel {
   background: var(--bg-light);
-  padding: 56px 28px 56px;
+  padding: 72px 28px 96px;
 }
 
 .preel-inner {
@@ -2122,7 +2122,7 @@ section {
 /* ── Contact ─────────────────────────────────────────────────────── */
 .contact {
   background: var(--bg-dark);
-  padding: 56px 28px 56px;
+  padding: 100px 28px 110px;
 }
 
 .contact-inner {
@@ -4127,7 +4127,7 @@ section {
   }
 
   .hero {
-    padding: 56px 20px 72px;
+    padding: 64px 20px 64px;
   }
 
   .hero-title {
@@ -4157,11 +4157,23 @@ section {
   }
 
   .faq {
-  padding: 56px 20px 56px;
-}
+    padding: 64px 20px 64px;
+  }
 
   .faq-question-text {
     font-size: 17px;
+  }
+
+  /* Every section is 64px top and bottom on a phone. These five set no other
+     phone padding, so only the vertical sides change and their 28px gutters
+     stay as they are. */
+  .founder,
+  .services,
+  .process,
+  .preel,
+  .contact {
+    padding-top: 64px;
+    padding-bottom: 64px;
   }
 
   .form-row {
@@ -4185,7 +4197,7 @@ section {
   }
 
   .svc-hero {
-    padding: 40px 20px 64px;
+    padding: 64px 20px 64px;
   }
 
   .svc-title {
@@ -4200,8 +4212,7 @@ section {
   .svc-works,
   .svc-proof,
   .svc-cta {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 64px 20px;
   }
 
   .svc-works-title {
@@ -4216,8 +4227,7 @@ section {
   .price-terms,
   .price-guarantee,
   .price-care {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 64px 20px;
   }
 
   /* Full width, halves of equal size: "Migration out of Webflow" wraps to two
@@ -4250,15 +4260,20 @@ section {
 
   .blog-hero,
   .post-hero {
-    padding: 40px 20px 56px;
+    padding: 64px 20px 64px;
   }
 
   .blog-list-section,
   .post-body-section,
-  .post-faq,
   .post-nav {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 64px 20px;
+  }
+
+  /* Takes back the top padding, as .post-faq does above: the article section
+     right over it already ends in 64px. This also has to follow .faq in this
+     block, which would otherwise hand it 64px on top. */
+  .post-faq {
+    padding: 8px 20px 64px;
   }
 
   .post-takeaways {
