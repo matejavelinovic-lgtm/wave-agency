@@ -2,6 +2,11 @@
 // Site header / navigation. Every element carries a semantic class defined in
 // src/styles/main.css — click any of them in the visual editor to edit its rule.
 import { SITE_NAME } from '../consts';
+import copy from '../content/copy.json';
+
+// Trailing slash included, matching the hrefs below, so the service page you
+// are on can mark its own entry in the menu.
+const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 ---
 
 <header class="site-header">
@@ -11,7 +16,37 @@ import { SITE_NAME } from '../consts';
       <span class="nav-wordmark">{SITE_NAME}</span>
     </a>
     <div class="nav-links">
-      <a class="nav-link" href="/#services">Services</a>
+      {/*
+        The menu opens on hover and on focus, in CSS alone: tabbing onto
+        Services opens it, and the next Tab walks into its links. The link
+        itself still goes to the homepage section, so a touch screen that never
+        hovers loses nothing. The caret sits outside the link because the
+        letter scramble below rewrites the link's whole text content.
+        Entries come from servicePages, like the footer's.
+      */}
+      <div class="nav-item">
+        <a class="nav-link" href="/#services">Services</a>
+        <span class="nav-caret" aria-hidden="true"></span>
+        <div class="nav-menu">
+          <ul class="nav-menu-list">
+            {
+              copy.servicePages.map((page, i) => (
+                <li class="nav-menu-item">
+                  <a
+                    class="nav-menu-link"
+                    href={`/${page.slug}/`}
+                    aria-current={path === `/${page.slug}/` ? 'page' : undefined}
+                  >
+                    <span class="nav-menu-index">0{i + 1}</span>
+                    <span class="nav-menu-label">{page.crumb}</span>
+                    <span class="nav-menu-arrow" aria-hidden="true" />
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
       <a class="nav-link" href="/pricing/">Pricing</a>
       <a class="nav-link" href="/#process">Process</a>
       <a class="nav-link" href="/#faq">FAQ</a>

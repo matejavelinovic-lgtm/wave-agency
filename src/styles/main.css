@@ -188,6 +188,150 @@ section {
   font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
 }
 
+/* ── Services menu ───────────────────────────────────────────────── */
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-caret {
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--text-on-dark-muted);
+  border-bottom: 1.5px solid var(--text-on-dark-muted);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.2s ease;
+  pointer-events: none;
+}
+
+.nav-item:hover .nav-caret,
+.nav-item:focus-within .nav-caret {
+  border-color: var(--accent);
+  transform: translateY(1px) rotate(225deg);
+}
+
+/*
+ * The padding-top is a bridge, not spacing you can see: it fills the gap
+ * between the link and the panel, so the cursor travelling down to the panel
+ * never leaves .nav-item and the menu does not close under it. On close,
+ * visibility waits for the fade to finish, and a hidden menu's links drop out
+ * of the tab order.
+ */
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 30;
+  padding-top: 22px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 8px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s linear 0.3s;
+}
+
+.nav-item:hover .nav-menu,
+.nav-item:focus-within .nav-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  transition:
+    opacity 0.2s ease,
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s;
+}
+
+.nav-menu-list {
+  list-style: none;
+  width: 320px;
+  margin: 0;
+  padding: 8px;
+  background: var(--block);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 20px) 0,
+    calc(100% - 20px) 10px,
+    calc(100% - 10px) 10px,
+    calc(100% - 10px) 20px,
+    100% 20px,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* The entries follow the panel in one after another. */
+.nav-menu-item {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nav-item:hover .nav-menu-item,
+.nav-item:focus-within .nav-menu-item {
+  opacity: 1;
+  transform: none;
+}
+
+.nav-menu-item:nth-child(2) {
+  transition-delay: 0.05s;
+}
+
+.nav-menu-item:nth-child(3) {
+  transition-delay: 0.1s;
+}
+
+.nav-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  outline: none;
+  transition: background 0.15s ease;
+}
+
+.nav-menu-link:hover,
+.nav-menu-link:focus-visible {
+  background: var(--block-strong);
+}
+
+.nav-menu-index {
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.nav-menu-label {
+  flex: 1;
+}
+
+.nav-menu-link[aria-current='page'] .nav-menu-label {
+  color: var(--accent);
+}
+
+.nav-menu-arrow {
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  opacity: 0;
+  transform: rotate(45deg) translate(-3px, 3px);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-menu-link:hover .nav-menu-arrow,
+.nav-menu-link:focus-visible .nav-menu-arrow {
+  opacity: 1;
+  transform: rotate(45deg);
+}
+
 .nav-cta {
   position: relative;
   background: var(--accent);
@@ -3974,6 +4118,11 @@ section {
   }
 
   .nav-link {
+    display: none;
+  }
+
+  /* The text links are gone at this width; the caret and menu go with them. */
+  .nav-item {
     display: none;
   }
 
