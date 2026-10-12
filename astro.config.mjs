@@ -30,4 +30,17 @@ export default defineConfig({
     '/webflow-migration': '/',
   },
   integrations: [sitemap(), copyEditor()],
+  /*
+   * Ship Studio keeps a live Chromium profile for its thumbnails under
+   * .shipstudio/. Watching it exhausts file handles (EMFILE) and trips over
+   * the browser's locked cookie and session files (EBUSY), which stops the dev
+   * server from reading src/pages at all. Nothing in there is source.
+   */
+  vite: {
+    server: {
+      watch: {
+        ignored: ['**/.shipstudio/**'],
+      },
+    },
+  },
 });
