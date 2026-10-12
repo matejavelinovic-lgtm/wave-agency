@@ -110,32 +110,36 @@
     "text": "The questions teams ask most, answered without the sales detour.",
     "items": [
       {
-        "q": "Do you build websites from scratch?",
-        "a": "Yes. If you have nothing yet, or a landing page holding the spot, I build the site from the ground up in Astro, and it ships fast on a phone and readable to an AI on day one. Most of my work is still sites that already exist and underperform, and that experience is what a new build gets you."
+        "q": "Why should my marketing team care about Astro instead of a traditional page builder like WordPress or Webflow?",
+        "a": "Astro ships almost no JavaScript by default, so pages load fast and score well on Core Web Vitals. For marketing teams, that means better rankings, lower bounce rates, and higher conversion rates from the same traffic. You get the speed of a hand-coded site without giving up flexibility."
       },
       {
-        "q": "What PageSpeed score should my Web3 site have?",
-        "a": "90 or above on mobile. Most Web3 landing pages I audit score between 40 and 65. The causes repeat: uncompressed hero video, wallet connect scripts loading before anything renders, animation libraries pulled in on every page. All three get fixed without touching the design."
+        "q": "Will my team still be able to edit content without a developer?",
+        "a": "Yes. Astro pairs with headless CMS options like Sanity, Contentful or Storyblok. Your team edits copy, images, and landing pages in a familiar interface, and the site rebuilds automatically. Developers are only needed for new components or structural changes."
       },
       {
-        "q": "What is AEO and how does it differ from SEO?",
-        "a": "SEO puts you in Google’s ranked list. AEO gets you quoted inside the answer that ChatGPT, Perplexity, and Google AI Overviews write. The work overlaps, though AEO leans harder on structured data, semantic HTML, and content shaped so a model can lift a clean answer out of it."
+        "q": "How does Astro help with SEO and AI search visibility (AEO)?",
+        "a": "Astro renders clean, fully static HTML that search engines and AI crawlers can read instantly, with no client-side rendering delays. Combined with structured data, semantic markup, and well-organized content, your pages are far more likely to be indexed, cited in AI answers, and surfaced in featured snippets."
       },
       {
-        "q": "What do you build in?",
-        "a": "Astro, every time. It serves finished HTML and loads JavaScript only where a page actually needs it, so a site starts fast instead of being tuned fast later. I use Ship Studio with Claude Code on top of it, which gives your team a visual editor without giving up a codebase you own outright."
+        "q": "How long does an Astro website project take?",
+        "a": "A typical marketing site takes 3 to 4 weeks, depending on the number of pages, custom components, and CMS complexity. A focused landing page or microsite can be live in 1 to 2 weeks. We share a clear timeline upfront, with milestones you can review along the way."
       },
       {
-        "q": "Can my team still edit the site without a developer?",
-        "a": "Yes. Content lives in a CMS or in structured files, and Ship Studio adds a visual editor on top of Astro, so your team changes text and images by clicking. We agree on that editing path on the first call, before any of the build starts."
+        "q": "Can Astro integrate with our existing marketing stack?",
+        "a": "Absolutely. Astro works with Google Analytics, GTM, HubSpot, Segment, Meta Pixel, Hotjar, and most A/B testing tools. We set up tracking and event measurement during the build, so your campaigns are measurable from day one."
       },
       {
-        "q": "Will migrating my site hurt my rankings?",
-        "a": "Not when the redirect map holds. Ranking drops after migration trace back to broken URLs, dropped metadata, and pages that vanish without a replacement. I map every existing URL before anything moves, keep the structure that earns traffic, and watch Search Console through the first month."
+        "q": "Is Astro suitable for large or growing sites?",
+        "a": "Yes. Astro handles anything from a five-page brand site to thousands of content pages, including blogs, docs, and programmatic SEO pages. Because pages are pre-built and served from a CDN, performance stays consistent as traffic and content scale."
       },
       {
-        "q": "Who does the work?",
-        "a": "I do. WaveWeb stays small on purpose, so you talk to the person writing the code instead of an account manager passing messages along. When a project needs a designer or a second developer, I bring one in and keep responsibility for the result."
+        "q": "What happens after launch? Do you offer ongoing support?",
+        "a": "Yes. We offer maintenance and iterative optimization after launch, from monthly Core Web Vitals audits to new landing pages and A/B test support. You’re never left with a site nobody understands."
+      },
+      {
+        "q": "How much do Astro development services cost compared to other options?",
+        "a": "Pricing depends on scope, but Astro projects often cost less to run over time: hosting is cheap or free, there are no plugin licenses, and maintenance overhead is low. We provide a fixed-scope quote after a short discovery call, so there are no surprises."
       }
     ]
   },
