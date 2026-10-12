@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import ProblemReel from '../components/ProblemReel.astro';
 import { SITE_URL, SITE_NAME, PERSON, PERSON_PHOTO } from '../consts';
 import copy from '../content/copy.json';
 
@@ -12,7 +13,7 @@ import copy from '../content/copy.json';
  * a data-edit pointing at it — text hardcoded in the markup below is text
  * nobody can edit in the browser.
  */
-const { hero, proof, problem, services, founder, faq, contact } = copy;
+const { hero, proof, services, founder, faq, contact } = copy;
 const steps = copy.process.steps;
 
 const scope = ['DeFi', 'Exchanges', 'Wallets', 'RWA', 'Payments', 'Neobanks', 'Trading platforms'];
@@ -155,23 +156,7 @@ const faqSchema = {
 
   <div class="seam-to-light"></div>
 
-  <section class="problem" id="problem">
-    <div class="problem-inner">
-      <div class="problem-title-col">
-        <h2 class="problem-title" data-edit="problem.title">{problem.title}</h2>
-      </div>
-      <div class="problem-deck">
-        {
-          problem.cards.map((p, i) => (
-            <div class="problem-card">
-              <h3 class="problem-card-title" data-edit={`problem.cards.${i}.title`}>{p.title}</h3>
-              <p class="problem-card-text" data-edit={`problem.cards.${i}.text`}>{p.text}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <ProblemReel />
 
   <section class="services" id="services">
     <div class="services-inner">
@@ -577,6 +562,16 @@ const faqSchema = {
         opacity: 0,
         duration: 0.6,
         stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      // ── Problem ─────────────────────────────────────────────────
+      gsap.from('.preel-panel', {
+        scrollTrigger: { trigger: '.preel-track', start: 'top 80%' },
+        y: 44,
+        opacity: 0,
+        duration: 0.65,
+        stagger: 0.08,
         ease: 'power3.out',
       });
 

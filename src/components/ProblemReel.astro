@@ -1,0 +1,88 @@
+---
+import ProblemScene from './ProblemScene.astro';
+import copy from '../content/copy.json';
+
+/*
+ * Problem section: the four cards as one row of panels. One panel
+ * is open at a time with its scene playing; the rest fold down to their number
+ * and a sideways title. Hover, focus or a click opens a panel, and otherwise
+ * the row moves on by itself, one panel per scene loop.
+ *
+ * Below 900px, and without JavaScript, every panel is open and they stack, so
+ * no card's text is ever behind an interaction.
+ */
+const { problem } = copy;
+---
+
+<section class="preel" id="problem">
+  <div class="preel-inner">
+    <h2 class="preel-title" data-edit="problem.title">{problem.title}</h2>
+    <div class="preel-track">
+      {
+        problem.cards.map((p, i) => (
+          <article class:list={['preel-panel', { 'is-active': i === 0 }]} tabindex="0">
+            <span class="preel-timer" />
+            <div class="preel-content">
+              <ProblemScene index={i} />
+              <span class="preel-index">CASE_0{i + 1}</span>
+              <h3 class="preel-panel-title" data-edit={`problem.cards.${i}.title`}>{p.title}</h3>
+              <p class="preel-panel-text" data-edit={`problem.cards.${i}.text`}>{p.text}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <noscript>
+      {/* is:inline keeps these rules inside the noscript; see the FAQ. */}
+      <style is:inline>
+        .preel-track { display: grid; grid-template-columns: repeat(2, 1fr); height: auto; }
+        .preel-content { width: auto; }
+        .preel-panel:not(.is-active) .scene,
+        .preel-panel:not(.is-active) .preel-panel-text { display: block; }
+        .preel-panel:not(.is-active) .preel-panel-title { writing-mode: horizontal-tb; transform: none; margin: 10px 22px; font-size: 22px; }
+        .preel-timer { display: none; }
+      </style>
+    </noscript>
+  </div>
+</section>
+
+<script>
+  const track = document.querySelector<HTMLElement>('.preel-track');
+
+  if (track) {
+    const panels = Array.from(track.querySelectorAll<HTMLElement>('.preel-panel'));
+
+    const open = (panel: HTMLElement) => {
+      if (panel.classList.contains('is-active')) return;
+      panels.forEach((p) => p.classList.toggle('is-active', p === panel));
+    };
+
+    panels.forEach((panel) => {
+      panel.addEventListener('mouseenter', () => {
+        // Opening panels under a moving cursor would yank text out from under
+        // the dev-only copy editor; a click still opens one while it is on.
+        if ((window as any).__copyEditing) return;
+        open(panel);
+      });
+      panel.addEventListener('focusin', () => open(panel));
+      panel.addEventListener('click', () => open(panel));
+    });
+
+    // The timer bar's own 6s animation is the clock: when it finishes, the
+    // next panel opens. CSS pauses the bar while the cursor is over the row,
+    // hides it below 900px and under reduced motion, and in each of those cases
+    // it never ends, so the row never moves on by itself.
+    track.addEventListener('animationend', (event) => {
+      if (!(event.target as Element).classList.contains('preel-timer')) return;
+      if ((window as any).__copyEditing) return;
+      const current = panels.findIndex((p) => p.classList.contains('is-active'));
+      open(panels[(current + 1) % panels.length]);
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        track.classList.toggle('is-paused', !entry.isIntersecting);
+      }).observe(track);
+    }
+  }
+</script>

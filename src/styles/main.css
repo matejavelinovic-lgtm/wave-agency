@@ -990,91 +990,813 @@ section {
   }
 }
 
-/* ── Problem ─────────────────────────────────────────────────────── */
-.problem {
-  background: var(--bg-light);
-  padding: 72px 28px 76px;
+/* ── Problem scenes ──────────────────────────────────────────────── */
+/*
+ * Every scene runs on one 6s cycle, and every moving part inside a scene uses
+ * that same length. Parts with the same period never drift apart, so a stagger
+ * written as animation-delay holds for as long as the loop runs. The catch is
+ * that a delayed part also resets late, so every part is hidden for the last
+ * 16% of the cycle (0.96s), longer than any delay below, and the late reset
+ * always happens out of sight. A new delay above 0.9s breaks that.
+ *
+ * Base styles, outside the keyframes, are each scene's finished frame. That is
+ * what reduced motion shows, and it still tells the card's story on its own.
+ */
+.scene {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+  background-image:
+    linear-gradient(rgba(237, 237, 230, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(237, 237, 230, 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+  font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  color: var(--text-on-dark);
 }
 
-.problem-inner {
+.scene.is-paused * {
+  animation-play-state: paused;
+}
+
+.scene-tag {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+}
+
+/* Scene 1, slow load: the clock counts to 4.1s while the bar crawls, then the
+   visitor taps back and the page goes dark before it ever finished. */
+.scene-slow {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  animation: scene-slow-leave 6s infinite;
+}
+
+.scene-slow-clock {
+  display: block;
+  height: 1.15em;
+  overflow: hidden;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--accent);
+}
+
+.scene-slow-digits {
+  display: block;
+  transform: translateY(-4.6em);
+  animation: scene-slow-count 6s infinite;
+}
+
+.scene-slow-digit {
+  display: block;
+  height: 1.15em;
+}
+
+/* Ten cells drawn as one background tile at 10% wide, so each step of the fill
+   below uncovers exactly one cell at any width. */
+.scene-slow-track {
+  position: relative;
+  display: block;
+  width: 62%;
+  height: 14px;
+  background-image: linear-gradient(90deg, rgba(237, 237, 230, 0.12) 0 78%, transparent 78% 100%);
+  background-size: 10% 100%;
+}
+
+.scene-slow-fill {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(90deg, var(--accent) 0 78%, transparent 78% 100%);
+  background-size: 10% 100%;
+  clip-path: inset(0 20% 0 0);
+  animation: scene-slow-fill 6s infinite;
+}
+
+.scene-slow-exit {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--accent);
+  animation: scene-slow-exit 6s infinite;
+}
+
+@keyframes scene-slow-leave {
+  0% {
+    opacity: 0;
+  }
+  3%,
+  82% {
+    opacity: 1;
+  }
+  84%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scene-slow-count {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: steps(4, end);
+  }
+  66%,
+  100% {
+    transform: translateY(-4.6em);
+  }
+}
+
+@keyframes scene-slow-fill {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    animation-timing-function: steps(8, end);
+  }
+  66%,
+  100% {
+    clip-path: inset(0 20% 0 0);
+  }
+}
+
+@keyframes scene-slow-exit {
+  0%,
+  68% {
+    opacity: 0;
+  }
+  69% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 0;
+  }
+  74%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Scene 2, invisible to AI: the question types out, the answer lists three
+   other names, and the scan passes over your site without picking it up. */
+.scene-chat {
+  position: absolute;
+  inset: 40px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ch is safe here, unlike in the text measures up top: the scene is set in a
+   monospace face, and 29ch is the prompt's own 29 characters. */
+.scene-chat-ask {
+  display: block;
+  width: 29ch;
+  margin-bottom: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 13px;
+  animation: scene-chat-type 6s infinite;
+}
+
+.scene-chat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: scene-chat-row 6s infinite both;
+}
+
+.scene-chat-row:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.scene-chat-row:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.scene-chat-mark {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(237, 237, 230, 0.14);
+}
+
+.scene-chat-bar {
+  display: block;
+  width: 58%;
+  height: 8px;
+  background: rgba(237, 237, 230, 0.4);
+}
+
+.scene-chat-row:nth-child(3) .scene-chat-bar {
+  width: 70%;
+}
+
+.scene-chat-row:nth-child(4) .scene-chat-bar {
+  width: 46%;
+}
+
+.scene-chat-you {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: var(--accent);
+  border: 1px dashed rgba(239, 237, 144, 0.55);
+  opacity: 0.45;
+  animation: scene-chat-you 6s infinite;
+}
+
+/* A full-height beam whose bottom edge is the scan line, slid down by its own
+   height: the trail fades in behind the line with no second element. */
+.scene-chat-scan {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0 55%,
+    rgba(239, 237, 144, 0.1) 98%,
+    rgba(239, 237, 144, 0.7) 98% 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+  animation: scene-chat-scan 6s infinite;
+}
+
+@keyframes scene-chat-type {
+  0% {
+    width: 0;
+    opacity: 1;
+    animation-timing-function: steps(29, end);
+  }
+  24%,
+  82% {
+    width: 29ch;
+    opacity: 1;
+  }
+  84%,
+  100% {
+    width: 29ch;
+    opacity: 0;
+  }
+}
+
+@keyframes scene-chat-row {
+  0%,
+  26% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  32%,
+  82% {
+    opacity: 1;
+    transform: none;
+  }
+  84%,
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+@keyframes scene-chat-you {
+  0%,
+  48% {
+    opacity: 0;
+  }
+  52% {
+    opacity: 0.9;
+  }
+  56% {
+    opacity: 0.25;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  64% {
+    opacity: 0.25;
+  }
+  68% {
+    opacity: 0.7;
+  }
+  72%,
+  82% {
+    opacity: 0.3;
+  }
+  84%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scene-chat-scan {
+  0%,
+  40% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  42% {
+    opacity: 1;
+  }
+  74% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80%,
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
+/* Scene 3, vibe coded: blocks land one on another a little off true, the stack
+   wobbles under the weight and topples. */
+.scene-stack {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 4px;
+  transform: rotate(4deg);
+  transform-origin: 65% 100%;
+  animation: scene-stack-buckle 6s infinite;
+}
+
+/* The offsets ride on left, not transform, because transform belongs to the
+   drop animation. */
+.scene-stack-block {
+  position: relative;
+  display: block;
+  width: 44%;
+  height: 16px;
+  background: var(--block);
+  box-shadow: inset 0 0 0 1px rgba(237, 237, 230, 0.22);
+  animation: scene-stack-drop 6s infinite both;
+}
+
+.scene-stack-block:nth-child(2) {
+  width: 38%;
+  left: 7px;
+  animation-delay: 0.2s;
+}
+
+.scene-stack-block:nth-child(3) {
+  width: 42%;
+  left: -9px;
+  animation-delay: 0.4s;
+}
+
+.scene-stack-block:nth-child(4) {
+  width: 32%;
+  left: 12px;
+  animation-delay: 0.6s;
+}
+
+.scene-stack-block:nth-child(5) {
+  width: 24%;
+  left: 3px;
+  background: var(--accent);
+  animation-delay: 0.8s;
+}
+
+.scene-stack-err {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--accent);
+  animation: scene-stack-err 6s infinite;
+}
+
+@keyframes scene-stack-buckle {
+  0%,
+  46% {
+    opacity: 1;
+    transform: none;
+  }
+  50% {
+    transform: rotate(-1.5deg);
+  }
+  54% {
+    transform: rotate(2deg);
+  }
+  58% {
+    transform: rotate(-2.5deg);
+  }
+  62% {
+    transform: rotate(3.5deg);
+  }
+  68% {
+    opacity: 1;
+    transform: rotate(8deg) translate(6px, 2px);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
+  }
+  78%,
+  100% {
+    opacity: 0;
+    transform: rotate(28deg) translate(40px, 50px);
+  }
+}
+
+@keyframes scene-stack-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-90px);
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+  8%,
+  82% {
+    opacity: 1;
+    transform: none;
+  }
+  84%,
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+@keyframes scene-stack-err {
+  0%,
+  58% {
+    opacity: 0;
+  }
+  59% {
+    opacity: 1;
+  }
+  62% {
+    opacity: 0;
+  }
+  64% {
+    opacity: 1;
+  }
+  67% {
+    opacity: 0;
+  }
+  69%,
+  82% {
+    opacity: 1;
+  }
+  84%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Scene 4, no site yet: a cursor blinks on an empty domain, then the page
+   builds itself one block at a time and goes live. */
+.scene-build {
+  position: absolute;
+  inset: 40px 26px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scene-build-nav {
+  display: block;
+  height: 8px;
+  background: rgba(237, 237, 230, 0.22);
+  transform-origin: left center;
+  animation: scene-build-in 6s infinite both;
+}
+
+.scene-build-hero {
+  display: block;
+  width: 64%;
+  height: 22px;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: scene-build-in 6s 0.2s infinite both;
+}
+
+.scene-build-line {
+  display: block;
+  width: 42%;
+  height: 8px;
+  background: rgba(237, 237, 230, 0.4);
+  transform-origin: left center;
+  animation: scene-build-in 6s 0.35s infinite both;
+}
+
+.scene-build-cols {
+  display: flex;
+  flex: 1;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.scene-build-col {
+  flex: 1;
+  background: rgba(237, 237, 230, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(237, 237, 230, 0.14);
+  transform-origin: left center;
+  animation: scene-build-in 6s 0.5s infinite both;
+}
+
+.scene-build-col:nth-child(2) {
+  animation-delay: 0.65s;
+}
+
+.scene-build-col:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+/* step-end holds each keyframe until the next one, so the cursor blinks hard
+   on and off instead of fading. */
+.scene-build-caret {
+  position: absolute;
+  top: 40px;
+  left: 26px;
+  width: 10px;
+  height: 18px;
+  background: var(--accent);
+  opacity: 0;
+  animation: scene-build-caret 6s step-end infinite;
+}
+
+.scene-build-live {
+  position: absolute;
+  top: 9px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(239, 237, 144, 0.5);
+  animation: scene-build-live 6s infinite;
+}
+
+.scene-build-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+@keyframes scene-build-in {
+  0%,
+  20% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  21% {
+    opacity: 1;
+  }
+  28%,
+  82% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  84%,
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes scene-build-caret {
+  0% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0;
+  }
+  19% {
+    opacity: 1;
+  }
+  21%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scene-build-live {
+  0%,
+  50% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  54% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  58%,
+  82% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  84%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* ── Problem reel ────────────────────────────────────────────────── */
+.preel {
+  background: var(--bg-light);
+  padding: 72px 28px 96px;
+}
+
+.preel-inner {
   max-width: var(--maxw);
   margin: 0 auto;
-  display: flex;
-  gap: 64px;
 }
 
-.problem-title {
-  position: sticky;
-  top: 120px;
-  font-size: 36px;
+.preel-title {
+  font-size: 38px;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--text-on-light);
-  margin: 0;
-  max-width: 9.3em;
+  margin: 0 0 44px;
+  max-width: 13.28em;
   line-height: 1.2;
 }
 
-.problem-title-col {
-  flex: 0.9;
-}
-
-.problem-deck {
-  flex: 1.1;
+/* A container, so .preel-content can size itself off the track's width. */
+.preel-track {
+  container-type: inline-size;
   display: flex;
-  flex-direction: column;
+  gap: 12px;
+  height: 580px;
 }
 
-.problem-card {
-  position: sticky;
-  top: 120px;
-  padding: 32px 30px;
+.preel-panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--block-strong);
   color: var(--text-on-dark);
-  background: var(--block);
+  cursor: pointer;
+  outline: none;
   clip-path: polygon(
     0 0,
-    calc(100% - 28px) 0,
-    calc(100% - 28px) 14px,
-    calc(100% - 14px) 14px,
-    calc(100% - 14px) 28px,
-    100% 28px,
+    calc(100% - 32px) 0,
+    calc(100% - 32px) 16px,
+    calc(100% - 16px) 16px,
+    calc(100% - 16px) 32px,
+    100% 32px,
     100% 100%,
     0 100%
   );
+  transition: flex-grow 0.7s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
 }
 
-.problem-card:nth-child(1) {
+.preel-panel:hover {
+  background: var(--block);
+}
+
+/* The clip-path would cut an outline off, so focus draws inside the edge. */
+.preel-panel:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.preel-panel.is-active {
+  flex-grow: 3.4;
+  background: var(--block);
+  cursor: default;
+}
+
+/*
+ * Always as wide as an open panel: the open panel's share of the track (3.4 of
+ * 6.4 flex units, after the three 12px gaps). The panel grows over a content
+ * box that never changes width, so its edge wipes the scene and text into view
+ * instead of the text re-wrapping on every frame of the transition.
+ */
+.preel-content {
+  display: flex;
+  flex-direction: column;
+  width: calc((100cqw - 36px) * 3.4 / 6.4);
+  height: 100%;
+}
+
+.preel-panel:not(.is-active) .scene {
+  display: none;
+}
+
+.preel-timer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
 }
 
-.problem-card:nth-child(2) {
-  z-index: 2;
-  margin-top: 32vh;
+.preel-panel.is-active .preel-timer {
+  animation: preel-timer 6s linear forwards;
 }
 
-.problem-card:nth-child(3) {
-  z-index: 3;
-  margin-top: 32vh;
+.preel-track:hover .preel-timer,
+.preel-track.is-paused .preel-timer {
+  animation-play-state: paused;
 }
 
-.problem-card:nth-child(4) {
-  z-index: 4;
-  margin-top: 32vh;
+.preel-index {
+  display: block;
+  margin: 22px 22px 0;
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
 }
 
-.problem-card-title {
-  font-size: 19px;
+/* Folded: the title runs up the panel's spine, reading bottom to top. */
+.preel-panel-title {
+  align-self: flex-start;
+  margin: auto 22px 26px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.01em;
-  margin: 0 0 10px;
+  line-height: 1.2;
+  animation: preel-spine-in 0.5s 0.15s both;
 }
 
-.problem-card-text {
+.preel-panel.is-active .preel-panel-title {
+  margin: 10px 22px;
+  writing-mode: horizontal-tb;
+  transform: none;
+  font-size: 22px;
+  animation: preel-text-in 0.5s 0.2s both;
+}
+
+.preel-panel-text {
   font-size: 15px;
   color: rgba(237, 237, 230, 0.78);
-  margin: 0;
+  margin: 0 22px 28px;
   max-width: 27.89em;
   line-height: 1.3;
+  animation: preel-text-in 0.5s 0.3s both;
+}
+
+.preel-panel:not(.is-active) .preel-panel-text {
+  display: none;
+}
+
+@keyframes preel-timer {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Two keyframes with the same frames on purpose: a title that changes state
+   changes animation-name, and only a new name restarts the fade. */
+@keyframes preel-spine-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes preel-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ── FAQ ─────────────────────────────────────────────────────────── */
@@ -3034,6 +3756,25 @@ section {
   .price-panel {
     animation: none;
   }
+
+  /* Each scene falls back to its finished frame; see Problem scenes. */
+  .scene * {
+    animation: none;
+  }
+
+  .preel-panel {
+    transition: none;
+  }
+
+  .preel-panel-title,
+  .preel-panel-text {
+    animation: none;
+  }
+
+  /* No timer, no animationend, no auto-advance: panels open on hover only. */
+  .preel-timer {
+    display: none;
+  }
 }
 
 /* ── Responsive (one breakpoint set; mirror rules above) ─────────── */
@@ -3078,26 +3819,50 @@ section {
     animation-name: chain-draw-v;
   }
 
-  .problem-inner {
+  /* At phone width 16:9 leaves the chat scene too short for its last line. Not
+     min-height: with an aspect-ratio set, a minimum height becomes a minimum
+     width too (220px is 391px wide at 16:9) and the page scrolls sideways. The
+     calc is 16:9 of the column, 100vw less the section's two 28px gutters. */
+  .scene {
+    aspect-ratio: auto;
+    height: max(220px, calc((100vw - 56px) * 0.5625));
+  }
+
+  /* The reel unfolds into a plain stack: every panel open, nothing behind a
+     hover a phone does not have, and no timer to move it on. */
+  .preel-track {
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
+    height: auto;
   }
 
-  .problem-title {
-    position: static;
+  .preel-panel {
+    flex: none;
+    cursor: default;
   }
 
-  .problem-card {
-    position: static;
-    top: auto;
-    margin-bottom: 20px;
+  .preel-content {
+    width: auto;
+    height: auto;
   }
 
-  .problem-card:nth-child(2),
-  .problem-card:nth-child(3),
-  .problem-card:nth-child(4) {
-    margin-top: 0;
-    margin-bottom: 20px;
+  .preel-panel:not(.is-active) .scene {
+    display: block;
+  }
+
+  .preel-timer {
+    display: none;
+  }
+
+  .preel-panel-title {
+    margin: 10px 22px;
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 22px;
+  }
+
+  .preel-panel:not(.is-active) .preel-panel-text {
+    display: block;
   }
 
   .faq-inner {

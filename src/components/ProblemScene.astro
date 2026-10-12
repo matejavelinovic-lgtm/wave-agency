@@ -1,0 +1,116 @@
+---
+/*
+ * The looping scene at the top of each problem card. Card i in
+ * copy.json's problem.cards gets scene i, so the order here follows the order
+ * there: slow load, invisible to AI, vibe coded and broken, no site yet.
+ *
+ * Pure CSS, no library: nothing to download, and phones get the scenes too,
+ * unlike the GSAP entrances. Every word in here is part of the drawing, not
+ * copy, so it stays out of copy.json and the whole scene is aria-hidden. The
+ * rules and keyframes live under "Problem scenes" in main.css.
+ */
+interface Props {
+  index: number;
+}
+
+const { index } = Astro.props;
+const kind = ['slow', 'unseen', 'broken', 'blank'][index];
+---
+
+<div class="scene" aria-hidden="true">
+  {
+    kind === 'slow' && (
+      <>
+        <span class="scene-tag">LCP</span>
+        <div class="scene-slow">
+          <span class="scene-slow-clock">
+            <span class="scene-slow-digits">
+              <span class="scene-slow-digit">0.0s</span>
+              <span class="scene-slow-digit">1.0s</span>
+              <span class="scene-slow-digit">2.0s</span>
+              <span class="scene-slow-digit">3.0s</span>
+              <span class="scene-slow-digit">4.1s</span>
+            </span>
+          </span>
+          <span class="scene-slow-track">
+            <span class="scene-slow-fill" />
+          </span>
+          <span class="scene-slow-exit">&larr; back</span>
+        </div>
+      </>
+    )
+  }
+  {
+    kind === 'unseen' && (
+      <>
+        <span class="scene-tag">AI answer</span>
+        <div class="scene-chat">
+          <span class="scene-chat-ask">&gt; fastest fintech web agency?</span>
+          <span class="scene-chat-row">
+            <span class="scene-chat-mark">A</span>
+            <span class="scene-chat-bar" />
+          </span>
+          <span class="scene-chat-row">
+            <span class="scene-chat-mark">B</span>
+            <span class="scene-chat-bar" />
+          </span>
+          <span class="scene-chat-row">
+            <span class="scene-chat-mark">C</span>
+            <span class="scene-chat-bar" />
+          </span>
+          <span class="scene-chat-you">your site &middot; not cited</span>
+        </div>
+        <span class="scene-chat-scan" />
+      </>
+    )
+  }
+  {
+    kind === 'broken' && (
+      <>
+        <span class="scene-tag">Build</span>
+        <div class="scene-stack">
+          <span class="scene-stack-block" />
+          <span class="scene-stack-block" />
+          <span class="scene-stack-block" />
+          <span class="scene-stack-block" />
+          <span class="scene-stack-block" />
+        </div>
+        <span class="scene-stack-err">ERR 500</span>
+      </>
+    )
+  }
+  {
+    kind === 'blank' && (
+      <>
+        <span class="scene-tag">Domain</span>
+        <div class="scene-build">
+          <span class="scene-build-nav" />
+          <span class="scene-build-hero" />
+          <span class="scene-build-line" />
+          <span class="scene-build-cols">
+            <span class="scene-build-col" />
+            <span class="scene-build-col" />
+            <span class="scene-build-col" />
+          </span>
+        </div>
+        <span class="scene-build-caret" />
+        <span class="scene-build-live">
+          <span class="scene-build-dot" />
+          live
+        </span>
+      </>
+    )
+  }
+</div>
+
+<script>
+  // A scene off screen is a loop nobody watches, so it holds still until it
+  // scrolls back into view. A scene inside a collapsed reel panel is
+  // display:none and never intersects, which pauses it the same way.
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-paused', !entry.isIntersecting));
+    });
+    document.querySelectorAll('.scene').forEach((scene) => observer.observe(scene));
+  }
+</script>
