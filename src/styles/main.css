@@ -605,7 +605,7 @@ section {
 /* ── Founder ─────────────────────────────────────────────────────── */
 .founder {
   background: var(--bg-dark);
-  padding: 96px 28px 108px;
+  padding: 56px 28px 56px;
 }
 
 .founder-inner {
@@ -818,7 +818,7 @@ section {
 /* ── Services ────────────────────────────────────────────────────── */
 .services {
   background: var(--bg-light);
-  padding: 96px 28px 100px;
+  padding: 56px 28px 56px;
 }
 
 .services-inner {
@@ -843,7 +843,7 @@ section {
   color: var(--text-on-light);
   margin: 0 0 18px;
   max-width: 13.28em;
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .section-subtitle {
@@ -930,7 +930,7 @@ section {
 /* ── Process ─────────────────────────────────────────────────────── */
 .process {
   background: var(--bg-dark);
-  padding: 100px 28px 104px;
+  padding: 56px 28px 56px;
 }
 
 .process-inner {
@@ -1771,7 +1771,7 @@ section {
 /* ── Problem reel ────────────────────────────────────────────────── */
 .preel {
   background: var(--bg-light);
-  padding: 72px 28px 96px;
+  padding: 56px 28px 56px;
 }
 
 .preel-inner {
@@ -1786,7 +1786,7 @@ section {
   color: var(--text-on-light);
   margin: 0 0 44px;
   max-width: 13.28em;
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 /* A container, so .preel-content can size itself off the track's width. */
@@ -2122,7 +2122,7 @@ section {
 /* ── Contact ─────────────────────────────────────────────────────── */
 .contact {
   background: var(--bg-dark);
-  padding: 100px 28px 110px;
+  padding: 56px 28px 56px;
 }
 
 .contact-inner {
@@ -4157,8 +4157,8 @@ section {
   }
 
   .faq {
-    padding: 56px 20px 64px;
-  }
+  padding: 56px 20px 56px;
+}
 
   .faq-question-text {
     font-size: 17px;
