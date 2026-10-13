@@ -122,6 +122,10 @@
         "a": "Astro renders clean, fully static HTML that search engines and AI crawlers can read instantly, with no client-side rendering delays. Combined with structured data, semantic markup, and well-organized content, your pages are far more likely to be indexed, cited in AI answers, and surfaced in featured snippets."
       },
       {
+        "q": "Will I lose my SEO rankings when I leave Webflow or Wordpress?",
+        "a": "Not if the migration is done properly. We keep your URL structure, set up 301 redirects wherever URLs change, and carry over meta tags, schema, and sitemaps. We also monitor indexing and rankings after launch to catch any issues early. In many cases, performance improves after the move."
+      },
+      {
         "q": "How long does an Astro website project take?",
         "a": "A typical marketing site takes 3 to 4 weeks, depending on the number of pages, custom components, and CMS complexity. A focused landing page or microsite can be live in 1 to 2 weeks. We share a clear timeline upfront, with milestones you can review along the way."
       },
@@ -496,8 +500,20 @@
           "a": "The opposite. Structured data, fast pages and clear answers are what classic SEO has asked for all along. AEO is that same work, aimed at a reader that happens to be a model."
         },
         {
-          "q": "How long before it shows up?",
-          "a": "Weeks, not days. Models refresh their view of the web on their own schedule, and a brand new domain waits longer than an established one."
+          "q": "How long does it take to see results?",
+          "a": "Technical fixes and structured data can be picked up within weeks, while building lasting authority and citations usually takes a few months. Timelines vary by industry, competition, and how much content needs work, and we’ll give you a realistic outlook after the audit."
+        },
+        {
+          "q": "Does site speed and performance affect AEO?",
+          "a": "Yes. Fast, clean, well-structured pages are easier for crawlers to access and process, and they give users a better experience too. That’s why I combine AEO with web performance optimization instead of treating them separately."
+        },
+        {
+          "q": "Will AEO work for a Web3 or fintech company?",
+          "a": "Yes, and these industries benefit a lot from it. Buyers in Web3 and fintech research heavily and often ask AI tools to explain products, compare options, and assess credibility. Clear, accurate, trustworthy content helps you show up in those conversations, while staying within the compliance expectations of your industry."
+        },
+        {
+          "q": "How do I get started?",
+          "a": "Book a call and I’ll review your current site, see how AI tools currently talk about your brand, and outline a clear plan with priorities and next steps."
         }
       ],
       "ctaTitle": "Ask a model about your category.",
@@ -575,8 +591,20 @@
           "a": "Yes, and it is a requirement rather than an extra. We agree on the editing path — a headless CMS or structured content files — before I write the first component."
         },
         {
-          "q": "What happens to my Webflow CMS content?",
-          "a": "It comes with you. Collections export cleanly, and I map every field onto whatever replaces it."
+          "q": "Will I lose my SEO rankings when I leave Webflow?",
+          "a": "Not if the migration is done properly. I keep your URL structure, set up 301 redirects wherever URLs change, and carry over meta tags, schema, and sitemaps. I also monitor indexing and rankings after launch to catch any issues early. In many cases, performance improves after the move."
+        },
+        {
+          "q": "What happens to my CMS content and blog posts?",
+          "a": "I export your CMS collections and migrate them to the new setup, whether that’s a headless CMS, a database, or a code-based content system. Your posts, images, and metadata move over intact, and your team gets an editing experience that suits your workflow."
+        },
+        {
+          "q": "Will there be any downtime during the migration?",
+          "a": "No. I build and test everything on a staging environment, then switch over at the DNS level once everything is verified. That keeps downtime close to zero."
+        },
+        {
+          "q": "What about my forms, integrations, and third-party tools?",
+          "a": "I rebuild and reconnect your forms, analytics, CRM, email tools, and any other integrations, then test each one before launch so no leads or data get lost."
         }
       ],
       "ctaTitle": "Send me your Webflow URL.",
