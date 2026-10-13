@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/webflow-migration",
+      "destination": "/migration-out-of-webflow/",
+      "statusCode": 301
+    },
+    {
+      "source": "/webflow-migration/",
+      "destination": "/migration-out-of-webflow/",
+      "statusCode": 301
+    }
+  ]
+}

@@ -123,15 +123,15 @@
       },
       {
         "q": "Will I lose my SEO rankings when I leave Webflow or Wordpress?",
-        "a": "Not if the migration is done properly. We keep your URL structure, set up 301 redirects wherever URLs change, and carry over meta tags, schema, and sitemaps. We also monitor indexing and rankings after launch to catch any issues early. In many cases, performance improves after the move."
+        "a": "Not if the migration is done properly. I keep your URL structure, set up 301 redirects wherever URLs change, and carry over meta tags, schema, and sitemaps. I also monitor indexing and rankings after launch to catch any issues early. In many cases, performance improves after the move."
       },
       {
         "q": "How long does an Astro website project take?",
-        "a": "A typical marketing site takes 3 to 4 weeks, depending on the number of pages, custom components, and CMS complexity. A focused landing page or microsite can be live in 1 to 2 weeks. We share a clear timeline upfront, with milestones you can review along the way."
+        "a": "A typical marketing site takes 3 to 4 weeks, depending on the number of pages, custom components, and CMS complexity. A focused landing page or microsite can be live in 1 to 2 weeks. I share a clear timeline upfront, with milestones you can review along the way."
       },
       {
         "q": "Can Astro integrate with our existing marketing stack?",
-        "a": "Absolutely. Astro works with Google Analytics, GTM, HubSpot, Segment, Meta Pixel, Hotjar, and most A/B testing tools. We set up tracking and event measurement during the build, so your campaigns are measurable from day one."
+        "a": "Absolutely. Astro works with Google Analytics, GTM, HubSpot, Segment, Meta Pixel, Hotjar, and most A/B testing tools. I set up tracking and event measurement during the build, so your campaigns are measurable from day one."
       },
       {
         "q": "Is Astro suitable for large or growing sites?",
@@ -139,11 +139,11 @@
       },
       {
         "q": "What happens after launch? Do you offer ongoing support?",
-        "a": "Yes. We offer maintenance and iterative optimization after launch, from monthly Core Web Vitals audits to new landing pages and A/B test support. You’re never left with a site nobody understands."
+        "a": "Yes. I offer maintenance and iterative optimization after launch, from monthly Core Web Vitals audits to new landing pages and A/B test support. You’re never left with a site nobody understands."
       },
       {
         "q": "How much do Astro development services cost compared to other options?",
-        "a": "Pricing depends on scope, but Astro projects often cost less to run over time: hosting is cheap or free, there are no plugin licenses, and maintenance overhead is low. We provide a fixed-scope quote after a short discovery call, so there are no surprises."
+        "a": "Pricing depends on scope, but Astro projects often cost less to run over time: hosting is cheap or free, there are no plugin licenses, and maintenance overhead is low. I provide a fixed-scope quote after a short discovery call, so there are no surprises."
       }
     ]
   },
@@ -189,7 +189,7 @@
     "faqTitle": "Questions, answered."
   },
   "pricing": {
-    "metaTitle": "Pricing: fixed prices for Astro builds and Webflow migrations | WaveWeb",
+    "metaTitle": "Pricing: Astro builds and Webflow migrations | WaveWeb",
     "metaDescription": "Fixed prices, agreed before I start. Migrations out of Webflow from $5,000 and new Astro sites from $4,000, priced by templates and integrations, not page count.",
     "eyebrow": "Pricing",
     "titleStart": "Fixed prices, agreed",
@@ -501,7 +501,7 @@
         },
         {
           "q": "How long does it take to see results?",
-          "a": "Technical fixes and structured data can be picked up within weeks, while building lasting authority and citations usually takes a few months. Timelines vary by industry, competition, and how much content needs work, and we’ll give you a realistic outlook after the audit."
+          "a": "Technical fixes and structured data can be picked up within weeks, while building lasting authority and citations usually takes a few months. Timelines vary by industry, competition, and how much content needs work, and I’ll give you a realistic outlook after the audit."
         },
         {
           "q": "Does site speed and performance affect AEO?",

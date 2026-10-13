@@ -22,13 +22,10 @@ export default defineConfig({
    */
   site: 'https://www.waveweb.agency',
   /*
-   * The Webflow migration page is retired: the site sells Astro only. Anyone
-   * arriving on the old URL from a search result or a shared link lands on the
-   * homepage instead of a 404.
+   * Redirects live in vercel.json, not here. Astro's `redirects` on a static
+   * build emits an HTML page with a meta refresh, which a crawler has to read
+   * and interpret; Vercel answers with a real 301 before any file is served.
    */
-  redirects: {
-    '/webflow-migration': '/',
-  },
   integrations: [sitemap(), copyEditor()],
   /*
    * Ship Studio keeps a live Chromium profile for its thumbnails under
