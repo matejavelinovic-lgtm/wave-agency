@@ -1,0 +1,330 @@
+---
+/*
+ * /astro-quiz/ — fifteen questions in two parts, scored on two axes, ending on
+ * one of four recommendations.
+ *
+ * Everything the quiz says and scores lives in src/data/astro-quiz.json, not
+ * copy.json: the questions are data the scoring reads, so nothing here carries
+ * a data-edit. Every screen renders at build time, hidden but the first; the
+ * script below only shows and hides them. It reads the points, maximums,
+ * thresholds and match rules off data attributes, so the JSON reaches the page
+ * once, as markup, and never ships again inside the bundle.
+ */
+import Layout from '../layouts/Layout.astro';
+import quiz from '../data/astro-quiz.json';
+
+const totalQuestions = quiz.parts.reduce((sum, part) => sum + part.questions.length, 0);
+
+/* Display names for the two scores, in the order the result shows them. */
+const meters = [
+  { key: 'need', label: 'Migration need', ...quiz.scoring.need },
+  { key: 'complexity', label: 'Migration complexity', ...quiz.scoring.complexity },
+] as const;
+
+/* Sorted here so the script can take the first maxShown matches in DOM order. */
+const flags = [...quiz.flags.items].sort((a, b) => a.priority - b.priority);
+---
+
+<Layout
+  title={`${quiz.title} | WaveWeb`}
+  description={quiz.subtitle}
+  breadcrumbs={[{ name: 'Astro quiz', path: '/astro-quiz/' }]}
+>
+  <section class="svc-hero">
+    <div class="svc-hero-inner">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="crumb-link" href="/">Home</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <span class="crumb-here">Astro quiz</span>
+      </nav>
+      <span class="svc-eyebrow">Astro readiness quiz</span>
+      <h1 class="svc-title">{quiz.title}</h1>
+      <p class="svc-subtitle">{quiz.subtitle}</p>
+    </div>
+  </section>
+
+  <div class="seam-to-light"></div>
+
+  <section class="quiz" id="quiz">
+    <div class="quiz-inner">
+      <div class="quiz-card" data-total={totalQuestions}>
+        <div class="quiz-top">
+          <p class="quiz-count" aria-live="polite">Question 1 of {totalQuestions}</p>
+          {/* One segment per part, so the split in the file is the split you see. */}
+          <div
+            class="quiz-progress"
+            role="progressbar"
+            aria-label="Quiz progress"
+            aria-valuemin="0"
+            aria-valuemax={totalQuestions}
+            aria-valuenow="0"
+          >
+            {quiz.parts.map(() => (
+              <span class="quiz-progress-part">
+                <span class="quiz-progress-fill"></span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {quiz.parts.map((part, p) => (
+          <>
+            {p > 0 && (
+              <div class="quiz-step" data-kind="intro" data-part={p} hidden>
+                <p class="quiz-part">Part {p} of {quiz.parts.length} done</p>
+                <h2 class="quiz-heading" tabindex="-1">Next: {part.title}</h2>
+                <p class="quiz-intro-text">
+                  {part.questions.length} more questions, then your result.
+                </p>
+                <button class="form-submit" type="button" data-continue>Continue</button>
+              </div>
+            )}
+            {part.questions.map((q, i) => (
+              <div
+                class="quiz-step"
+                data-kind="question"
+                data-part={p}
+                data-question={q.id}
+                hidden={p !== 0 || i !== 0}
+              >
+                <p class="quiz-part">
+                  Part {p + 1} of {quiz.parts.length} · {part.title}
+                </p>
+                <div class="quiz-prompt">
+                  <h2 class="quiz-heading" id={`quiz-${q.id}`} tabindex="-1">{q.question}</h2>
+                  {q.helper && <p class="quiz-helper">{q.helper}</p>}
+                </div>
+                <div class="quiz-answers" role="group" aria-labelledby={`quiz-${q.id}`}>
+                  {q.answers.map((a) => (
+                    <button
+                      class="quiz-answer"
+                      type="button"
+                      aria-pressed="false"
+                      data-answer={a.id}
+                      data-need={a.need}
+                      data-complexity={a.complexity}
+                    >
+                      {a.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </>
+        ))}
+
+        <div class="quiz-step" data-kind="result" hidden>
+          <p class="quiz-part">Your result</p>
+          <div class="quiz-meters">
+            {meters.map((m) => (
+              <div class="quiz-meter" data-score={m.key} data-max={m.max} data-threshold={m.threshold}>
+                <div class="quiz-meter-head">
+                  <span class="quiz-meter-label">{m.label}</span>
+                  <span class="quiz-meter-value">0%</span>
+                  <span class="quiz-meter-level">Low</span>
+                </div>
+                <div class="quiz-meter-track" aria-hidden="true">
+                  <span class="quiz-meter-fill"></span>
+                  <span class="quiz-meter-mark"></span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p class="quiz-meter-note">The line on each bar marks where a score counts as high.</p>
+
+          {quiz.results.map((r) => (
+            <div class="quiz-result" data-result={r.id} data-when={JSON.stringify(r.when)} hidden>
+              <span class="quiz-result-label">{r.label}</span>
+              <h2 class="quiz-result-headline" tabindex="-1">{r.headline}</h2>
+              <p class="quiz-result-body">{r.body}</p>
+              {/* The script adds the two percents to this link once it has them. */}
+              <a class="btn-primary" href={`/book-a-call/?result=${r.id}`}>{r.cta}</a>
+              {'ctaNote' in r && r.ctaNote && <p class="quiz-result-note">{r.ctaNote}</p>}
+            </div>
+          ))}
+
+          <ul class="quiz-flags" data-max-shown={quiz.flags.maxShown} hidden>
+            {flags.map((f) => (
+              <li class="quiz-flag" data-when={JSON.stringify(f.when)} hidden>{f.message}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="quiz-nav">
+          <button class="quiz-text-btn" type="button" data-back hidden>← Back</button>
+          <button class="quiz-text-btn" type="button" data-restart hidden>Retake the quiz</button>
+        </div>
+
+        <noscript>
+          <p class="quiz-noscript">The quiz needs JavaScript to score your answers. Turn it on and reload the page.</p>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-to-dark"></div>
+
+  <script>
+    // One screen at a time: each answer records its points and moves on, Back
+    // steps one screen back, and the last answer scores the lot. The markup is
+    // the data — see the note at the top of the frontmatter.
+    const card = document.querySelector<HTMLElement>('.quiz-card')!;
+    const steps = Array.from(card.querySelectorAll<HTMLElement>('.quiz-step'));
+    const questionSteps = steps.filter((step) => step.dataset.kind === 'question');
+    const parts = Array.from(card.querySelectorAll<HTMLElement>('.quiz-progress-fill'));
+    const progress = card.querySelector<HTMLElement>('.quiz-progress')!;
+    const top = card.querySelector<HTMLElement>('.quiz-top')!;
+    const count = card.querySelector<HTMLElement>('.quiz-count')!;
+    const back = card.querySelector<HTMLButtonElement>('[data-back]')!;
+    const restart = card.querySelector<HTMLButtonElement>('[data-restart]')!;
+    const meters = Array.from(card.querySelectorAll<HTMLElement>('.quiz-meter'));
+    const results = Array.from(card.querySelectorAll<HTMLElement>('.quiz-result'));
+    const flagList = card.querySelector<HTMLElement>('.quiz-flags')!;
+    const flags = Array.from(card.querySelectorAll<HTMLElement>('.quiz-flag'));
+    const total = questionSteps.length;
+
+    /* Question id → the button picked for it. */
+    const picked = new Map<string, HTMLButtonElement>();
+    let current = 0;
+
+    meters.forEach((meter) => {
+      const mark = meter.querySelector<HTMLElement>('.quiz-meter-mark')!;
+      mark.style.left = `${meter.dataset.threshold}%`;
+    });
+
+    function updateProgress(index: number) {
+      const step = steps[index];
+      // Questions before this screen are the ones answered.
+      const answered = questionSteps.filter((q) => steps.indexOf(q) < index).length;
+      progress.setAttribute('aria-valuenow', String(answered));
+
+      parts.forEach((fill, p) => {
+        const inPart = questionSteps.filter((q) => q.dataset.part === String(p));
+        const done = inPart.filter((q) => steps.indexOf(q) < index).length;
+        fill.style.transform = `scaleX(${done / inPart.length})`;
+      });
+
+      if (step.dataset.kind === 'question') {
+        count.textContent = `Question ${questionSteps.indexOf(step) + 1} of ${total}`;
+      } else if (step.dataset.kind === 'intro') {
+        count.textContent = `${answered} of ${total} answered`;
+      }
+    }
+
+    function show(index: number) {
+      steps[current].hidden = true;
+      steps[index].hidden = false;
+      current = index;
+
+      const step = steps[index];
+      const isResult = step.dataset.kind === 'result';
+      top.hidden = isResult;
+      back.hidden = index === 0 || isResult;
+      restart.hidden = !isResult;
+      updateProgress(index);
+
+      // The sticky header would cover the top of the card, hence scroll-margin
+      // on .quiz-card. Only scroll when the card's top has gone off screen.
+      if (card.getBoundingClientRect().top < 0) card.scrollIntoView({ block: 'start' });
+
+      const heading = isResult
+        ? results.find((r) => !r.hidden)?.querySelector<HTMLElement>('.quiz-result-headline')
+        : step.querySelector<HTMLElement>('.quiz-heading');
+      heading?.focus({ preventScroll: true });
+    }
+
+    function matches(when: Record<string, string | string[]>, values: Record<string, string>) {
+      return Object.entries(when).every(([key, want]) =>
+        Array.isArray(want) ? want.includes(values[key]) : values[key] === want,
+      );
+    }
+
+    function score() {
+      const levels: Record<string, string> = {};
+      const percents: Record<string, number> = {};
+
+      meters.forEach((meter) => {
+        const key = meter.dataset.score!;
+        const max = Number(meter.dataset.max);
+        const threshold = Number(meter.dataset.threshold);
+        let points = 0;
+        picked.forEach((button) => (points += Number(button.dataset[key] ?? 0)));
+
+        const percent = Math.round((points / max) * 100);
+        const level = percent >= threshold ? 'high' : 'low';
+        levels[key] = level;
+        percents[key] = percent;
+
+        meter.querySelector('.quiz-meter-value')!.textContent = `${percent}%`;
+        meter.querySelector('.quiz-meter-level')!.textContent = level === 'high' ? 'High' : 'Low';
+        const fill = meter.querySelector<HTMLElement>('.quiz-meter-fill')!;
+        fill.style.transform = 'scaleX(0)';
+        // Two frames: the first paints the empty bar, the second lets it grow.
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => {
+            fill.style.transform = `scaleX(${Math.min(percent, 100) / 100})`;
+          }),
+        );
+      });
+
+      results.forEach((r) => (r.hidden = true));
+      const result = results.find((r) => matches(JSON.parse(r.dataset.when!), levels));
+      if (result) {
+        result.hidden = false;
+        // /book-a-call/ shows these above the calendar and passes the result on.
+        const cta = result.querySelector<HTMLAnchorElement>('.btn-primary')!;
+        const href = new URL(cta.href);
+        Object.entries(percents).forEach(([key, value]) => href.searchParams.set(key, String(value)));
+        cta.href = href.pathname + href.search;
+      }
+
+      const answers: Record<string, string> = {};
+      picked.forEach((button, id) => (answers[id] = button.dataset.answer!));
+      const maxShown = Number(flagList.dataset.maxShown);
+      let shown = 0;
+      flags.forEach((flag) => {
+        const visible = shown < maxShown && matches(JSON.parse(flag.dataset.when!), answers);
+        flag.hidden = !visible;
+        if (visible) shown += 1;
+      });
+      flagList.hidden = shown === 0;
+    }
+
+    questionSteps.forEach((step) => {
+      const id = step.dataset.question!;
+      const buttons = Array.from(step.querySelectorAll<HTMLButtonElement>('.quiz-answer'));
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const index = steps.indexOf(step);
+          // A second click during the pause must not skip the next question.
+          if (current !== index) return;
+
+          picked.set(id, button);
+          buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+
+          // A beat on the chosen answer before the next screen replaces it.
+          window.setTimeout(() => {
+            if (current !== index) return;
+            if (steps[index + 1].dataset.kind === 'result') score();
+            show(index + 1);
+          }, 180);
+        });
+      });
+    });
+
+    card.querySelectorAll('[data-continue]').forEach((button) =>
+      button.addEventListener('click', () => show(current + 1)),
+    );
+
+    back.addEventListener('click', () => {
+      if (current > 0) show(current - 1);
+    });
+
+    restart.addEventListener('click', () => {
+      picked.clear();
+      card.querySelectorAll('.quiz-answer').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      show(0);
+    });
+  </script>
+</Layout>

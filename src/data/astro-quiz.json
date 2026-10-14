@@ -1,0 +1,230 @@
+{
+  "title": "Is your site ready to migrate to Astro?",
+  "subtitle": "15 questions, about 3 minutes. Get your Migration Need and Migration Complexity scores with a clear recommendation.",
+  "scoring": {
+    "need": { "max": 21, "threshold": 40 },
+    "complexity": { "max": 24, "threshold": 40 },
+    "formula": "percent = round(points / max * 100); high if percent >= threshold"
+  },
+  "parts": [
+    {
+      "id": "part-1",
+      "title": "Your site today",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which platform is your website built on?",
+          "answers": [
+            { "id": "webflow", "label": "Webflow", "need": 0, "complexity": 1 },
+            { "id": "framer", "label": "Framer", "need": 0, "complexity": 1 },
+            { "id": "wordpress", "label": "WordPress", "need": 0, "complexity": 2 },
+            { "id": "wix-squarespace", "label": "Wix or Squarespace", "need": 0, "complexity": 2 },
+            { "id": "other", "label": "Something else", "need": 0, "complexity": 2 }
+          ]
+        },
+        {
+          "id": "q2",
+          "question": "What role does your website play in your business?",
+          "answers": [
+            { "id": "business-card", "label": "A digital business card, few people visit it", "need": 0, "complexity": 0 },
+            { "id": "supports-sales", "label": "It supports sales, but most deals come from elsewhere", "need": 1, "complexity": 0 },
+            { "id": "main-source", "label": "It's one of our main sources of leads or sign-ups", "need": 2, "complexity": 0 },
+            { "id": "core", "label": "It's the core of our business", "need": 3, "complexity": 0 }
+          ]
+        },
+        {
+          "id": "q3",
+          "question": "What's your site's mobile PageSpeed score?",
+          "helper": "Not sure? Run your homepage through pagespeed.web.dev and check the Performance score on the Mobile tab.",
+          "answers": [
+            { "id": "90-100", "label": "90–100", "need": 0, "complexity": 0 },
+            { "id": "70-89", "label": "70–89", "need": 1, "complexity": 0 },
+            { "id": "50-69", "label": "50–69", "need": 2, "complexity": 0 },
+            { "id": "below-50", "label": "Below 50", "need": 3, "complexity": 0 },
+            { "id": "dont-know", "label": "I don't know", "need": 1, "complexity": 0 }
+          ]
+        },
+        {
+          "id": "q4",
+          "question": "How important are Google and AI search tools (ChatGPT, Perplexity) for bringing you customers?",
+          "answers": [
+            { "id": "not-important", "label": "Not important, our traffic comes from elsewhere", "need": 0, "complexity": 0 },
+            { "id": "nice-to-have", "label": "Nice to have", "need": 1, "complexity": 0 },
+            { "id": "important", "label": "Important, it's one of our main channels", "need": 2, "complexity": 0 },
+            { "id": "critical", "label": "Critical, it's our #1 growth channel", "need": 3, "complexity": 1 }
+          ]
+        },
+        {
+          "id": "q5",
+          "question": "How often does your platform stop you from building what you want?",
+          "helper": "Think of CMS limits, design restrictions, or features and integrations you had to give up on.",
+          "answers": [
+            { "id": "never", "label": "Never", "need": 0, "complexity": 0 },
+            { "id": "occasionally", "label": "Occasionally, but we find workarounds", "need": 1, "complexity": 0 },
+            { "id": "often", "label": "Often, we pay for extra tools or developers to get around it", "need": 2, "complexity": 0 },
+            { "id": "constantly", "label": "Constantly, it's blocking things we need", "need": 3, "complexity": 0 }
+          ]
+        },
+        {
+          "id": "q6",
+          "question": "How much do you spend on your website platform per year?",
+          "helper": "Include the site plan, hosting, paid plugins or apps and extra editor seats. Leave out agency or developer fees.",
+          "answers": [
+            { "id": "under-300", "label": "Under $300", "need": 0, "complexity": 0 },
+            { "id": "300-1000", "label": "$300–1,000", "need": 1, "complexity": 0 },
+            { "id": "1000-3000", "label": "$1,000–3,000", "need": 2, "complexity": 0 },
+            { "id": "over-3000", "label": "Over $3,000", "need": 3, "complexity": 0 },
+            { "id": "not-sure", "label": "Not sure", "need": 1, "complexity": 0 }
+          ]
+        },
+        {
+          "id": "q7",
+          "question": "How much time goes into keeping the site running?",
+          "helper": "Updates, plugin conflicts, broken layouts, security fixes.",
+          "answers": [
+            { "id": "almost-none", "label": "Almost none", "need": 0, "complexity": 0 },
+            { "id": "few-hours", "label": "A few hours a month", "need": 1, "complexity": 0 },
+            { "id": "regular-chore", "label": "It's a regular chore", "need": 2, "complexity": 0 },
+            { "id": "a-lot", "label": "A lot, things break and we've had security scares", "need": 3, "complexity": 0 }
+          ]
+        },
+        {
+          "id": "q8",
+          "question": "Are you planning a redesign or rebrand?",
+          "answers": [
+            { "id": "no", "label": "No, the current design is staying", "need": 0, "complexity": 0 },
+            { "id": "maybe", "label": "Maybe, we've talked about it", "need": 1, "complexity": 0 },
+            { "id": "12-months", "label": "Yes, within the next 12 months", "need": 2, "complexity": 0 },
+            { "id": "3-months", "label": "Yes, in the next 3 months", "need": 3, "complexity": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "What's under the hood",
+      "questions": [
+        {
+          "id": "q9",
+          "question": "How many pages does your site have?",
+          "helper": "Count unique pages like Home, About and Pricing. Don't count individual blog posts.",
+          "answers": [
+            { "id": "under-10", "label": "Under 10", "need": 0, "complexity": 0 },
+            { "id": "10-30", "label": "10–30", "need": 0, "complexity": 1 },
+            { "id": "30-100", "label": "30–100", "need": 0, "complexity": 2 },
+            { "id": "over-100", "label": "Over 100", "need": 0, "complexity": 3 }
+          ]
+        },
+        {
+          "id": "q10",
+          "question": "How much CMS content do you have?",
+          "helper": "Blog posts, case studies, team members, job listings, docs and similar.",
+          "answers": [
+            { "id": "none", "label": "None or almost none", "need": 0, "complexity": 0 },
+            { "id": "under-100", "label": "Under 100 items", "need": 0, "complexity": 1 },
+            { "id": "100-1000", "label": "100–1,000 items", "need": 0, "complexity": 2 },
+            { "id": "over-1000", "label": "Over 1,000 items, or many linked collections", "need": 0, "complexity": 3 }
+          ]
+        },
+        {
+          "id": "q11",
+          "question": "Who updates the site, and how often?",
+          "answers": [
+            { "id": "developer-rarely", "label": "Rarely, a developer handles it", "need": 0, "complexity": 0 },
+            { "id": "one-person", "label": "One person updates it now and then", "need": 0, "complexity": 1 },
+            { "id": "marketing-weekly", "label": "Our marketing team edits it every week", "need": 0, "complexity": 2 },
+            { "id": "several-daily", "label": "Several people publish daily, with drafts and approvals", "need": 0, "complexity": 3 }
+          ]
+        },
+        {
+          "id": "q12",
+          "question": "How many tools are connected to your site?",
+          "helper": "Forms, CRM, newsletter, booking, search, analytics, chat widgets.",
+          "answers": [
+            { "id": "contact-form", "label": "Just a contact form", "need": 0, "complexity": 0 },
+            { "id": "few-tools", "label": "A few standard tools (2–4)", "need": 0, "complexity": 1 },
+            { "id": "many-tools", "label": "Many tools (5 or more)", "need": 0, "complexity": 2 },
+            { "id": "custom", "label": "Custom integrations or APIs built for us", "need": 0, "complexity": 3 },
+            { "id": "not-sure", "label": "Not sure", "need": 0, "complexity": 2 }
+          ]
+        },
+        {
+          "id": "q13",
+          "question": "Does your site sell products or have user logins?",
+          "answers": [
+            { "id": "no", "label": "No, or we link out to a separate store or app", "need": 0, "complexity": 0 },
+            { "id": "simple-payments", "label": "A few products or simple payment links", "need": 0, "complexity": 1 },
+            { "id": "full-store", "label": "A full online store", "need": 0, "complexity": 3 },
+            { "id": "members-area", "label": "A members-only area with logins", "need": 0, "complexity": 3 }
+          ]
+        },
+        {
+          "id": "q14",
+          "question": "How many languages is your site in?",
+          "answers": [
+            { "id": "one", "label": "One", "need": 0, "complexity": 0 },
+            { "id": "two", "label": "Two", "need": 0, "complexity": 1 },
+            { "id": "three-five", "label": "Three to five", "need": 0, "complexity": 2 },
+            { "id": "six-plus", "label": "Six or more, or different content per region", "need": 0, "complexity": 3 }
+          ]
+        },
+        {
+          "id": "q15",
+          "question": "How much animation and interactivity does your site have?",
+          "answers": [
+            { "id": "minimal", "label": "Minimal, it's mostly static", "need": 0, "complexity": 0 },
+            { "id": "some", "label": "Some hover effects and simple animations", "need": 0, "complexity": 1 },
+            { "id": "lots", "label": "Lots of scroll animations, sliders and interactions", "need": 0, "complexity": 2 },
+            { "id": "experience", "label": "It's an experience: 3D, WebGL or complex custom interactions", "need": 0, "complexity": 3 }
+          ]
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "migrate-now",
+      "when": { "need": "high", "complexity": "low" },
+      "label": "Migrate now",
+      "headline": "Your site is a prime candidate for Astro",
+      "body": "Your current platform is costing you speed, money or flexibility, and your site is simple enough to move quickly. This is the best-case migration: a faster site with less overhead, without a drawn-out project.",
+      "cta": "Book a free migration call",
+      "ctaNote": "Every migration comes with a 90+ mobile PageSpeed guarantee, or I keep working for free."
+    },
+    {
+      "id": "migrate-with-plan",
+      "when": { "need": "high", "complexity": "high" },
+      "label": "Migrate with a plan",
+      "headline": "Astro will pay off, but plan the move",
+      "body": "Your site has real reasons to migrate and enough moving parts that it needs a phased plan. Mapping content, integrations and redirects first protects your traffic and keeps the launch on schedule.",
+      "cta": "Get a migration plan"
+    },
+    {
+      "id": "easy-upgrade",
+      "when": { "need": "low", "complexity": "low" },
+      "label": "Easy upgrade, no rush",
+      "headline": "You could move anytime, but there's no fire",
+      "body": "Your site works well enough today, and moving it would be straightforward. Astro makes the most sense when you're planning a redesign or want to cut platform costs.",
+      "cta": "See what Astro would change"
+    },
+    {
+      "id": "optimize-first",
+      "when": { "need": "low", "complexity": "high" },
+      "label": "Optimize first",
+      "headline": "Get more from the site you have",
+      "body": "A migration would be a big project with limited upside right now. You'll see faster returns from tuning your current site's speed and search visibility.",
+      "cta": "Get a free performance audit"
+    }
+  ],
+  "flags": {
+    "maxShown": 2,
+    "items": [
+      { "priority": 1, "when": { "q13": ["full-store", "members-area"] }, "message": "Astro can run stores and member areas through connected services, but they add scope. We'll map this part separately on the call." },
+      { "priority": 2, "when": { "q8": ["3-months"] }, "message": "Planning a redesign anyway? Doing it together with the migration means you only pay for the build once." },
+      { "priority": 3, "when": { "q4": ["critical"] }, "message": "Search is your #1 channel, so the migration includes full redirect mapping and schema checks to protect your rankings." },
+      { "priority": 4, "when": { "q11": ["several-daily"] }, "message": "Your team publishes a lot. We'll choose an editing setup that keeps publishing as easy as it is today." },
+      { "priority": 5, "when": { "q3": ["90-100"] }, "message": "Your site is already fast. Here the case for Astro is cost, flexibility or AI visibility, not raw speed." },
+      { "priority": 6, "when": { "q3": ["dont-know"] }, "message": "Run your homepage through pagespeed.web.dev before we talk. It's the quickest way to see what you're losing." }
+    ]
+  }
+}

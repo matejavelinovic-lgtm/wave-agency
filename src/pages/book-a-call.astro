@@ -1,0 +1,92 @@
+---
+/*
+ * /book-a-call/ — the Calendly calendar, embedded. The quiz result buttons land
+ * here with ?result=…&need=…&complexity=…, which the script turns into a line
+ * above the calendar and into UTM parameters on the embed, so the booking in
+ * Calendly records which result sent it.
+ *
+ * A plain iframe, not Calendly's widget.js: the widget is a third-party script
+ * that does nothing here an iframe cannot, and this site is sold on its speed.
+ */
+import Layout from '../layouts/Layout.astro';
+import { CALENDLY_URL } from '../consts';
+import quiz from '../data/astro-quiz.json';
+
+/* Result id → label, so the line above the calendar can name the result. */
+const resultLabels = Object.fromEntries(quiz.results.map((r) => [r.id, r.label]));
+---
+
+<Layout
+  title="Book a call | WaveWeb"
+  description="Book a free 30 minute call about your site: what's slowing it down, how it shows up in AI search, and what a move to Astro would take."
+  breadcrumbs={[{ name: 'Book a call', path: '/book-a-call/' }]}
+>
+  <section class="svc-hero">
+    <div class="svc-hero-inner">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="crumb-link" href="/">Home</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <span class="crumb-here">Book a call</span>
+      </nav>
+      <span class="svc-eyebrow">Book a call</span>
+      <h1 class="svc-title">Pick a time for a <span class="svc-title-em">30 minute call</span></h1>
+      <p class="svc-subtitle">
+        Free. We go through your site, what's holding it back and what a move to Astro would take.
+      </p>
+    </div>
+  </section>
+
+  <div class="seam-to-light"></div>
+
+  <section class="book">
+    <div class="book-inner">
+      <p class="book-summary" data-labels={JSON.stringify(resultLabels)} hidden></p>
+
+      {/* No src until the script adds the quiz parameters, so it loads once. */}
+      <iframe class="book-frame" title="Book a 30 minute call on Calendly" data-src={CALENDLY_URL}></iframe>
+      <noscript>
+        {/* is:inline keeps the rule inside the noscript, as on /pricing/. */}
+        <style is:inline>.book-frame:not([src]) { display: none; }</style>
+        <iframe class="book-frame" title="Book a 30 minute call on Calendly" src={CALENDLY_URL}></iframe>
+      </noscript>
+
+      <p class="book-fallback">
+        Calendar not loading?{' '}
+        <a class="book-fallback-link" href={CALENDLY_URL} target="_blank" rel="noopener">Open it on Calendly</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="seam-to-dark"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const frame = document.querySelector<HTMLIFrameElement>('.book-frame')!;
+    const summary = document.querySelector<HTMLElement>('.book-summary')!;
+    const labels: Record<string, string> = JSON.parse(summary.dataset.labels!);
+
+    const src = new URL(frame.dataset.src!);
+    src.searchParams.set('embed_type', 'Inline');
+    src.searchParams.set('embed_domain', window.location.host);
+
+    // Only a result the quiz knows about: anything else in the query is ignored.
+    const result = params.get('result');
+    if (result && labels[result]) {
+      const need = Number(params.get('need'));
+      const complexity = Number(params.get('complexity'));
+      const scores =
+        Number.isFinite(need) && Number.isFinite(complexity) && params.has('need')
+          ? ` · Migration need ${need}% · Migration complexity ${complexity}%`
+          : '';
+      summary.textContent = `Your quiz result: ${labels[result]}${scores}`;
+      summary.hidden = false;
+
+      // Calendly stores UTM parameters on the booking itself.
+      src.searchParams.set('utm_source', 'waveweb');
+      src.searchParams.set('utm_medium', 'astro-quiz');
+      src.searchParams.set('utm_content', result);
+    }
+
+    frame.src = src.href;
+  </script>
+</Layout>

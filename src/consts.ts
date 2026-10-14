@@ -75,6 +75,13 @@ export const PERSON = {
 };
 
 /*
+ * The 30 minute booking page, embedded on /book-a-call/. The bare event URL,
+ * with no month or date: Calendly opens on the first month with free slots,
+ * where a pinned ?month= would open on one that has long passed.
+ */
+export const CALENDLY_URL = 'https://calendly.com/matejavelinovic/30min';
+
+/*
  * The service pages are no longer listed here. Each one's URL is the `slug` on
  * its entry in servicePages in src/content/copy.json, which is the single list
  * src/pages/[service].astro builds the routes from — a path in two places is a
