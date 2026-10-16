@@ -303,6 +303,7 @@
     "guaranteeTitle": "90+ on mobile, or I keep working for free.",
     "guaranteeText": "Before kickoff we agree on the pages that matter most. At launch I measure them with Lighthouse on mobile. If any of them scores under 90, I keep working on it at no cost until it does.",
     "guaranteeNote": "Excludes third-party scripts you choose to keep, such as chat widgets, heavy trackers, and embedded video players. I flag every one of them in the audit, with what it costs you in speed.",
+    "scoreLabel": "Lighthouse, mobile",
     "careTitle": "After launch",
     "careText": "Your site stays fast after I hand it over. Care plans are available to every client once the project ships.",
     "careLabel": "Care retainer",

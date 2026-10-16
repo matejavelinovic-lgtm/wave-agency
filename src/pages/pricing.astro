@@ -18,6 +18,10 @@ const url = `${SITE_URL}/pricing/`;
 /* "$15,000" → 15000. The copy carries the display string; schema wants a number. */
 const toNumber = (price: string) => Number(price.replace(/[^0-9.]/g, ''));
 
+/* The number the guarantee promises, read from its own headline so the gauge
+   cannot drift from the words. Falls back to 90 if the headline loses it. */
+const guaranteeScore = Number(pricing.guaranteeTitle.match(/\d+/)?.[0] ?? 90);
+
 /*
  * One Offer per plan, plus the retainer, hung off the same Organization every
  * other page references by @id. A plan with a prefix ("From $15,000") is a
@@ -191,28 +195,52 @@ const faqSchema = {
 
   <div class="seam-to-dark"></div>
 
-  <section class="price-terms">
-    <div class="price-terms-inner">
-      <div class="price-included">
-        <h2 class="price-terms-title" data-edit="pricing.includedTitle">{pricing.includedTitle}</h2>
-        <ul class="price-included-list">
-          {pricing.included.map((item, i) => (
-            <li class="price-included-item" data-edit={`pricing.included.${i}`}>{item}</li>
-          ))}
-        </ul>
-      </div>
-      <div class="price-excluded">
-        <h2 class="price-terms-title" data-edit="pricing.excludedTitle">{pricing.excludedTitle}</h2>
-        <p class="price-excluded-text" data-edit="pricing.excludedText">{pricing.excludedText}</p>
-      </div>
-    </div>
-  </section>
+  {/*
+    The guarantee and the terms, one section. On desktop it pins and scroll
+    drives it: each included item drops onto the board and pushes the score
+    meter up a share, so the last one lands it on the guarantee. "Not
+    included" closes the sequence. Unpinned, it is the finished board in
+    normal flow.
+  */}
+  <section class="price-promise">
+    <div class="price-promise-stage">
+      <div class="price-promise-inner">
+        <div class="price-promise-copy">
+          <h2 class="price-promise-title" data-edit="pricing.guaranteeTitle">{pricing.guaranteeTitle}</h2>
+          <p class="price-promise-text" data-edit="pricing.guaranteeText">{pricing.guaranteeText}</p>
+          <p class="price-promise-note" data-edit="pricing.guaranteeNote">{pricing.guaranteeNote}</p>
+        </div>
 
-  <section class="price-guarantee">
-    <div class="price-guarantee-inner">
-      <h2 class="price-guarantee-title" data-edit="pricing.guaranteeTitle">{pricing.guaranteeTitle}</h2>
-      <p class="price-guarantee-text" data-edit="pricing.guaranteeText">{pricing.guaranteeText}</p>
-      <p class="price-guarantee-note" data-edit="pricing.guaranteeNote">{pricing.guaranteeNote}</p>
+        <div class="price-promise-board">
+          <div class="price-promise-meter" style={`--score: ${guaranteeScore}`}>
+            <div class="price-promise-meter-head">
+              <span class="price-promise-meter-label" data-edit="pricing.scoreLabel">{pricing.scoreLabel}</span>
+              <span class="price-promise-meter-value" aria-hidden="true">
+                <span class="price-promise-num">{guaranteeScore}</span>+
+              </span>
+            </div>
+            <div class="price-promise-bar" aria-hidden="true">
+              <span class="price-promise-track"><span class="price-promise-fill"></span></span>
+              <span class="price-promise-mark"></span>
+            </div>
+          </div>
+
+          <h3 class="price-promise-terms-title" data-edit="pricing.includedTitle">{pricing.includedTitle}</h3>
+          <ul class="price-promise-grid">
+            {pricing.included.map((item, i) => (
+              <li class="price-promise-card">
+                <span class="price-promise-index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span data-edit={`pricing.included.${i}`}>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="price-promise-excluded">
+            <h3 class="price-promise-terms-title" data-edit="pricing.excludedTitle">{pricing.excludedTitle}</h3>
+            <p class="price-promise-excluded-text" data-edit="pricing.excludedText">{pricing.excludedText}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -399,23 +427,61 @@ const faqSchema = {
         .from('.svc-subtitle', { y: 20, opacity: 0, duration: 0.7 }, 0.55)
         .from('.price-tabs', { y: 16, opacity: 0, duration: 0.6 }, 0.7);
 
-      gsap.from(['.price-included', '.price-excluded'], {
-        scrollTrigger: { trigger: '.price-terms', start: 'top 78%' },
-        y: 24,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: 'power3.out',
-      });
+      /*
+       * The guarantee: scrubbed and pinned. The stage holds still while scroll
+       * drops each included item onto the board, and every item that lands
+       * moves the meter one equal share of the way to the score. "Not
+       * included" arrives once the board is full. Pins at center/center
+       * rather than top/top, so the stage never needs to fill the viewport.
+       */
+      const promise = document.querySelector<HTMLElement>('.price-promise');
+      const promiseNum = promise?.querySelector<HTMLElement>('.price-promise-num');
+      const promiseCards = gsap.utils.toArray<HTMLElement>('.price-promise-card');
+      if (promise && promiseNum && promiseCards.length > 0) {
+        const score = Number(promiseNum.textContent) || 90;
+        const counter = { v: 0 };
+        const paint = () => {
+          promiseNum.textContent = String(Math.round(counter.v));
+        };
+        promiseNum.textContent = '0';
+        gsap.set('.price-promise-fill', { scaleX: 0 });
 
-      gsap.from(['.price-guarantee-title', '.price-guarantee-text', '.price-guarantee-note'], {
-        scrollTrigger: { trigger: '.price-guarantee', start: 'top 78%' },
-        y: 24,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: 'power3.out',
-      });
+        gsap.from(['.price-promise-title', '.price-promise-text', '.price-promise-note', '.price-promise-meter'], {
+          scrollTrigger: { trigger: promise, start: 'top 75%' },
+          y: 24,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: 'power3.out',
+        });
+
+        const tl = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: '.price-promise-stage',
+            pin: '.price-promise-stage',
+            start: 'center center',
+            end: `+=${promiseCards.length * 220 + 260}`,
+            scrub: 0.6,
+          },
+        });
+
+        promiseCards.forEach((card, i) => {
+          const share = (i + 1) / promiseCards.length;
+          tl.from(card, { y: 48, opacity: 0, duration: 1, ease: 'power2.out' }, i)
+            .from(
+              card.querySelector('.price-promise-index'),
+              { color: 'rgba(237, 237, 230, 0.3)', duration: 0.4 },
+              i + 0.6,
+            )
+            .to('.price-promise-fill', { scaleX: share, duration: 0.6, ease: 'power2.out' }, i + 0.4)
+            .to(counter, { v: score * share, duration: 0.6, ease: 'power2.out', onUpdate: paint }, i + 0.4);
+        });
+
+        tl.from('.price-promise-meter-value', { color: 'rgba(237, 237, 230, 0.62)', duration: 0.4 }, promiseCards.length)
+          .from('.price-promise-mark', { scaleY: 0.4, opacity: 0.3, duration: 0.4 }, promiseCards.length)
+          .from('.price-promise-excluded', { y: 40, opacity: 0, duration: 1, ease: 'power2.out' }, promiseCards.length + 0.2);
+      }
 
       gsap.from(['.price-care-head', '.price-care-card'], {
         scrollTrigger: { trigger: '.price-care', start: 'top 78%' },
