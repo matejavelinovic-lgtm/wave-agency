@@ -24,6 +24,7 @@
  * three. A new migration page is a new entry at the end of migrationPages.
  */
 import Layout from '../layouts/Layout.astro';
+import ServiceProof from '../components/ServiceProof.astro';
 import { SITE_URL } from '../consts';
 import copy from '../content/copy.json';
 
@@ -195,12 +196,7 @@ const breadcrumbs = [
     </div>
   </section>
 
-  <section class="svc-proof">
-    <div class="svc-proof-inner">
-      <h2 class="svc-proof-title" data-edit={`${base}.proofTitle`}>{page.proofTitle}</h2>
-      <p class="svc-proof-text" data-edit={`${base}.proofText`}>{page.proofText}</p>
-    </div>
-  </section>
+  <ServiceProof title={page.proofTitle} text={page.proofText} base={base} />
 
   <div class="seam-to-light"></div>
 
@@ -388,14 +384,7 @@ const breadcrumbs = [
       });
 
       // ── Proof ───────────────────────────────────────────────────
-      gsap.from(['.svc-proof-title', '.svc-proof-text'], {
-        scrollTrigger: { trigger: '.svc-proof', start: 'top 78%' },
-        y: 24,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: 'power3.out',
-      });
+      // Animated by ServiceProof.astro.
 
       // ── FAQ ─────────────────────────────────────────────────────
       gsap.from('.faq .section-title', {

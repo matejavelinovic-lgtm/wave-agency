@@ -1,0 +1,82 @@
+---
+/*
+ * The proof block on a service page: scroll-scrubbed type. The paragraph sets
+ * large and every word starts dim, then lights up in reading order as the page
+ * scrolls past it, while the accent rail down the left fills to match. The
+ * motion is the reading.
+ *
+ * Same contract as the rest of the page: everything is visible and in its final
+ * state without JavaScript. GSAP loads only on a pointer-capable screen above
+ * 900px that has not asked for reduced motion.
+ *
+ * The paragraph renders word by word, but a word is a span with a plain space
+ * between it and the next, so textContent still reads back as the exact
+ * string — the inline editor saves what it always saved.
+ */
+interface Props {
+  title: string;
+  text: string;
+  /** copy.json path of the page, for data-edit. */
+  base: string;
+}
+
+const { title, text, base } = Astro.props;
+
+const words = text.split(' ');
+---
+
+<section class="svc-proof">
+  <div class="svc-proof-inner">
+    <div class="svc-proof-side">
+      <span class="svc-proof-rail" aria-hidden="true"><span class="svc-proof-fill"></span></span>
+      <h2 class="svc-proof-title" data-edit={`${base}.proofTitle`}>{title}</h2>
+    </div>
+    <p class="svc-proof-text" data-edit={`${base}.proofText`}>
+      {words.map((word, i) => (
+        <>
+          <span class="svc-proof-word">{word}</span>
+          {i < words.length - 1 ? ' ' : ''}
+        </>
+      ))}
+    </p>
+  </div>
+</section>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isSmallScreen = window.matchMedia('(max-width: 900px)').matches;
+  const section = document.querySelector<HTMLElement>('.svc-proof');
+
+  if (section && !prefersReducedMotion && !isSmallScreen) {
+    const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+      import('gsap'),
+      import('gsap/ScrollTrigger'),
+    ]);
+    gsap.registerPlugin(ScrollTrigger);
+
+    const words = section.querySelectorAll('.svc-proof-word');
+
+    gsap.from('.svc-proof-title', {
+      scrollTrigger: { trigger: section, start: 'top 80%' },
+      y: 24,
+      opacity: 0,
+      duration: 0.7,
+      ease: 'power3.out',
+    });
+
+    // One timeline for words and rail, so the rail is full exactly when the
+    // last word lights. Scrubbed, with a short catch-up so a flick of the wheel
+    // reads as a sweep rather than a jump.
+    gsap
+      .timeline({
+        scrollTrigger: { trigger: section, start: 'top 75%', end: 'bottom 78%', scrub: 0.6 },
+      })
+      .fromTo(words, { opacity: 0.14 }, { opacity: 1, stagger: 0.1, duration: 0.3, ease: 'none' }, 0)
+      .fromTo(
+        '.svc-proof-fill',
+        { scaleY: 0 },
+        { scaleY: 1, duration: words.length * 0.1 + 0.2, ease: 'none' },
+        0,
+      );
+  }
+</script>

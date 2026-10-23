@@ -2726,29 +2726,72 @@ section {
   padding: 56px 28px 96px;
 }
 
-/* The one block on the page that states an outcome, so it gets the accent rule
-   down its left edge and nothing else on the page does. */
+/*
+ * Proof: the paragraph set large, lit word by word on scroll. The
+ * accent rail is still the one outcome marker on the page; here it fills as the
+ * words light. Without JavaScript the rail is full and every word is lit.
+ */
 .svc-proof-inner {
   max-width: var(--maxw);
   margin: 0 auto;
-  border-left: 2px solid var(--accent);
-  padding-left: 26px;
+  padding: 24px 0;
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: 56px;
+}
+
+.svc-proof-side {
+  display: flex;
+  gap: 22px;
+}
+
+.svc-proof-rail {
+  position: relative;
+  flex: none;
+  width: 2px;
+  background: var(--border-on-dark);
+}
+
+.svc-proof-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform-origin: top;
 }
 
 .svc-proof-title {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--text-on-dark);
-  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 4px 0 0;
+  line-height: 1.4;
 }
 
 .svc-proof-text {
-  font-size: 17px;
-  color: var(--text-on-dark-muted);
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--text-on-dark);
   margin: 0;
-  max-width: 38.51em;
-  line-height: 1.45;
+  max-width: 24em;
+}
+
+@media (max-width: 900px) {
+  /* One column. The rail turns back into the plain left rule it started as. */
+  .svc-proof-inner {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 0 0 0 20px;
+    border-left: 2px solid var(--accent);
+  }
+
+  .svc-proof-rail {
+    display: none;
+  }
+
 }
 
 /* The homepage FAQ is a two column grid with a sticky heading beside the list.
