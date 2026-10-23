@@ -204,12 +204,12 @@
           {
             "name": "Launch",
             "pricePrefix": "",
-            "price": "$5,000",
+            "price": "$3,000",
             "text": "For a marketing site that outgrew its platform.",
             "featured": false,
             "features": [
-              "Up to 8 templates",
-              "1 CMS collection in Sanity (blog or news)",
+              "Up to 10 templates",
+              "5 CMS collection in Sanity (blog or news)",
               "Core interactions rebuilt",
               "Schema markup and llms.txt",
               "Redirect map and sitemap diff",
@@ -221,12 +221,12 @@
           {
             "name": "Scale",
             "pricePrefix": "",
-            "price": "$9,500",
+            "price": "$7,500",
             "text": "For fintech and Web3 teams with content, data, and a marketing team that publishes weekly.",
             "featured": true,
             "features": [
-              "Up to 20 templates",
-              "Up to 4 CMS collections in Sanity, edited by your team",
+              "Up to 30 templates",
+              "Up to 10 CMS collections in Sanity, edited by your team",
               "Live data blocks: TVL, APY, token price, loaded only where they appear",
               "AEO structure: FAQ and comparison pages built to be quoted",
               "5–6 weeks",
@@ -263,7 +263,7 @@
             "text": "A new site built right the first time.",
             "featured": false,
             "features": [
-              "Up to 6 pages",
+              "Up to 10 pages",
               "Design included: 1 direction, 2 rounds of changes",
               "Mobile 90+ and AI-readable from day one",
               "Forms and analytics connected",
@@ -278,7 +278,7 @@
             "text": "For teams that publish and need a CMS from the start.",
             "featured": true,
             "features": [
-              "Up to 15 pages plus Sanity CMS",
+              "Up to 25 pages plus Sanity CMS",
               "Design included: 2 directions, 3 rounds of changes",
               "Sanity set up so your marketing team publishes alone",
               "AEO structure built in",
