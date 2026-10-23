@@ -44,7 +44,7 @@
         "text": "You ask an AI about your own category and it names three competitors. Your pages carry no structure a model can lift an answer from, so the model quotes someone who does."
       },
       {
-        "title": "You vibe coded it, and it broke.",
+        "title": "You vibe-coded it, and it broke.",
         "text": "The site went live in a weekend and looked fine at launch. Traffic grew, the content piled up, and the pages started to buckle under both."
       },
       {
@@ -60,7 +60,7 @@
     "cards": [
       {
         "title": "Performance optimization",
-        "text": "I strip render blocking scripts, compress your hero media, and cut the JavaScript your visitors download without ever running. You get a mobile score above 90 and a page that paints before a thumb reaches the scroll."
+        "text": "I strip render-blocking scripts, compress your hero media, and cut the JavaScript your visitors download without ever running. You get a mobile score above 90 and a page that paints before a thumb reaches the scroll."
       },
       {
         "title": "Answer engine optimization",
@@ -75,7 +75,7 @@
   "founder": {
     "eyebrow": "Who is behind this",
     "title": "You work with me, from the first email to the last test.",
-    "text": "I read your first message, run the audit, optimise your website, and send you the before and after. No account manager sits between us and no handoff loses the detail you mentioned on the first call. I build in Astro, because it ships finished HTML and almost no JavaScript, which is most of the speed work done before it starts.",
+    "text": "I read your first message, run the audit, optimize your website, and send you the before and after. No account manager sits between us and no handoff loses the detail you mentioned on the first call. I build in Astro, because it ships finished HTML and almost no JavaScript, which is most of the speed work done before it starts.",
     "linkLabel": "LinkedIn"
   },
   "process": {
@@ -115,7 +115,7 @@
       },
       {
         "q": "Will my team still be able to edit content without a developer?",
-        "a": "Yes. Astro pairs with headless CMS options like Sanity, Contentful or Storyblok. Your team edits copy, images, and landing pages in a familiar interface, and the site rebuilds automatically. Developers are only needed for new components or structural changes."
+        "a": "Yes. I set up Sanity as the CMS, so your team edits copy, images, and landing pages in a clean editor in the browser, and the site rebuilds automatically when they publish. Developers are only needed for new components or structural changes."
       },
       {
         "q": "How does Astro help with SEO and AI search visibility (AEO)?",
@@ -139,7 +139,7 @@
       },
       {
         "q": "What happens after launch? Do you offer ongoing support?",
-        "a": "Yes. I offer maintenance and iterative optimization after launch, from monthly Core Web Vitals audits to new landing pages and A/B test support. You’re never left with a site nobody understands."
+        "a": "Yes. I offer maintenance and iterative optimization after launch, from weekly Core Web Vitals reports to new landing pages and A/B test support. You’re never left with a site nobody understands."
       },
       {
         "q": "How much do Astro development services cost compared to other options?",
@@ -209,7 +209,7 @@
             "featured": false,
             "features": [
               "Up to 8 templates",
-              "1 CMS collection (blog or news)",
+              "1 CMS collection in Sanity (blog or news)",
               "Core interactions rebuilt",
               "Schema markup and llms.txt",
               "Redirect map and sitemap diff",
@@ -226,7 +226,7 @@
             "featured": true,
             "features": [
               "Up to 20 templates",
-              "Up to 4 CMS collections, with a headless CMS your team edits",
+              "Up to 4 CMS collections in Sanity, edited by your team",
               "Live data blocks: TVL, APY, token price, loaded only where they appear",
               "AEO structure: FAQ and comparison pages built to be quoted",
               "5–6 weeks",
@@ -278,9 +278,9 @@
             "text": "For teams that publish and need a CMS from the start.",
             "featured": true,
             "features": [
-              "Up to 15 pages plus CMS",
+              "Up to 15 pages plus Sanity CMS",
               "Design included: 2 directions, 3 rounds of changes",
-              "CMS structure your marketing team runs alone",
+              "Sanity set up so your marketing team publishes alone",
               "AEO structure built in",
               "6–8 weeks"
             ],
@@ -312,7 +312,7 @@
     "carePeriod": "/ month",
     "careFeatures": [
       "Weekly reports and alerts when a score drops",
-      "Up to 12 hours of changes, new pages and sections included",
+      "Up to 20 hours of changes, new pages and sections included",
       "A/B tests"
     ],
     "faqTitle": "Pricing questions, answered.",
@@ -335,15 +335,15 @@
       },
       {
         "q": "Can my marketing team still publish without a developer?",
-        "a": "Yes. We agree on the editing path, a headless CMS or structured content files, before I write the first component. Publishing without a ticket is a requirement, not an extra."
+        "a": "Yes. Your content lives in Sanity, a headless CMS your team edits in the browser, and I set it up before I write the first component. Publishing without a ticket is a requirement, not an extra."
       },
       {
         "q": "Do I own the code?",
-        "a": "Yes. The repository, the hosting, and the CMS sit on your accounts from day one. Nothing on the site needs me around to keep running."
+        "a": "Yes. The repository, the hosting, and the Sanity project sit on your accounts from day one. Nothing on the site needs me around to keep running."
       },
       {
         "q": "What does hosting cost after I move to Astro?",
-        "a": "For most marketing sites, close to nothing. A static Astro site runs on the free or entry tiers of Vercel, Netlify, or Cloudflare. A headless CMS can add a monthly fee, and I list it in the quote so there are no surprises."
+        "a": "For most marketing sites, close to nothing. A static Astro site runs on the free or entry tiers of Vercel, Netlify, or Cloudflare. Sanity has a free plan that covers many marketing teams, and if yours needs a paid one, I list it in the quote so there are no surprises."
       }
     ],
     "ctaTitle": "Tell me about your site.",
@@ -375,7 +375,7 @@
       "pain": [
         {
           "title": "You pay twice for every visitor.",
-          "text": "Ads and content bring someone to the page, then a four second paint sends them back to the search results. You paid for that click and got nothing for it."
+          "text": "Ads and content bring someone to the page, then a four-second paint sends them back to the search results. You paid for that click and got nothing for it."
         },
         {
           "title": "Google ranks the wait.",
@@ -383,14 +383,14 @@
         },
         {
           "title": "The desktop score is not the problem.",
-          "text": "A green number on a desktop test means little when your buyer is on a mid range Android over 4G. That is the device I test on."
+          "text": "A green number on a desktop test means little when your buyer is on a mid-range Android over 4G. That is the device I test on."
         }
       ],
       "worksTitle": "What I actually change.",
       "works": [
         {
           "title": "The critical path",
-          "text": "Render blocking scripts and stylesheets come out of the head, fonts get preloaded and metric matched, and the browser paints text on the first pass instead of the third."
+          "text": "Render-blocking scripts and stylesheets come out of the head, fonts get preloaded and metric-matched, and the browser paints text on the first pass instead of the third."
         },
         {
           "title": "The JavaScript you ship and never run",
@@ -454,7 +454,7 @@
       "pain": [
         {
           "title": "The click is disappearing.",
-          "text": "Your buyer asks a model instead of typing a query, reads the answer it gives, and never sees the ten blue links you optimised for."
+          "text": "Your buyer asks a model instead of typing a query, reads the answer it gives, and never sees the ten blue links you optimized for."
         },
         {
           "title": "Models quote what they can parse.",
@@ -490,7 +490,7 @@
       "faq": [
         {
           "q": "What is AEO and how is it different from SEO?",
-          "a": "SEO earns a link in a list. AEO earns a sentence inside the answer. The work overlaps — both want a fast, crawlable, well structured page — but AEO optimises for being quoted rather than being clicked."
+          "a": "SEO earns a link in a list. AEO earns a sentence inside the answer. The work overlaps — both want a fast, crawlable, well-structured page — but AEO optimizes for being quoted rather than being clicked."
         },
         {
           "q": "Can you guarantee ChatGPT will mention me?",
@@ -505,7 +505,7 @@
           "a": "Technical fixes and structured data can be picked up within weeks, while building lasting authority and citations usually takes a few months. Timelines vary by industry, competition, and how much content needs work, and I’ll give you a realistic outlook after the audit."
         },
         {
-          "q": "Does site speed and performance affect AEO?",
+          "q": "Do site speed and performance affect AEO?",
           "a": "Yes. Fast, clean, well-structured pages are easier for crawlers to access and process, and they give users a better experience too. That’s why I combine AEO with web performance optimization instead of treating them separately."
         },
         {
@@ -538,7 +538,7 @@
         "Astro",
         "Git",
         "Vercel",
-        "Headless CMS",
+        "Sanity CMS",
         "Ship Studio"
       ],
       "painTitle": "Why teams leave.",
@@ -567,12 +567,12 @@
           "text": "Every live URL comes across at the same path, and I diff the two sitemaps before the switch. Anything that genuinely has to move gets a 301."
         },
         {
-          "title": "A repository your team recognises",
+          "title": "A repository your team recognizes",
           "text": "Astro, plain components, and no framework tax you did not ask for. Pages ship as finished HTML, and JavaScript loads only where a section actually needs it. It builds on Vercel or wherever you host today."
         },
         {
           "title": "Content stays editable",
-          "text": "Marketing does not lose the ability to publish. Copy lands in a CMS or in structured files, and we agree on that editing path before the first component is written."
+          "text": "Marketing does not lose the ability to publish. Copy lands in Sanity, a headless CMS your team edits in the browser, and its structure is set up before the first component is written."
         }
       ],
       "proofTitle": "What you own afterwards.",
@@ -581,7 +581,7 @@
       "faq": [
         {
           "q": "Which platforms can you migrate from?",
-          "a": "Webflow, WordPress, Framer, Wix, Squarespace, and custom builds in React, Next.js or Gatsby. If your site is live, I can rebuild it in Astro: the content comes across through an export, the platform's API, or the live pages themselves."
+          "a": "Webflow, WordPress, Framer, Wix, Squarespace, and custom builds in React, Next.js or Gatsby. If your site is live, I can rebuild it in Astro: the content comes across through an export, the platform’s API, or the live pages themselves."
         },
         {
           "q": "Will the site look different?",
@@ -593,7 +593,11 @@
         },
         {
           "q": "Can marketing still publish without a developer?",
-          "a": "Yes, and it is a requirement rather than an extra. We agree on the editing path — a headless CMS or structured content files — before I write the first component."
+          "a": "Yes, and it is a requirement rather than an extra. Your content lives in Sanity, a headless CMS your team edits in the browser, and I set it up before I write the first component."
+        },
+        {
+          "q": "Which CMS will my team use?",
+          "a": "Sanity. It gives your team a clean editor in the browser, real-time collaboration, and content structured around your pages instead of one big rich-text field. The site rebuilds on its own every time someone publishes."
         },
         {
           "q": "Will I lose my SEO rankings when I move to Astro?",
@@ -601,7 +605,7 @@
         },
         {
           "q": "What happens to my CMS content and blog posts?",
-          "a": "I export your CMS collections and migrate them to the new setup, whether that’s a headless CMS, a database, or a code-based content system. Your posts, images, and metadata move over intact, and your team gets an editing experience that suits your workflow."
+          "a": "I export your CMS content and move it into Sanity. Your posts, images, and metadata come over intact, and your team edits them in an editor structured around your content."
         },
         {
           "q": "Will there be any downtime during the migration?",
@@ -614,6 +618,100 @@
       ],
       "ctaTitle": "Send me your site URL.",
       "ctaText": "I reply within a day with what the rebuild involves and where the platform is actually costing you.",
+      "ctaButton": "Plan the move"
+    }
+  ],
+  "migrationPages": [
+    {
+      "slug": "webflow-to-astro",
+      "parent": "migrate-to-astro",
+      "metaTitle": "Webflow to Astro migration | WaveWeb",
+      "metaDescription": "I move your Webflow site to Astro: same design, every URL kept, CMS collections exported, interactions rebuilt, and a repo your team owns. Fixed price, agreed up front.",
+      "crumb": "Webflow to Astro",
+      "eyebrow": "Webflow to Astro",
+      "titleStart": "Move from Webflow to Astro and keep",
+      "titleAccent": "every",
+      "titleEnd": "URL that ranks.",
+      "subtitle": "I rebuild your Webflow site in Astro to match the one you have, move your CMS collections into Sanity, rebuild the interactions that matter, and hand your team a repository they own. Your traffic stays where it is.",
+      "ctaPrimary": "Plan the move",
+      "ctaSecondary": "See the other services",
+      "signalsLabel": "I rebuild with",
+      "signals": [
+        "Astro",
+        "Git",
+        "Vercel",
+        "Sanity CMS",
+        "Ship Studio"
+      ],
+      "painTitle": "Why teams leave Webflow.",
+      "pain": [
+        {
+          "title": "The seat bill outgrew the site.",
+          "text": "You pay per editor and per site for a platform you now mostly use as a static host."
+        },
+        {
+          "title": "Every page carries the whole runtime.",
+          "text": "Webflow loads its own scripts and interaction engine on every page, whether that page animates or not. On a phone, that weight is the gap between green and red Core Web Vitals."
+        },
+        {
+          "title": "Your engineers cannot review a change.",
+          "text": "There is no diff, no branch, no pull request. Things go live because somebody clicked publish."
+        }
+      ],
+      "worksTitle": "How a Webflow move runs.",
+      "works": [
+        {
+          "title": "Export, then inventory",
+          "text": "I pull every page, CMS collection, asset, and redirect out of Webflow, then crawl the live site so nothing that only exists in production gets left behind."
+        },
+        {
+          "title": "Same pixels, different engine",
+          "text": "Your classes, breakpoints, and spacing come across as clean CSS. Nothing gets redesigned unless you ask for it. What changes is everything underneath."
+        },
+        {
+          "title": "Interactions rebuilt, not embedded",
+          "text": "Scroll and hover effects become CSS and small scripts that load only on the pages that use them, instead of one library on every page."
+        },
+        {
+          "title": "URL parity, checked line by line",
+          "text": "Collection URLs keep their paths, the 301s you already set in Webflow move to the new host, and I diff the two sitemaps before the DNS switch."
+        }
+      ],
+      "proofTitle": "What you own afterwards.",
+      "proofText": "A Git repository with the full history, a build that runs on your own hosting, your content in Sanity where your team edits it, the redirect map, and the speed reports before and after. No Webflow plan to renew, and no part of the site needs me around to keep it running.",
+      "faqTitle": "Webflow to Astro, answered.",
+      "faq": [
+        {
+          "q": "How long does a Webflow to Astro migration take?",
+          "a": "Most marketing sites take 3 to 4 weeks. Sites with several CMS collections and a team that publishes every week take 5 to 6. You get the timeline in the quote, before anything starts."
+        },
+        {
+          "q": "What happens to my Webflow CMS collections?",
+          "a": "I export every collection, including rich text, images, references, and SEO fields, and move it into Sanity. Every item keeps its slug, so its URL does not change."
+        },
+        {
+          "q": "Can you rebuild Webflow interactions and animations?",
+          "a": "Yes. Most Webflow interactions become plain CSS transitions or a few lines of script. Heavier scroll timelines get GSAP, loaded only on the pages that use it."
+        },
+        {
+          "q": "Will I lose my Google rankings when I leave Webflow?",
+          "a": "Not when the redirect map holds. Every URL that earns traffic keeps its path, the 301s you set in Webflow move across, meta tags and schema come with the content, and I watch Search Console through the first month."
+        },
+        {
+          "q": "What happens to my Webflow forms?",
+          "a": "Webflow forms only work on Webflow hosting, so I reconnect each one to your CRM, email tool, or a form service, and test every submission before launch so no lead gets lost."
+        },
+        {
+          "q": "Can marketing still publish without a developer?",
+          "a": "Yes, and it is a requirement rather than an extra. Your content lives in Sanity, a headless CMS your team edits in the browser, and I set it up before I write the first component."
+        },
+        {
+          "q": "What does the site cost to run after I cancel Webflow?",
+          "a": "For most marketing sites, close to nothing. A static Astro site runs on the free or entry tiers of Vercel, Netlify, or Cloudflare. Sanity has a free plan that covers many marketing teams, and if yours needs a paid one, I list it in the quote. Keep your Webflow plan until the new site is live, then cancel it."
+        }
+      ],
+      "ctaTitle": "Send me your Webflow URL.",
+      "ctaText": "I reply within a day with what the move involves, which package it lands in, and where Webflow is actually costing you.",
       "ctaButton": "Plan the move"
     }
   ]

@@ -2443,7 +2443,7 @@ section {
 }
 
 /*
- * Three columns, widest first: the brand needs room for a sentence, the two
+ * Four columns, widest first: the brand needs room for a sentence, the three
  * link columns need only their longest label. Everything sits above a rule with
  * the copyright and the place line under it.
  */
@@ -2452,7 +2452,7 @@ section {
   margin: 0 auto;
   padding: 66px 28px 44px;
   display: grid;
-  grid-template-columns: 1.7fr 1fr 1fr;
+  grid-template-columns: 1.7fr 1fr 1fr 1fr;
   gap: 48px;
 }
 
@@ -2806,6 +2806,14 @@ section {
   margin-top: 44px;
   padding-top: 30px;
   border-top: 1px solid rgba(237, 237, 230, 0.18);
+}
+
+/* A second row (the migration pages under a service) reads as part of the
+   first: one rule above both, not one per row. */
+.svc-siblings + .svc-siblings {
+  margin-top: 0;
+  padding-top: 16px;
+  border-top: 0;
 }
 
 .svc-siblings-label {
@@ -4550,10 +4558,11 @@ section {
     grid-template-columns: 1fr;
   }
 
-  /* Two columns, with the brand across the top of both — the link columns are
-     narrow enough to sit side by side long after the brand sentence is not. */
+  /* Three columns, with the brand across the top of all of them — the link
+     columns are narrow enough to sit side by side long after the brand
+     sentence is not. */
   .footer-inner {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 40px;
   }
 

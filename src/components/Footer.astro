@@ -1,6 +1,6 @@
 ---
 /*
- * Site footer: three columns over a rule, then a thin bottom bar.
+ * Site footer: four columns over a rule, then a thin bottom bar.
  *
  * Column headings and nav labels are hardcoded here rather than kept in
  * copy.json, matching Header.astro — chrome that names a destination is not a
@@ -40,6 +40,19 @@ const year = new Date().getFullYear();
       <span class="footer-col-title" id="footer-services">Services</span>
       <ul class="footer-list">
         {copy.servicePages.map((page) => (
+          <li>
+            <a class="footer-link" href={`/${page.slug}/`}>{page.crumb}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    {/* One link per platform, from migrationPages — "Framer to Astro" lands
+        here the day its entry exists in copy.json. */}
+    <nav class="footer-col" aria-labelledby="footer-migrations">
+      <span class="footer-col-title" id="footer-migrations">Migrations</span>
+      <ul class="footer-list">
+        {copy.migrationPages.map((page) => (
           <li>
             <a class="footer-link" href={`/${page.slug}/`}>{page.crumb}</a>
           </li>

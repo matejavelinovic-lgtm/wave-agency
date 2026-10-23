@@ -1,6 +1,6 @@
 ---
 /*
- * The three service pages, from one template.
+ * The service pages and the migration pages, from one template.
  *
  * Each entry in copy.servicePages is a page, and its `slug` is its URL. One
  * template rather than three files because the pages differ only in their words:
@@ -15,20 +15,40 @@
  * letters, digits and underscores, and every slug here has a hyphen in it. That
  * makes the ORDER of the array load bearing: reordering it repoints every
  * data-edit on these pages. Add to the end.
+ *
+ * copy.migrationPages builds here too — "Webflow to Astro" and whatever platform
+ * comes next. Same shape, same template, plus a `parent`: the slug of the
+ * service page they sit under, which sets their breadcrumb and puts them in the
+ * "By platform" row on that page. They stay out of servicePages because that
+ * list is the homepage cards and the header menu, and both are meant to hold
+ * three. A new migration page is a new entry at the end of migrationPages.
  */
 import Layout from '../layouts/Layout.astro';
 import { SITE_URL } from '../consts';
 import copy from '../content/copy.json';
 
 export function getStaticPaths() {
-  return copy.servicePages.map((page, index) => ({
-    params: { service: page.slug },
-    props: { page, index },
-  }));
+  return [
+    ...copy.servicePages.map((page, index) => ({
+      params: { service: page.slug },
+      props: { page, base: `servicePages.${index}`, parentSlug: undefined },
+    })),
+    ...copy.migrationPages.map((page, index) => ({
+      params: { service: page.slug },
+      props: { page, base: `migrationPages.${index}`, parentSlug: page.parent },
+    })),
+  ];
 }
 
-const { page, index } = Astro.props;
-const base = `servicePages.${index}`;
+const { page, base, parentSlug } = Astro.props;
+
+const parent = parentSlug && copy.servicePages.find((other) => other.slug === parentSlug);
+if (parentSlug && !parent) {
+  throw new Error(
+    `copy.json: migration page "${page.slug}" has parent "${parentSlug}", which is not ` +
+      `the slug of any entry in servicePages.`,
+  );
+}
 
 /*
  * Trailing slash, because Astro's directory build format makes that the real
@@ -76,20 +96,44 @@ const faqSchema = {
   })),
 };
 
-/* The other three, for the footer of this page. Never links to itself. */
-const siblings = copy.servicePages.filter((other) => other.slug !== page.slug);
+/*
+ * Link rows for the bottom of the page. Never links to itself. A service page
+ * lists the other services, then any migration pages under it; a migration page
+ * lists the other migrations, then the services.
+ */
+const otherServices = copy.servicePages.filter((other) => other.slug !== page.slug);
+const otherMigrations = copy.migrationPages.filter((other) => other.slug !== page.slug);
+const children = copy.migrationPages.filter((other) => other.parent === page.slug);
+const linkRows = (
+  parent
+    ? [
+        { label: 'Other migrations', pages: otherMigrations },
+        { label: 'Services', pages: copy.servicePages },
+      ]
+    : [
+        { label: 'The other three', pages: otherServices },
+        { label: 'By platform', pages: children },
+      ]
+).filter((row) => row.pages.length > 0);
+
+const breadcrumbs = [
+  ...(parent ? [{ name: parent.crumb, path: `/${parent.slug}/` }] : []),
+  { name: page.crumb, path: `/${page.slug}/` },
+];
 ---
 
-<Layout
-  title={page.metaTitle}
-  description={page.metaDescription}
-  breadcrumbs={[{ name: page.crumb, path: `/${page.slug}/` }]}
->
+<Layout title={page.metaTitle} description={page.metaDescription} breadcrumbs={breadcrumbs}>
   <section class="svc-hero">
     <div class="svc-hero-inner">
       <nav class="crumbs" aria-label="Breadcrumb">
         <a class="crumb-link" href="/">Home</a>
         <span class="crumb-sep" aria-hidden="true">/</span>
+        {parent && (
+          <>
+            <a class="crumb-link" href={`/${parent.slug}/`}>{parent.crumb}</a>
+            <span class="crumb-sep" aria-hidden="true">/</span>
+          </>
+        )}
         <span class="crumb-here" data-edit={`${base}.crumb`}>{page.crumb}</span>
       </nav>
       <span class="svc-eyebrow" data-edit={`${base}.eyebrow`}>{page.eyebrow}</span>
@@ -212,12 +256,14 @@ const siblings = copy.servicePages.filter((other) => other.slug !== page.slug);
         single place for the honeypot; the hash lands them on it directly.
       */}
       <a class="btn-primary" href="/#contact" data-edit={`${base}.ctaButton`}>{page.ctaButton}</a>
-      <div class="svc-siblings">
-        <span class="svc-siblings-label">The other three</span>
-        {siblings.map((other) => (
-          <a class="svc-sibling" href={`/${other.slug}/`}>{other.crumb}</a>
-        ))}
-      </div>
+      {linkRows.map((row) => (
+        <div class="svc-siblings">
+          <span class="svc-siblings-label">{row.label}</span>
+          {row.pages.map((other) => (
+            <a class="svc-sibling" href={`/${other.slug}/`}>{other.crumb}</a>
+          ))}
+        </div>
+      ))}
     </div>
   </section>
 
