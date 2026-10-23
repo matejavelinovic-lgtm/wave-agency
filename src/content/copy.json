@@ -67,7 +67,7 @@
         "text": "I structure your pages so ChatGPT, Claude, Perplexity, and Google AI Overviews can lift a clean answer out of them. You land inside the answer with your name on it, instead of on page two of a link list."
       },
       {
-        "title": "Migration out of Webflow",
+        "title": "Migrate to Astro",
         "text": "You outgrew the platform. I rebuild your site in Astro, keep the design you paid for, keep the URLs that earn traffic, and hand your team a repo they own."
       }
     ]
@@ -122,7 +122,7 @@
         "a": "Astro renders clean, fully static HTML that search engines and AI crawlers can read instantly, with no client-side rendering delays. Combined with structured data, semantic markup, and well-organized content, your pages are far more likely to be indexed, cited in AI answers, and surfaced in featured snippets."
       },
       {
-        "q": "Will I lose my SEO rankings when I leave Webflow or Wordpress?",
+        "q": "Will I lose my SEO rankings when I move my site to Astro?",
         "a": "Not if the migration is done properly. I keep your URL structure, set up 301 redirects wherever URLs change, and carry over meta tags, schema, and sitemaps. I also monitor indexing and rankings after launch to catch any issues early. In many cases, performance improves after the move."
       },
       {
@@ -158,7 +158,7 @@
     "needs": [
       "Speed",
       "AEO",
-      "Migration out of Webflow",
+      "Migrate to Astro",
       "A new site from scratch",
       "Audit first"
     ],
@@ -189,8 +189,8 @@
     "faqTitle": "Questions, answered."
   },
   "pricing": {
-    "metaTitle": "Pricing: Astro builds and Webflow migrations | WaveWeb",
-    "metaDescription": "Fixed prices, agreed before I start. Migrations out of Webflow from $5,000 and new Astro sites from $4,000, priced by templates and integrations, not page count.",
+    "metaTitle": "Pricing: Astro migrations and new Astro builds | WaveWeb",
+    "metaDescription": "Fixed prices, agreed before I start. Migrations to Astro from $5,000 and new Astro sites from $4,000, priced by templates and integrations, not page count.",
     "eyebrow": "Pricing",
     "titleStart": "Fixed prices, agreed",
     "titleAccent": "before",
@@ -199,13 +199,13 @@
     "badge": "Most chosen",
     "groups": [
       {
-        "label": "Migration out of Webflow",
+        "label": "Migrate to Astro",
         "plans": [
           {
             "name": "Launch",
             "pricePrefix": "",
             "price": "$5,000",
-            "text": "For a marketing site that outgrew Webflow.",
+            "text": "For a marketing site that outgrew its platform.",
             "featured": false,
             "features": [
               "Up to 8 templates",
@@ -342,7 +342,7 @@
         "a": "Yes. The repository, the hosting, and the CMS sit on your accounts from day one. Nothing on the site needs me around to keep running."
       },
       {
-        "q": "What does hosting cost after I leave Webflow?",
+        "q": "What does hosting cost after I move to Astro?",
         "a": "For most marketing sites, close to nothing. A static Astro site runs on the free or entry tiers of Vercel, Netlify, or Cloudflare. A headless CMS can add a monthly fee, and I list it in the quote so there are no surprises."
       }
     ],
@@ -522,11 +522,11 @@
       "ctaButton": "Get an AEO audit"
     },
     {
-      "slug": "migration-out-of-webflow",
-      "metaTitle": "Migrate out of Webflow into Astro | WaveWeb",
-      "metaDescription": "You outgrew the platform. I rebuild your Webflow site in Astro, in a repo your team owns, keeping the design and every URL that earns traffic.",
-      "crumb": "Migration out of Webflow",
-      "eyebrow": "Migration out of Webflow",
+      "slug": "migrate-to-astro",
+      "metaTitle": "Migrate your website to Astro | WaveWeb",
+      "metaDescription": "Moving off Webflow, WordPress, Framer or Wix? I rebuild your site in Astro, in a repo your team owns, keeping the design and every URL that earns traffic.",
+      "crumb": "Migrate to Astro",
+      "eyebrow": "Migrate to Astro",
       "titleStart": "You outgrew the platform",
       "titleAccent": "you",
       "titleEnd": "started on.",
@@ -545,7 +545,7 @@
       "pain": [
         {
           "title": "The seat bill outgrew the site.",
-          "text": "You are paying per editor and per site for a platform you now use as a static host and little else."
+          "text": "You are paying per editor, per plugin, or per site for a platform you now use as a static host and little else."
         },
         {
           "title": "The thing you need next is not on the roadmap.",
@@ -577,8 +577,12 @@
       ],
       "proofTitle": "What you own afterwards.",
       "proofText": "A Git repository with the full history, a build that runs on your own hosting, the redirect map, and the speed reports before and after. No part of the site needs me around to keep it running.",
-      "faqTitle": "Questions about leaving Webflow.",
+      "faqTitle": "Questions about moving to Astro.",
       "faq": [
+        {
+          "q": "Which platforms can you migrate from?",
+          "a": "Webflow, WordPress, Framer, Wix, Squarespace, and custom builds in React, Next.js or Gatsby. If your site is live, I can rebuild it in Astro: the content comes across through an export, the platform's API, or the live pages themselves."
+        },
         {
           "q": "Will the site look different?",
           "a": "No, unless you want it to. The default is a faithful rebuild: same design, same content, same URLs, new foundation underneath."
@@ -592,7 +596,7 @@
           "a": "Yes, and it is a requirement rather than an extra. We agree on the editing path — a headless CMS or structured content files — before I write the first component."
         },
         {
-          "q": "Will I lose my SEO rankings when I leave Webflow?",
+          "q": "Will I lose my SEO rankings when I move to Astro?",
           "a": "Not if the migration is done properly. I keep your URL structure, set up 301 redirects wherever URLs change, and carry over meta tags, schema, and sitemaps. I also monitor indexing and rankings after launch to catch any issues early. In many cases, performance improves after the move."
         },
         {
@@ -608,7 +612,7 @@
           "a": "I rebuild and reconnect your forms, analytics, CRM, email tools, and any other integrations, then test each one before launch so no leads or data get lost."
         }
       ],
-      "ctaTitle": "Send me your Webflow URL.",
+      "ctaTitle": "Send me your site URL.",
       "ctaText": "I reply within a day with what the rebuild involves and where the platform is actually costing you.",
       "ctaButton": "Plan the move"
     }

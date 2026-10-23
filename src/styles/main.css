@@ -4679,7 +4679,7 @@ section {
     padding: 64px 20px;
   }
 
-  /* Full width, halves of equal size: "Migration out of Webflow" wraps to two
+  /* Full width, halves of equal size: a long tab label wraps to two
      lines before it pushes the switch off the side of a phone. */
   .price-tabs {
     display: flex;

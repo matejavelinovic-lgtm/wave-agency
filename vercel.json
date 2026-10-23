@@ -2,12 +2,22 @@
   "redirects": [
     {
       "source": "/webflow-migration",
-      "destination": "/migration-out-of-webflow/",
+      "destination": "/migrate-to-astro/",
       "statusCode": 301
     },
     {
       "source": "/webflow-migration/",
-      "destination": "/migration-out-of-webflow/",
+      "destination": "/migrate-to-astro/",
+      "statusCode": 301
+    },
+    {
+      "source": "/migration-out-of-webflow",
+      "destination": "/migrate-to-astro/",
+      "statusCode": 301
+    },
+    {
+      "source": "/migration-out-of-webflow/",
+      "destination": "/migrate-to-astro/",
       "statusCode": 301
     }
   ]
