@@ -646,31 +646,31 @@
       "painTitle": "Why teams leave Webflow.",
       "pain": [
         {
-          "title": "The seat bill outgrew the site.",
-          "text": "You pay per editor and per site for a platform you now mostly use as a static host."
+          "title": "Every page loads jQuery and the interaction engine.",
+          "text": "Webflow ships jQuery and its own webflow.js on every page, whether that page animates or not. On a phone, that weight is the gap between green and red Core Web Vitals."
         },
         {
-          "title": "Every page carries the whole runtime.",
-          "text": "Webflow loads its own scripts and interaction engine on every page, whether that page animates or not. On a phone, that weight is the gap between green and red Core Web Vitals."
+          "title": "Only one person dares touch the styles.",
+          "text": "A few years of combo classes and one-off overrides later, changing a button means checking forty pages. The designer who built it becomes the only safe pair of hands."
         },
         {
-          "title": "Your engineers cannot review a change.",
-          "text": "There is no diff, no branch, no pull request. Things go live because somebody clicked publish."
+          "title": "The CMS plan sets your content strategy.",
+          "text": "Collection and item caps tied to your plan mean a growing blog, a docs section, or a set of comparison pages hits a pricing tier before it runs out of ideas."
         }
       ],
       "worksTitle": "How a Webflow move runs.",
       "works": [
         {
           "title": "Export, then inventory",
-          "text": "I pull every page, CMS collection, asset, and redirect out of Webflow, then crawl the live site so nothing that only exists in production gets left behind."
+          "text": "Webflow’s code export leaves the CMS behind, so I pull every collection out through the API, then crawl the live site so nothing that only exists in production gets left behind."
         },
         {
-          "title": "Same pixels, different engine",
-          "text": "Your classes, breakpoints, and spacing come across as clean CSS. Nothing gets redesigned unless you ask for it. What changes is everything underneath."
+          "title": "Combo classes, untangled",
+          "text": "Your classes, combo classes, and swatches become a small set of design tokens and components. Same pixels, but a button now changes in one place."
         },
         {
           "title": "Interactions rebuilt, not embedded",
-          "text": "Scroll and hover effects become CSS and small scripts that load only on the pages that use them, instead of one library on every page."
+          "text": "Webflow Interactions become CSS and small scripts that load only on the pages that use them, instead of one engine on every page."
         },
         {
           "title": "URL parity, checked line by line",
@@ -684,6 +684,10 @@
         {
           "q": "How long does a Webflow to Astro migration take?",
           "a": "Most marketing sites take 3 to 4 weeks. Sites with several CMS collections and a team that publishes every week take 5 to 6. You get the timeline in the quote, before anything starts."
+        },
+        {
+          "q": "Can’t I just use Webflow’s code export?",
+          "a": "You can, but you get a snapshot, not a site. The export leaves your CMS content out, keeps jQuery and webflow.js on every page, and hands you generated files nobody wants to maintain. I rebuild instead, so the code is something your team can actually work in."
         },
         {
           "q": "What happens to my Webflow CMS collections?",
@@ -702,8 +706,8 @@
           "a": "Webflow forms only work on Webflow hosting, so I reconnect each one to your CRM, email tool, or a form service, and test every submission before launch so no lead gets lost."
         },
         {
-          "q": "Can marketing still publish without a developer?",
-          "a": "Yes, and it is a requirement rather than an extra. Your content lives in Sanity, a headless CMS your team edits in the browser, and I set it up before I write the first component."
+          "q": "Will my team miss the Webflow Editor?",
+          "a": "Not for long. Sanity replaces it with an editor built around your content: fields for exactly what each page needs, a live preview, and no way to nudge a layout out of place by accident."
         },
         {
           "q": "What does the site cost to run after I cancel Webflow?",
@@ -712,6 +716,102 @@
       ],
       "ctaTitle": "Send me your Webflow URL.",
       "ctaText": "I reply within a day with what the move involves, which package it lands in, and where Webflow is actually costing you.",
+      "ctaButton": "Plan the move"
+    },
+    {
+      "slug": "framer-to-astro",
+      "parent": "migrate-to-astro",
+      "metaTitle": "Framer to Astro migration | WaveWeb",
+      "metaDescription": "Framer site slow on phones, or locked to one plan? I rebuild it in Astro from your Framer project: animations kept, CMS moved to Sanity, and code you own and can host anywhere.",
+      "crumb": "Framer to Astro",
+      "eyebrow": "Framer to Astro",
+      "titleStart": "Framer to Astro: keep the design, lose the",
+      "titleAccent": "weight",
+      "titleEnd": "it ships with.",
+      "subtitle": "Framer is a great place to design a site and a heavy way to serve one. I rebuild yours in Astro from the Framer project itself, keep the animations worth keeping, move your CMS into Sanity, and hand you code you can finally host anywhere.",
+      "ctaPrimary": "Plan the move",
+      "ctaSecondary": "See the other services",
+      "signalsLabel": "I rebuild with",
+      "signals": [
+        "Astro",
+        "React islands",
+        "Sanity CMS",
+        "Vercel",
+        "Git"
+      ],
+      "painTitle": "Why teams leave Framer.",
+      "pain": [
+        {
+          "title": "Fast on your laptop, slow on their phone.",
+          "text": "Framer serves every page as a React app. A phone has to download and run that code before the page settles, so the site that feels instant in the editor scores red on a mid-range Android."
+        },
+        {
+          "title": "The layer you hid on mobile still ships.",
+          "text": "Breakpoints in Framer share one layer tree. The desktop hero you hid on phones and the phone version you hid on desktop both go down the wire to every visitor."
+        },
+        {
+          "title": "There is no code to take with you.",
+          "text": "Framer has no export. The design, the CMS, and every URL live on its plan, and the plan decides your page, CMS, and bandwidth limits."
+        }
+      ],
+      "worksTitle": "How a Framer move runs.",
+      "works": [
+        {
+          "title": "Rebuilt from the project, not a screenshot",
+          "text": "I work inside your Framer project and take spacing, type, and colors straight from it. Desktop, tablet, and phone breakpoints become one responsive layout instead of three stacked copies."
+        },
+        {
+          "title": "Animations kept, runtime dropped",
+          "text": "Appear effects, hover states, and scroll transforms become CSS and a few lines of script. Your headline is on screen in the first paint instead of waiting for a script to fade it in."
+        },
+        {
+          "title": "Code components carried over",
+          "text": "Your code components are React, and Astro runs React. They come across as islands that load only on the pages that use them, and overrides get rewritten as plain scripts."
+        },
+        {
+          "title": "CMS out, slugs intact",
+          "text": "Every Framer CMS collection moves into Sanity with its fields, images, and slugs, and the redirects in your Framer site settings move to the new host, so no URL changes under you."
+        }
+      ],
+      "proofTitle": "What you own afterwards.",
+      "proofText": "The site as code in a Git repository, a build you can host anywhere, your content in Sanity where your team edits it, the redirect map, and phone speed reports before and after. Your designer can keep Framer as a design tool. The live site just stops depending on it.",
+      "faqTitle": "Framer to Astro, answered.",
+      "faq": [
+        {
+          "q": "How long does a Framer to Astro migration take?",
+          "a": "Most Framer sites take 3 to 4 weeks. They tend to have fewer templates and more animation, so the time goes into motion rather than layouts. Sites with several CMS collections and custom code components take 5 to 6."
+        },
+        {
+          "q": "Can’t I just export the code from Framer?",
+          "a": "No. Framer has no official export, and third-party tools that scrape a Framer site give you the same React runtime in a folder. A rebuild is the only way to get code that is fast on a phone and yours to change."
+        },
+        {
+          "q": "Will my Framer animations survive the move?",
+          "a": "Yes. Appear effects, hovers, and scroll transforms come across, rebuilt in CSS and small scripts. Heavier sequences get GSAP, loaded only on the pages that use it. Motion that exists only to look busy is something I flag, not something I cut without asking."
+        },
+        {
+          "q": "What happens to my Framer CMS collections?",
+          "a": "I move every collection into Sanity, item by item, with its fields, images, and slug. A post at /blog/your-post stays at /blog/your-post."
+        },
+        {
+          "q": "What about my code components and overrides?",
+          "a": "Code components move across as React islands, so they keep working and load only where they appear. Overrides become plain scripts, which usually end up shorter than the originals."
+        },
+        {
+          "q": "Can my designer keep designing in Framer?",
+          "a": "Yes. Framer stays a great design tool. New sections get designed there and built into components in the repo, while marketing publishes content in Sanity without touching layout."
+        },
+        {
+          "q": "Will I lose my Google rankings when I leave Framer?",
+          "a": "Not when the redirect map holds. Every URL keeps its path, the redirects from your Framer site settings move across, page titles and descriptions come with the content, and I watch Search Console through the first month."
+        },
+        {
+          "q": "What happens to my Framer forms?",
+          "a": "Framer forms send submissions through Framer, so they stop when the site leaves. I reconnect each one to your CRM, email tool, or a form service, and test every submission before launch."
+        }
+      ],
+      "ctaTitle": "Send me your Framer URL.",
+      "ctaText": "I run it on a real phone and reply within a day with what the move involves and what Framer’s runtime is costing you on mobile.",
       "ctaButton": "Plan the move"
     }
   ]
