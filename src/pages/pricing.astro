@@ -160,10 +160,11 @@ const faqSchema = {
                       <li class="price-feature" data-edit={`${base}.features.${f}`}>{feature}</li>
                     ))}
                   </ul>
-                  {/* The form lives on the homepage, same as every other CTA. */}
+                  {/* bookCall plans go straight to the calendar; the rest to the
+                      form on the homepage, same as every other CTA. */}
                   <a
                     class={plan.featured ? 'btn-primary' : 'btn-secondary'}
-                    href="/#contact"
+                    href={plan.bookCall ? '/book-a-call/' : '/#contact'}
                     data-edit={`${base}.cta`}
                   >
                     {plan.cta}

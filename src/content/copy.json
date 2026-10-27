@@ -206,6 +206,7 @@
             "price": "$3,000",
             "text": "For a marketing site that outgrew its platform.",
             "featured": false,
+            "bookCall": true,
             "features": [
               "Up to 10 templates",
               "Up to 5 CMS collections in Sanity",
@@ -223,6 +224,7 @@
             "price": "$7,500",
             "text": "For fintech and Web3 teams with content, data, and a marketing team that publishes weekly.",
             "featured": true,
+            "bookCall": true,
             "features": [
               "Up to 30 templates",
               "Up to 10 CMS collections in Sanity, edited by your team",
