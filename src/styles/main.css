@@ -2992,7 +2992,7 @@ section {
   );
 }
 
-/* The most chosen plan goes to ink: the one card on the light section that
+/* The featured plan goes to ink: the one card on the light section that
    carries the strongest contrast, and the only one with the accent button. */
 .price-card.is-featured {
   background: var(--ink);
@@ -3013,15 +3013,6 @@ section {
   text-transform: uppercase;
   color: rgba(237, 237, 230, 0.78);
   margin: 0;
-}
-
-.price-badge {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--ink);
-  background: var(--accent);
-  padding: 4px 10px;
 }
 
 .price-amount {

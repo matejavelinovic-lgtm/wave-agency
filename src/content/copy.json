@@ -190,13 +190,12 @@
   },
   "pricing": {
     "metaTitle": "Pricing: Astro migrations and new Astro builds | WaveWeb",
-    "metaDescription": "Fixed prices, agreed before I start. Migrations to Astro from $5,000 and new Astro sites from $4,000, priced by templates and integrations, not page count.",
+    "metaDescription": "Fixed prices, agreed before I start. Migrations to Astro from $3,000 and new Astro sites from $4,000, priced by templates and integrations, not page count.",
     "eyebrow": "Pricing",
     "titleStart": "Fixed prices, agreed",
     "titleAccent": "before",
     "titleEnd": "I start.",
     "subtitle": "Price follows templates, CMS collections, and integrations, not page count. A blog with 300 posts is one template. You know the number before the first line of code, and it does not move unless the scope does.",
-    "badge": "Most chosen",
     "groups": [
       {
         "label": "Migrate to Astro",
@@ -209,7 +208,7 @@
             "featured": false,
             "features": [
               "Up to 10 templates",
-              "5 CMS collection in Sanity (blog or news)",
+              "Up to 5 CMS collections in Sanity",
               "Core interactions rebuilt",
               "Schema markup and llms.txt",
               "Redirect map and sitemap diff",
@@ -244,7 +243,7 @@
               "Unlimited templates and collections",
               "Localization and multi-market setup",
               "API and product integrations",
-              "Security and compliance review before launch",
+              "Security review before launch",
               "Full AEO strategy",
               "Timeline agreed in scope",
               "60 days of post-launch support"

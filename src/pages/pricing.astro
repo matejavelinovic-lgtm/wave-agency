@@ -145,9 +145,6 @@ const faqSchema = {
                 <article class:list={['price-card', { 'is-featured': plan.featured }]}>
                   <div class="price-card-head">
                     <h3 class="price-name" data-edit={`${base}.name`}>{plan.name}</h3>
-                    {plan.featured && (
-                      <span class="price-badge" data-edit="pricing.badge">{pricing.badge}</span>
-                    )}
                   </div>
                   <p class="price-amount">
                     {plan.pricePrefix && (
