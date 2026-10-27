@@ -147,7 +147,11 @@ const breadcrumbs = [
       </h1>
       <p class="svc-subtitle" data-edit={`${base}.subtitle`}>{page.subtitle}</p>
       <div class="hero-actions">
-        <a class="btn-primary" href="#svc-cta" data-edit={`${base}.ctaPrimary`}>{page.ctaPrimary}</a>
+        <a
+          class="btn-primary"
+          href={page.bookCall ? '/book-a-call/' : '#svc-cta'}
+          data-edit={`${base}.ctaPrimary`}>{page.ctaPrimary}</a
+        >
         <a class="btn-secondary" href="/#services" data-edit={`${base}.ctaSecondary`}
           >{page.ctaSecondary}</a
         >
@@ -250,8 +254,13 @@ const breadcrumbs = [
         The form lives on the homepage and posts to one endpoint. Sending people
         there rather than repeating the form keeps a single submit handler and a
         single place for the honeypot; the hash lands them on it directly.
+        bookCall pages skip the form and go straight to the calendar.
       */}
-      <a class="btn-primary" href="/#contact" data-edit={`${base}.ctaButton`}>{page.ctaButton}</a>
+      <a
+        class="btn-primary"
+        href={page.bookCall ? '/book-a-call/' : '/#contact'}
+        data-edit={`${base}.ctaButton`}>{page.ctaButton}</a
+      >
       {linkRows.map((row) => (
         <div class="svc-siblings">
           <span class="svc-siblings-label">{row.label}</span>

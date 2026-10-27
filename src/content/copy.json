@@ -524,6 +524,7 @@
     },
     {
       "slug": "migrate-to-astro",
+      "bookCall": true,
       "metaTitle": "Migrate your website to Astro | WaveWeb",
       "metaDescription": "Moving off Webflow, WordPress, Framer or Wix? I rebuild your site in Astro, in a repo your team owns, keeping the design and every URL that earns traffic.",
       "crumb": "Migrate to Astro",
@@ -625,6 +626,7 @@
   "migrationPages": [
     {
       "slug": "webflow-to-astro",
+      "bookCall": true,
       "parent": "migrate-to-astro",
       "metaTitle": "Webflow to Astro migration | WaveWeb",
       "metaDescription": "I move your Webflow site to Astro: same design, every URL kept, CMS collections exported, interactions rebuilt, and a repo your team owns. Fixed price, agreed up front.",
@@ -721,6 +723,7 @@
     },
     {
       "slug": "framer-to-astro",
+      "bookCall": true,
       "parent": "migrate-to-astro",
       "metaTitle": "Framer to Astro migration | WaveWeb",
       "metaDescription": "Framer site slow on phones, or locked to one plan? I rebuild it in Astro from your Framer project: animations kept, CMS moved to Sanity, and code you own and can host anywhere.",
