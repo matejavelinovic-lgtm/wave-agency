@@ -1,10 +1,8 @@
 {
   "hero": {
     "eyebrow": "Speed, AEO, and Astro",
-    "titleStart": "I make Web3 and fintech sites load",
-    "titleAccent": "fast",
-    "titleEnd": "and show up in AI answers.",
-    "subtitle": "Whether you have a site or a blank domain, I make it load fast, show up in ChatGPT and Claude, and run on Astro, built to stay that way.",
+    "title": "Fast for your visitors, faster for your team.",
+    "subtitle": "Your buyers get pages that load quickly whether they’re on a phone or a desktop. Your team gets a codebase built for AI agents, so new pages and edits take minutes, not sprints.",
     "ctaPrimary": "Let’s talk",
     "ctaSecondary": "See the three services",
     "scopeLabel": "Built for"

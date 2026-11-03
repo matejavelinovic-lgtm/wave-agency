@@ -109,14 +109,7 @@ const faqSchema = {
         ><span class="hero-eyebrow-dot"></span><span data-edit="hero.eyebrow">{hero.eyebrow}</span
         ></span
       >
-      {/* Three fields, not one: the accent span needs its own editable target,
-          and the spaces around it stay in the markup where an edit cannot eat
-          them. */}
-      <h1 class="hero-title">
-        <span data-edit="hero.titleStart">{hero.titleStart}</span>{' '}
-        <span class="hero-title-em" data-edit="hero.titleAccent">{hero.titleAccent}</span>{' '}
-        <span data-edit="hero.titleEnd">{hero.titleEnd}</span>
-      </h1>
+      <h1 class="hero-title" data-edit="hero.title">{hero.title}</h1>
       <p class="hero-subtitle" data-edit="hero.subtitle">{hero.subtitle}</p>
       <div class="hero-actions">
         <a class="btn-primary" href="#contact" data-edit="hero.ctaPrimary"

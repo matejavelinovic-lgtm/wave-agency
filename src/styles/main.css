@@ -544,10 +544,6 @@ section {
   color: var(--text-on-dark);
 }
 
-.hero-title-em {
-  color: var(--accent);
-}
-
 .hero-subtitle {
   font-size: 19px;
   color: var(--text-on-dark-muted);
