@@ -1,0 +1,26 @@
+---
+/*
+ * The line that closes a section with a path to contact. Plain text link, no
+ * script, so a section can end on one without adding anything for a phone to run.
+ *
+ * tone follows the band it sits on: the accent yellow reads on dark and purple,
+ * and disappears on the light band, which takes the purple link instead.
+ */
+interface Props {
+  href: string;
+  label: string;
+  /** copy.json path of the label, for data-edit. */
+  edit: string;
+  tone?: 'dark' | 'light';
+}
+
+const { href, label, edit, tone = 'dark' } = Astro.props;
+---
+
+<p class="section-cta">
+  <a
+    class={tone === 'light' ? 'section-cta-link-light' : 'section-cta-link'}
+    href={href}
+    data-edit={edit}>{label}</a
+  >
+</p>

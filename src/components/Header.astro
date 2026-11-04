@@ -3,6 +3,7 @@
 // src/styles/main.css — click any of them in the visual editor to edit its rule.
 import { SITE_NAME } from '../consts';
 import copy from '../content/copy.json';
+import { visibleRebuilds } from '../data/rebuilds';
 
 // Trailing slash included, matching the hrefs below, so the service page you
 // are on can mark its own entry in the menu.
@@ -47,7 +48,8 @@ const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.ur
           </ul>
         </div>
       </div>
-      <a class="nav-link" href="/pricing/">Pricing</a>
+      {/* The section does not exist until an entry in rebuilds.ts is complete. */}
+      {visibleRebuilds.length > 0 && <a class="nav-link" href="/#rebuilds">Rebuilds</a>}
       <a class="nav-link" href="/#process">Process</a>
       <a class="nav-link" href="/#faq">FAQ</a>
       <a class="nav-link" href="/blog/">Blog</a>

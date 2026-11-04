@@ -16,9 +16,9 @@ export default defineConfig({
    * resolve an extra hop per URL. Keep the two in step; the sitemap builds off
    * this value, everything else reads consts.
    *
-   * sitemap() only emits URLs for pages that exist at build time, so the three
-   * service routes named in consts appear the day their .astro files do —
-   * there is nothing to remember to update here.
+   * sitemap() only emits URLs for pages that exist at build time, so a page
+   * appears the day it is built and leaves the day it is deleted. There is
+   * nothing to remember to update here.
    */
   site: 'https://www.waveweb.agency',
   /*

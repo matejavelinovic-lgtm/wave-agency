@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import ProblemReel from '../components/ProblemReel.astro';
+import Rebuilds from '../components/Rebuilds.astro';
+import SectionCta from '../components/SectionCta.astro';
 import { SITE_URL, SITE_NAME, PERSON, PERSON_PHOTO } from '../consts';
 import copy from '../content/copy.json';
 
@@ -13,18 +15,12 @@ import copy from '../content/copy.json';
  * a data-edit pointing at it — text hardcoded in the markup below is text
  * nobody can edit in the browser.
  */
-const { hero, proof, services, founder, faq, contact } = copy;
+const { hero, own, services, stack, founder, guarantee, faq, contact } = copy;
 const steps = copy.process.steps;
 
-const scope = ['DeFi', 'Exchanges', 'Wallets', 'RWA', 'Payments', 'Neobanks', 'Trading platforms'];
-
-/*
- * The proof numbers are illustrative until real audits back them, and they line
- * up with claims made elsewhere on the page on purpose: 97 clears the "above
- * 90" the performance card promises, and 4.1s matches the four second paint the
- * first problem card describes. Change one of them in copy.json and check the
- * claim it pairs with still agrees.
- */
+/* The number the guarantee promises, read from its own headline so the meter
+   cannot drift from the words. Falls back to 90 if the headline loses it. */
+const guaranteeScore = Number(guarantee.title.match(/\d+/)?.[0] ?? 90);
 
 /*
  * The cards and the service pages are two parallel lists: services.cards[i]
@@ -58,7 +54,7 @@ const serviceSchema = services.cards.map((s, i) => ({
   areaServed: 'Worldwide',
   audience: {
     '@type': 'Audience',
-    audienceType: 'Web3 and fintech companies',
+    audienceType: 'B2B companies',
   },
 }));
 
@@ -109,7 +105,16 @@ const faqSchema = {
         ><span class="hero-eyebrow-dot"></span><span data-edit="hero.eyebrow">{hero.eyebrow}</span
         ></span
       >
-      <h1 class="hero-title" data-edit="hero.title">{hero.title}</h1>
+      {/* One line per sentence. A space stays between the spans, so textContent
+          still reads back as the exact string and the copy editor saves it whole. */}
+      <h1 class="hero-title" data-edit="hero.title">
+        {hero.title.split(/(?<=\.)\s+/).map((line, i, all) => (
+          <>
+            <span class="hero-title-line">{line}</span>
+            {i < all.length - 1 ? ' ' : ''}
+          </>
+        ))}
+      </h1>
       <p class="hero-subtitle" data-edit="hero.subtitle">{hero.subtitle}</p>
       <div class="hero-actions">
         <a class="btn-primary" href="#contact" data-edit="hero.ctaPrimary"
@@ -121,33 +126,44 @@ const faqSchema = {
       </div>
       <div class="hero-scope">
         <span class="hero-scope-label" data-edit="hero.scopeLabel">{hero.scopeLabel}</span>
-        {scope.map((s) => <span class="scope-chip">{s}</span>)}
+        {hero.scope.map((s, i) => <span class="scope-chip" data-edit={`hero.scope.${i}`}>{s}</span>)}
       </div>
     </div>
   </section>
 
-  <section class="proof" id="proof">
-    <div class="proof-inner">
-      <h2 class="proof-title" data-edit="proof.title">{proof.title}</h2>
-      <div class="proof-grid">
-        {
-          proof.items.map((p, i) => (
-            <div class="proof-item">
-              <p class="proof-figures">
-                {p.before && <span class="proof-before" data-edit={`proof.items.${i}.before`}>{p.before}</span>}
-                {p.before && <span class="proof-arrow" aria-hidden="true" />}
-                <span class="proof-after" data-edit={`proof.items.${i}.after`}>{p.after}</span>
-              </p>
-              <h3 class="proof-label" data-edit={`proof.items.${i}.label`}>{p.label}</h3>
-              <p class="proof-note" data-edit={`proof.items.${i}.note`}>{p.note}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <Rebuilds />
 
   <div class="seam-to-light"></div>
+
+  <section class="own" id="own">
+    <div class="own-inner">
+      <span class="own-eyebrow" data-edit="own.eyebrow">{own.eyebrow}</span>
+      <h2 class="own-title" data-edit="own.title">{own.title}</h2>
+      <p class="own-text" data-edit="own.text">{own.text}</p>
+      {/* Two lists rather than a table: each one reads on its own, and on a phone
+          they stack without a sideways scroll. The order matches, so line three
+          of one answers line three of the other. */}
+      <div class="own-grid">
+        <div class="own-rented">
+          <h3 class="own-rented-title" data-edit="own.rentedTitle">{own.rentedTitle}</h3>
+          <ul class="own-rented-list">
+            {own.rented.map((item, i) => (
+              <li class="own-rented-item" data-edit={`own.rented.${i}`}>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="own-owned">
+          <h3 class="own-owned-title" data-edit="own.ownedTitle">{own.ownedTitle}</h3>
+          <ul class="own-owned-list">
+            {own.owned.map((item, i) => (
+              <li class="own-owned-item" data-edit={`own.owned.${i}`}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <SectionCta tone="light" href="#contact" label={own.cta} edit="own.cta" />
+    </div>
+  </section>
 
   <ProblemReel />
 
@@ -169,10 +185,29 @@ const faqSchema = {
           ))
         }
       </div>
+      <SectionCta tone="light" href="/book-a-call/" label={services.cta} edit="services.cta" />
     </div>
   </section>
 
   <div class="seam-to-dark"></div>
+
+  <section class="stack" id="stack">
+    <div class="stack-inner">
+      <span class="stack-eyebrow" data-edit="stack.eyebrow">{stack.eyebrow}</span>
+      <h2 class="stack-title" data-edit="stack.title">{stack.title}</h2>
+      <p class="stack-text" data-edit="stack.text">{stack.text}</p>
+      <div class="stack-grid">
+        {stack.items.map((item, i) => (
+          <div class="stack-item">
+            <span class="stack-group" data-edit={`stack.items.${i}.group`}>{item.group}</span>
+            <h3 class="stack-name" data-edit={`stack.items.${i}.name`}>{item.name}</h3>
+            <p class="stack-item-text" data-edit={`stack.items.${i}.text`}>{item.text}</p>
+          </div>
+        ))}
+      </div>
+      <SectionCta href="#contact" label={stack.cta} edit="stack.cta" />
+    </div>
+  </section>
 
   <section class="process" id="process">
     <div class="process-inner">
@@ -180,49 +215,73 @@ const faqSchema = {
         <span class="process-eyebrow" data-edit="process.eyebrow">{copy.process.eyebrow}</span>
         <h2 class="process-title" data-edit="process.title">{copy.process.title}</h2>
       </div>
-      <div class="chain-row chain-row--hover1">
+      <div class="step-row step-row--hover1">
         {
           steps.map((p, i) => (
             <>
-              <div class="chain-block">
-                <span class="chain-hash">BLOCK_<span data-edit={`process.steps.${i}.n`}>{p.n}</span></span>
-                <h3 class="chain-block-title" data-edit={`process.steps.${i}.title`}>{p.title}</h3>
-                <p class="chain-block-text" data-edit={`process.steps.${i}.text`}>{p.text}</p>
+              <div class="step-block">
+                <span class="step-tag">STEP_<span data-edit={`process.steps.${i}.n`}>{p.n}</span></span>
+                <h3 class="step-block-title" data-edit={`process.steps.${i}.title`}>{p.title}</h3>
+                <p class="step-block-text" data-edit={`process.steps.${i}.text`}>{p.text}</p>
               </div>
-              {i < steps.length - 1 && <div class="chain-link"></div>}
+              {i < steps.length - 1 && <div class="step-link"></div>}
             </>
           ))
         }
       </div>
       <noscript>
         <style>
-          .chain-row .chain-block, .chain-row .chain-link::before { transform: none; }
+          .step-row .step-block, .step-row .step-link::before { transform: none; }
         </style>
       </noscript>
+      <SectionCta href="#contact" label={copy.process.cta} edit="process.cta" />
     </div>
   </section>
 
   <script>
-    const chainRow = document.querySelector('.chain-row');
-    if (chainRow) {
+    const stepRow = document.querySelector('.step-row');
+    if (stepRow) {
       if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                chainRow.classList.add('in-view');
+                stepRow.classList.add('in-view');
                 observer.unobserve(entry.target);
               }
             });
           },
           { threshold: 0.25 }
         );
-        observer.observe(chainRow);
+        observer.observe(stepRow);
       } else {
-        chainRow.classList.add('in-view');
+        stepRow.classList.add('in-view');
       }
     }
   </script>
+
+  <div class="seam-to-light"></div>
+
+  <section class="guarantee" id="guarantee">
+    <div class="guarantee-inner">
+      <div class="guarantee-copy">
+        <span class="guarantee-eyebrow" data-edit="guarantee.eyebrow">{guarantee.eyebrow}</span>
+        <h2 class="guarantee-title" data-edit="guarantee.title">{guarantee.title}</h2>
+        <p class="guarantee-text" data-edit="guarantee.text">{guarantee.text}</p>
+        <p class="guarantee-note" data-edit="guarantee.note">{guarantee.note}</p>
+        <SectionCta href="#contact" label={guarantee.cta} edit="guarantee.cta" />
+      </div>
+      <div class="guarantee-meter" style={`--score: ${guaranteeScore}`}>
+        <div class="guarantee-meter-head">
+          <span class="guarantee-meter-label" data-edit="guarantee.scoreLabel">{guarantee.scoreLabel}</span>
+          <span class="guarantee-meter-value" aria-hidden="true">{guaranteeScore}+</span>
+        </div>
+        <span class="guarantee-track" aria-hidden="true"><span class="guarantee-fill"></span></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-to-dark"></div>
 
   <section class="founder" id="founder">
     <div class="founder-inner">
@@ -255,6 +314,7 @@ const faqSchema = {
             data-edit="founder.linkLabel">{founder.linkLabel}</a
           >
         </p>
+        <SectionCta href="/book-a-call/" label={founder.cta} edit="founder.cta" />
       </div>
     </div>
   </section>
@@ -268,28 +328,33 @@ const faqSchema = {
         <h2 class="faq-title" data-edit="faq.title">{faq.title}</h2>
         <p class="faq-text" data-edit="faq.text">{faq.text}</p>
       </div>
-      <div class="faq-list">
-        {
-          faq.items.map((f, i) => (
-            <div class="faq-item">
-              <button
-                class="faq-question"
-                type="button"
-                id={`faq-trigger-${i}`}
-                aria-expanded="false"
-                aria-controls={`faq-panel-${i}`}
-              >
-                <span class="faq-question-text" data-edit={`faq.items.${i}.q`}>{f.q}</span>
-                <span class="faq-icon" aria-hidden="true"></span>
-              </button>
-              <div class="faq-panel" id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-trigger-${i}`}>
-                <div class="faq-panel-clip">
-                  <p class="faq-answer" data-edit={`faq.items.${i}.a`}>{f.a}</p>
+      {/* The wrapper keeps the list and its closing link in one grid column, so
+          the link lands after the last question on a phone too. */}
+      <div class="faq-body">
+        <div class="faq-list">
+          {
+            faq.items.map((f, i) => (
+              <div class="faq-item">
+                <button
+                  class="faq-question"
+                  type="button"
+                  id={`faq-trigger-${i}`}
+                  aria-expanded="false"
+                  aria-controls={`faq-panel-${i}`}
+                >
+                  <span class="faq-question-text" data-edit={`faq.items.${i}.q`}>{f.q}</span>
+                  <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-panel" id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-trigger-${i}`}>
+                  <div class="faq-panel-clip">
+                    <p class="faq-answer" data-edit={`faq.items.${i}.a`}>{f.a}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        }
+            ))
+          }
+        </div>
+        <SectionCta tone="light" href="#contact" label={faq.cta} edit="faq.cta" />
       </div>
       <noscript>
         {/* is:inline keeps this rule inside the noscript — without it Astro
@@ -335,6 +400,7 @@ const faqSchema = {
         <span class="contact-eyebrow" data-edit="contact.eyebrow">{contact.eyebrow}</span>
         <h2 class="contact-title" data-edit="contact.title">{contact.title}</h2>
         <p class="contact-text" data-edit="contact.text">{contact.text}</p>
+        <a class="contact-book" href="/book-a-call/" data-edit="contact.bookLabel">{contact.bookLabel}</a>
       </div>
     {
       /*
@@ -473,7 +539,7 @@ const faqSchema = {
           if (!response.ok) throw new Error(`/api/contact answered ${response.status}`);
 
           // reset() restores the first radio's checked attribute, so the chip
-          // row goes back to "Speed" selected rather than to nothing selected.
+          // row goes back to its first option rather than to nothing selected.
           form.reset();
           say(form.dataset.success ?? '', 'ok');
         } catch (error) {
@@ -548,13 +614,45 @@ const faqSchema = {
         .from('.hero-scope', { y: 16, opacity: 0, duration: 0.6 }, 0.8)
         .from('.hero-rings', { opacity: 0, scale: 0.82, duration: 1.2, ease: 'power2.out' }, 0.25);
 
-      // ── Proof ───────────────────────────────────────────────────
-      gsap.from('.proof-item', {
-        scrollTrigger: { trigger: '.proof', start: 'top 88%' },
-        y: 22,
+      // ── Rebuilds ────────────────────────────────────────────────
+      // The section is absent until an entry in src/data/rebuilds.ts is complete,
+      // and GSAP warns about a trigger it cannot find.
+      if (document.querySelector('.rebuilds')) {
+        gsap.from(['.rebuilds-eyebrow', '.rebuilds-title', '.rebuilds-text'], {
+          scrollTrigger: { trigger: '.rebuilds', start: 'top 80%' },
+          y: 24,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: 'power3.out',
+        });
+
+        gsap.from('.rebuild-card', {
+          scrollTrigger: { trigger: '.rebuild-grid', start: 'top 85%' },
+          y: 40,
+          opacity: 0,
+          duration: 0.65,
+          stagger: 0.1,
+          ease: 'power3.out',
+        });
+      }
+
+      // ── Own your stack ──────────────────────────────────────────
+      gsap.from(['.own-eyebrow', '.own-title', '.own-text'], {
+        scrollTrigger: { trigger: '.own', start: 'top 75%' },
+        y: 24,
         opacity: 0,
-        duration: 0.6,
+        duration: 0.7,
         stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.from(['.own-rented', '.own-owned'], {
+        scrollTrigger: { trigger: '.own-grid', start: 'top 82%' },
+        y: 40,
+        opacity: 0,
+        duration: 0.65,
+        stagger: 0.12,
         ease: 'power3.out',
       });
 
@@ -612,6 +710,41 @@ const faqSchema = {
           tiltY(0);
           lift(0);
         });
+      });
+
+      // ── Stack ───────────────────────────────────────────────────
+      gsap.from(['.stack-eyebrow', '.stack-title', '.stack-text'], {
+        scrollTrigger: { trigger: '.stack', start: 'top 75%' },
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.stack-item', {
+        scrollTrigger: { trigger: '.stack-grid', start: 'top 82%' },
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power3.out',
+      });
+
+      // ── Guarantee ───────────────────────────────────────────────
+      gsap.from('.guarantee-inner', {
+        scrollTrigger: { trigger: '.guarantee', start: 'top 78%' },
+        scale: 0.97,
+        duration: 0.9,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.guarantee-fill', {
+        scrollTrigger: { trigger: '.guarantee', start: 'top 70%' },
+        scaleX: 0,
+        transformOrigin: 'left center',
+        duration: 1,
+        ease: 'power2.out',
       });
 
       // ── Founder ─────────────────────────────────────────────────

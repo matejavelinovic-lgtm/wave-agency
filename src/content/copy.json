@@ -1,80 +1,132 @@
 {
   "hero": {
-    "eyebrow": "Speed, AEO, and Astro",
+    "eyebrow": "Custom websites for B2B",
     "title": "Fast for your visitors, faster for your team.",
-    "subtitle": "Your buyers get pages that load quickly whether they’re on a phone or a desktop. Your team gets a codebase built for AI agents, so new pages and edits take minutes, not sprints.",
+    "subtitle": "We build fast, custom websites for B2B companies. You own the repo, you choose the host, and your team gets a CMS it actually likes. No platform sits in the middle.",
     "ctaPrimary": "Let’s talk",
-    "ctaSecondary": "See the three services",
-    "scopeLabel": "Built for"
-  },
-  "proof": {
-    "title": "Before and after, on sites I shipped.",
-    "items": [
-      {
-        "before": "35",
-        "after": "97",
-        "label": "Mobile PageSpeed",
-        "note": "Median across the last five projects"
-      },
-      {
-        "before": "4.1s",
-        "after": "1.2s",
-        "label": "Largest contentful paint",
-        "note": "Moto G4, 4G throttled"
-      },
-      {
-        "before": "",
-        "after": "14",
-        "label": "Sites optimized",
-        "note": "Since 2022"
-      }
+    "ctaSecondary": "See what we build",
+    "scopeLabel": "Built with",
+    "scope": [
+      "Astro",
+      "Next.js",
+      "Sanity",
+      "Payload"
     ]
+  },
+  "rebuilds": {
+    "eyebrow": "Rebuilds",
+    "title": "Public sites, rebuilt and measured.",
+    "text": "We took public websites and rebuilt them in Astro or Next.js. These are demos, not client work. Each card shows the live site’s numbers next to the rebuild’s.",
+    "labelPageSpeed": "Mobile PageSpeed",
+    "labelLcp": "Largest contentful paint",
+    "labelJs": "JavaScript shipped",
+    "demoLabel": "Open the live demo",
+    "cta": "Book a call about your site"
+  },
+  "own": {
+    "eyebrow": "Own your stack",
+    "title": "Stop renting your website.",
+    "text": "A platform gets you live fast, then sets your limits. When the site is code you own, you set them.",
+    "rentedTitle": "A site you rent",
+    "rented": [
+      "Your site lives inside their product",
+      "CMS item caps tied to your plan",
+      "Plugin and seat fees that grow with your team",
+      "Hosting you cannot move",
+      "Bloated JavaScript you cannot remove",
+      "Slow mobile scores you cannot fix"
+    ],
+    "ownedTitle": "Code you own",
+    "owned": [
+      "Your repo, with the full history",
+      "A CMS your team actually likes",
+      "No plugin licenses and no platform plan",
+      "Your hosting, on your account",
+      "JavaScript only where a section needs it",
+      "Fast by default on a phone"
+    ],
+    "cta": "Move to code you own"
   },
   "problem": {
     "title": "You landed here for one of four reasons.",
     "cards": [
       {
         "title": "Your site takes four seconds to load.",
-        "text": "A visitor on a phone waits, gives up, and taps back to the search results. You paid to get that person to the page, and you lose them before your product appears."
+        "text": "A buyer on a phone waits, gives up, and taps back to the search results. You paid to get that person to the page, and you lost them before your product appeared."
       },
       {
         "title": "ChatGPT and Claude cannot see you.",
-        "text": "You ask an AI about your own category and it names three competitors. Your pages carry no structure a model can lift an answer from, so the model quotes someone who does."
+        "text": "You ask an AI about your own category and it names three competitors. Your pages carry no structure a model can lift an answer from, so the model quotes someone else."
       },
       {
         "title": "You vibe-coded it, and it broke.",
-        "text": "The site went live in a weekend and looked fine at launch. Traffic grew, the content piled up, and the pages started to buckle under both."
+        "text": "The site went live in a weekend and looked fine at launch. Then traffic grew, the content piled up, and the pages started to buckle."
       },
       {
         "title": "You have no site yet, and you need one.",
-        "text": "You are launching, or the current page is a form and a logo. You want a site built right the first time, fast on a phone and readable to an AI from day one, instead of one you pay to fix a year later."
+        "text": "You are launching, or the current page is a form and a logo. You want it built right the first time: fast on a phone and readable to an AI from day one."
       }
-    ]
+    ],
+    "cta": "Tell us which one it is"
   },
   "services": {
     "eyebrow": "Services",
-    "title": "Three ways I make a site earn its traffic.",
-    "subtitle": "You name the problem. I take the work from first measurement to shipped result, and I send you the numbers when it lands.",
+    "title": "Build it. Move it. Speed it up. Get it quoted.",
+    "subtitle": "You name the problem. We take the work from first measurement to shipped result, and we send you the numbers when it lands.",
     "cards": [
       {
+        "title": "Custom websites",
+        "text": "We design and build your site in code, in a repo you own. Astro for marketing and content. Next.js when the site needs app logic. A CMS picked to fit your team."
+      },
+      {
+        "title": "Website migration",
+        "text": "You outgrew the platform. We rebuild your site in code, keep the design you paid for, keep the URLs that earn traffic, and hand your team a repo they own."
+      },
+      {
         "title": "Performance optimization",
-        "text": "I strip render-blocking scripts, compress your hero media, and cut the JavaScript your visitors download without ever running. You get a mobile score above 90 and a page that paints before a thumb reaches the scroll."
+        "text": "We strip render-blocking scripts, compress your hero media, and cut the JavaScript your visitors download and never run. The target is a mobile score above 90 and a page that paints before a thumb reaches the scroll."
       },
       {
         "title": "Answer engine optimization",
-        "text": "I structure your pages so ChatGPT, Claude, Perplexity, and Google AI Overviews can lift a clean answer out of them. You land inside the answer with your name on it, instead of on page two of a link list."
+        "text": "We structure your pages so ChatGPT, Claude, Perplexity, and Google AI Overviews can lift a clean answer out of them. You land inside the answer with your name on it, instead of on page two of a link list."
+      }
+    ],
+    "cta": "Not sure which one? Book a call"
+  },
+  "stack": {
+    "eyebrow": "Stack",
+    "title": "The right tool for the job.",
+    "text": "We pick the framework after we see the site. We pick the CMS that fits your team, after we meet the people who will use it.",
+    "items": [
+      {
+        "group": "Framework",
+        "name": "Astro",
+        "text": "Our default for marketing and content sites. Pages ship as finished HTML, and JavaScript loads only where a section needs it."
       },
       {
-        "title": "Migrate to Astro",
-        "text": "You outgrew the platform. I rebuild your site in Astro, keep the design you paid for, keep the URLs that earn traffic, and hand your team a repo they own."
+        "group": "Framework",
+        "name": "Next.js",
+        "text": "For sites with app logic, auth, or dashboards, and for teams that already work in React."
+      },
+      {
+        "group": "CMS",
+        "name": "Sanity",
+        "text": "A hosted content backend with real-time editing. It suits teams that publish often and do not want to run a server."
+      },
+      {
+        "group": "CMS",
+        "name": "Payload",
+        "text": "An open-source CMS that runs inside a Next.js app. It suits teams that want content and code in one repo."
       }
-    ]
+    ],
+    "cta": "Tell us what you are building"
   },
   "founder": {
     "eyebrow": "Who is behind this",
     "title": "You work with me, from the first email to the last test.",
-    "text": "I read your first message, run the audit, optimize your website, and send you the before and after. No account manager sits between us and no handoff loses the detail you mentioned on the first call. I build in Astro, because it ships finished HTML and almost no JavaScript, which is most of the speed work done before it starts.",
-    "linkLabel": "LinkedIn"
+    "text": "I read your first message, run the audit, build the site, and send you the before and after. No account manager sits between us, and no handoff loses what you said on the first call. I choose Astro or Next.js for your site based on what it has to do.",
+    "linkLabel": "LinkedIn",
+    "cta": "Book a call with me"
   },
   "process": {
     "eyebrow": "Process",
@@ -83,24 +135,33 @@
       {
         "n": "01",
         "title": "Audit",
-        "text": "I profile your site on a real phone and list what costs you speed, traffic, and visibility."
+        "text": "We profile your site on a real phone and list what costs you speed, traffic, and visibility. No site yet? We map what the new one has to do."
       },
       {
         "n": "02",
         "title": "Plan",
-        "text": "You get a fix list ranked by what each line earns, with the effort it takes next to it."
+        "text": "You get a plan ranked by what each line earns, with the effort next to it and the stack we would use."
       },
       {
         "n": "03",
         "title": "Ship",
-        "text": "I do the work in Astro, and you review all of it on a staging URL first."
+        "text": "We build in the stack that fits, and you review all of it on a staging URL first."
       },
       {
         "n": "04",
         "title": "Measure",
-        "text": "I run the same tests again and send you the before and after, with the raw reports."
+        "text": "We run the same tests again and send you the before and after, with the raw reports."
       }
-    ]
+    ],
+    "cta": "Start with an audit"
+  },
+  "guarantee": {
+    "eyebrow": "Guarantee",
+    "title": "90+ on mobile, or we keep working for free.",
+    "text": "Before kickoff we agree on the pages that matter most. At launch we measure them with Lighthouse on mobile. If any of them scores under 90, we keep working on it at no cost until it does.",
+    "note": "Excludes third-party scripts you choose to keep, such as chat widgets, heavy trackers, and embedded video players. We flag each one in the audit, with what it costs you in speed.",
+    "scoreLabel": "Lighthouse, mobile",
+    "cta": "Talk to us about your pages"
   },
   "faq": {
     "eyebrow": "FAQ",
@@ -108,261 +169,308 @@
     "text": "The questions teams ask most, answered without the sales detour.",
     "items": [
       {
-        "q": "Why should my marketing team care about Astro instead of a traditional page builder like WordPress or Webflow?",
-        "a": "Astro ships almost no JavaScript by default, so pages load fast and score well on Core Web Vitals. For marketing teams, that means better rankings, lower bounce rates, and higher conversion rates from the same traffic. You get the speed of a hand-coded site without giving up flexibility."
+        "q": "What does WaveWeb do?",
+        "a": "We build fast, custom websites for B2B companies. The site is code you own, in your repository and on your hosting, instead of a site you rent on a platform."
+      },
+      {
+        "q": "What does “own your stack” mean?",
+        "a": "The code sits in your Git repository. The site runs on your hosting account. The CMS project belongs to you. If we stop working together, the site keeps running."
+      },
+      {
+        "q": "Why move off a website platform?",
+        "a": "Platforms cap your CMS items, charge for plugins and seats, lock your hosting, and ship JavaScript you cannot remove. On a phone that means slower pages and lower Core Web Vitals. Code you own removes those limits."
+      },
+      {
+        "q": "Which framework do you build in?",
+        "a": "Astro is our default for marketing and content sites. We use Next.js for sites with app logic, auth, or dashboards, and for teams that already work in React. We choose once we know what the site has to do."
+      },
+      {
+        "q": "Which CMS will my team use?",
+        "a": "We pick the CMS that fits your team. Sanity suits teams that publish often and want a hosted editor with real-time editing. Payload suits teams that want an open-source CMS inside their Next.js app and repository."
       },
       {
         "q": "Will my team still be able to edit content without a developer?",
-        "a": "Yes. I set up Sanity as the CMS, so your team edits copy, images, and landing pages in a clean editor in the browser, and the site rebuilds automatically when they publish. Developers are only needed for new components or structural changes."
+        "a": "Yes. Your team edits copy, images, and landing pages in the browser, and the site updates when they publish. You need a developer for new components or structural changes, not for content."
       },
       {
-        "q": "How does Astro help with SEO and AI search visibility (AEO)?",
-        "a": "Astro renders clean, fully static HTML that search engines and AI crawlers can read instantly, with no client-side rendering delays. Combined with structured data, semantic markup, and well-organized content, your pages are far more likely to be indexed, cited in AI answers, and surfaced in featured snippets."
+        "q": "How does this help with SEO and AI search visibility (AEO)?",
+        "a": "We ship clean HTML that search engines and AI crawlers can read without running JavaScript. Add structured data, semantic markup, and well-organized content, and your pages become easier to index and to cite in AI answers."
       },
       {
-        "q": "Will I lose my SEO rankings when I move my site to Astro?",
-        "a": "Not if the migration is done properly. I keep your URL structure, set up 301 redirects wherever URLs change, and carry over meta tags, schema, and sitemaps. I also monitor indexing and rankings after launch to catch any issues early. In many cases, performance improves after the move."
+        "q": "Will I lose my SEO rankings when I move my site?",
+        "a": "Not when the redirect map holds. We keep your URL structure, set up 301 redirects wherever URLs change, and carry over meta tags, schema, and sitemaps. We also watch indexing and rankings after launch to catch problems early."
       },
       {
-        "q": "How long does an Astro website project take?",
-        "a": "A typical marketing site takes 3 to 4 weeks, depending on the number of pages, custom components, and CMS complexity. A focused landing page or microsite can be live in 1 to 2 weeks. I share a clear timeline upfront, with milestones you can review along the way."
+        "q": "How long does a project take?",
+        "a": "A typical marketing site takes 3 to 4 weeks, depending on the number of pages, custom components, and CMS complexity. A focused landing page or microsite can go live in 1 to 2 weeks. You get a timeline up front, with milestones you can review along the way."
       },
       {
-        "q": "Can Astro integrate with our existing marketing stack?",
-        "a": "Absolutely. Astro works with Google Analytics, GTM, HubSpot, Segment, Meta Pixel, Hotjar, and most A/B testing tools. I set up tracking and event measurement during the build, so your campaigns are measurable from day one."
+        "q": "Can you integrate with our existing marketing stack?",
+        "a": "Yes. Google Analytics, GTM, HubSpot, Segment, Meta Pixel, Hotjar, and most A/B testing tools work with both Astro and Next.js. We set up tracking and event measurement during the build, so you can measure your campaigns from day one."
       },
       {
-        "q": "Is Astro suitable for large or growing sites?",
-        "a": "Yes. Astro handles anything from a five-page brand site to thousands of content pages, including blogs, docs, and programmatic SEO pages. Because pages are pre-built and served from a CDN, performance stays consistent as traffic and content scale."
+        "q": "Do I pay platform fees after launch?",
+        "a": "No platform plan and no plugin licenses. You pay your hosting and CMS providers directly, on your own accounts. Most marketing sites fit a free or entry hosting tier, Sanity has a free plan, and Payload is open source."
       },
       {
-        "q": "What happens after launch? Do you offer ongoing support?",
-        "a": "Yes. I offer maintenance and iterative optimization after launch, from weekly Core Web Vitals reports to new landing pages and A/B test support. You’re never left with a site nobody understands."
-      },
-      {
-        "q": "How much do Astro development services cost compared to other options?",
-        "a": "Pricing depends on scope, but Astro projects often cost less to run over time: hosting is cheap or free, there are no plugin licenses, and maintenance overhead is low. I provide a fixed-scope quote after a short discovery call, so there are no surprises."
+        "q": "What happens after launch?",
+        "a": "We offer maintenance and ongoing optimization, from weekly Core Web Vitals reports to new landing pages and A/B test support. Your next developer can also pick up the repo without us."
       }
-    ]
+    ],
+    "cta": "Ask your own question"
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Tell me about your site.",
-    "text": "Send the URL and the part that bothers you. I reply within a day with what I would fix first.",
+    "title": "Tell us about your site.",
+    "text": "Send the URL and the part that bothers you. We reply within a day with what we would fix first.",
+    "bookLabel": "Prefer to talk? Book a 30 minute call",
     "labelName": "Name",
     "labelEmail": "Email",
     "labelSite": "Your site URL",
     "labelNeed": "What do you need?",
     "needs": [
+      "A new site",
+      "Leave my platform",
       "Speed",
       "AEO",
-      "Migrate to Astro",
-      "A new site from scratch",
       "Audit first"
     ],
     "labelMessage": "About the project",
     "submit": "Send it",
     "sending": "Sending…",
-    "success": "Sent! Your message just landed in my inbox. I reply within a day.",
-    "error": "That did not go through. Email me at matejavelinovic@gmail.com and I will pick it up there."
+    "success": "Sent. Your message is in our inbox, and we reply within a day.",
+    "error": "That did not go through. Email us at matejavelinovic@gmail.com and we will pick it up there."
   },
   "footer": {
-    "text": "I speed up Web3 and fintech sites."
+    "text": "Fast, custom websites for B2B companies. Your code, on your hosting."
   },
   "blog": {
     "metaTitle": "Blog | Speed, AEO, and migrations, written down | WaveWeb",
-    "metaDescription": "Notes from the work: what actually moves Core Web Vitals, how pages get quoted by AI search, and what a migration costs you when it goes wrong.",
+    "metaDescription": "Notes from the work: what moves Core Web Vitals, how pages get quoted by AI search, and what a migration costs you when it goes wrong.",
     "eyebrow": "Writing",
-    "titleStart": "What I learn shipping",
+    "titleStart": "What we learn shipping",
     "titleAccent": "fast",
     "titleEnd": "sites, written down.",
-    "subtitle": "Notes from real projects: what moved the numbers, what did nothing, and what I would do differently the next time.",
+    "subtitle": "Notes from the work: what moved the numbers, what did nothing, and what we would do differently next time.",
     "emptyTitle": "The first post is on its way.",
-    "emptyText": "Nothing published yet. Send me the part of your site that bothers you in the meantime and I will reply with what I would fix first.",
+    "emptyText": "Nothing published yet. Send us the part of your site that bothers you and we will reply with what we would fix first.",
     "ctaTitle": "Want this run on your own site?",
-    "ctaText": "Send the URL and the part that bothers you. I reply within a day with what I would fix first and what it is worth.",
+    "ctaText": "Send the URL and the part that bothers you. We reply within a day with what we would fix first.",
     "ctaButton": "Let’s talk",
     "moreTitle": "Keep reading",
     "takeawaysTitle": "Key takeaways",
     "faqTitle": "Questions, answered."
   },
-  "pricing": {
-    "metaTitle": "Pricing: Astro migrations and new Astro builds | WaveWeb",
-    "metaDescription": "Fixed prices, agreed before I start. Migrations to Astro from $3,000 and new Astro sites from $4,000, priced by templates and integrations, not page count.",
-    "eyebrow": "Pricing",
-    "titleStart": "Fixed prices, agreed",
-    "titleAccent": "before",
-    "titleEnd": "I start.",
-    "subtitle": "Price follows templates, CMS collections, and integrations, not page count. A blog with 300 posts is one template. You know the number before the first line of code, and it does not move unless the scope does.",
-    "groups": [
-      {
-        "label": "Migrate to Astro",
-        "plans": [
-          {
-            "name": "Launch",
-            "pricePrefix": "",
-            "price": "$3,000",
-            "text": "For a marketing site that outgrew its platform.",
-            "featured": false,
-            "bookCall": true,
-            "features": [
-              "Up to 10 templates",
-              "Up to 5 CMS collections in Sanity",
-              "Core interactions rebuilt",
-              "Schema markup and llms.txt",
-              "Redirect map and sitemap diff",
-              "3–4 weeks",
-              "15 days of post-launch support"
-            ],
-            "cta": "Plan the move"
-          },
-          {
-            "name": "Scale",
-            "pricePrefix": "",
-            "price": "$7,500",
-            "text": "For fintech and Web3 teams with content, data, and a marketing team that publishes weekly.",
-            "featured": true,
-            "bookCall": true,
-            "features": [
-              "Up to 30 templates",
-              "Up to 10 CMS collections in Sanity, edited by your team",
-              "Live data blocks: TVL, APY, token price, loaded only where they appear",
-              "AEO structure: FAQ and comparison pages built to be quoted",
-              "5–6 weeks",
-              "30 days of post-launch support"
-            ],
-            "cta": "Plan the move"
-          },
-          {
-            "name": "Protocol",
-            "pricePrefix": "From",
-            "price": "$15,000",
-            "text": "For protocols, exchanges, and regulated fintech.",
-            "featured": false,
-            "features": [
-              "Unlimited templates and collections",
-              "Localization and multi-market setup",
-              "API and product integrations",
-              "Security review before launch",
-              "Full AEO strategy",
-              "Timeline agreed in scope",
-              "60 days of post-launch support"
-            ],
-            "cta": "Book a scoping call"
-          }
-        ]
-      },
-      {
-        "label": "New site",
-        "plans": [
-          {
-            "name": "Launch site",
-            "pricePrefix": "",
-            "price": "$4,000",
-            "text": "A new site built right the first time.",
-            "featured": false,
-            "features": [
-              "Up to 10 pages",
-              "Design included: 1 direction, 2 rounds of changes",
-              "Mobile 90+ and AI-readable from day one",
-              "Forms and analytics connected",
-              "2–3 weeks"
-            ],
-            "cta": "Start the build"
-          },
-          {
-            "name": "Growth site",
-            "pricePrefix": "",
-            "price": "$9,000",
-            "text": "For teams that publish and need a CMS from the start.",
-            "featured": true,
-            "features": [
-              "Up to 25 pages plus Sanity CMS",
-              "Design included: 2 directions, 3 rounds of changes",
-              "Sanity set up so your marketing team publishes alone",
-              "AEO structure built in",
-              "6–8 weeks"
-            ],
-            "cta": "Start the build"
-          }
-        ]
-      }
-    ],
-    "includedTitle": "Included in every project",
-    "included": [
-      "A URL inventory and redirect map, checked before the switch",
-      "A staging URL where you review everything first",
-      "Forms, analytics, and tracking connected and tested",
-      "Code and hosting on your accounts, not mine",
-      "Before and after reports with the raw Lighthouse data",
-      "The 90+ mobile guarantee"
-    ],
-    "excludedTitle": "Not included",
-    "excludedText": "New copywriting, rebranding or logo work, smart contracts and dApp functionality, translations, and third-party plans like hosting or CMS seats. I can bring in a specialist for any of these, quoted separately.",
-    "guaranteeTitle": "90+ on mobile, or I keep working for free.",
-    "guaranteeText": "Before kickoff we agree on the pages that matter most. At launch I measure them with Lighthouse on mobile. If any of them scores under 90, I keep working on it at no cost until it does.",
-    "guaranteeNote": "Excludes third-party scripts you choose to keep, such as chat widgets, heavy trackers, and embedded video players. I flag every one of them in the audit, with what it costs you in speed.",
-    "scoreLabel": "Lighthouse, mobile",
-    "careTitle": "After launch",
-    "careText": "Your site stays fast after I hand it over. Care plans are available to every client once the project ships.",
-    "careLabel": "Care retainer",
-    "careName": "Care+",
-    "carePrice": "$1,500",
-    "carePeriod": "/ month",
-    "careFeatures": [
-      "Weekly reports and alerts when a score drops",
-      "Up to 20 hours of changes, new pages and sections included",
-      "A/B tests"
-    ],
-    "faqTitle": "Pricing questions, answered.",
-    "faq": [
-      {
-        "q": "Why do you price by templates instead of pages?",
-        "a": "Because templates are where the work is. Fifty pages built on five layouts take less time than ten pages with ten unique layouts. Content moves with scripts, so a blog with 300 posts costs the same as one with 30."
-      },
-      {
-        "q": "What if my site does not fit a package?",
-        "a": "Most sites land in one of them. If yours sits between two, the audit tells us which, and you get a fixed quote before anything starts. If it needs more, it goes into Protocol and gets scoped line by line."
-      },
-      {
-        "q": "Why Astro?",
-        "a": "Astro ships almost no JavaScript by default, so pages paint fast on a phone without a fight."
-      },
-      {
-        "q": "Will my Google rankings drop after the migration?",
-        "a": "Not when the redirect map holds. I keep every URL that earns traffic at the same path, diff the old and new sitemaps before the switch, and watch Search Console through the first month."
-      },
-      {
-        "q": "Can my marketing team still publish without a developer?",
-        "a": "Yes. Your content lives in Sanity, a headless CMS your team edits in the browser, and I set it up before I write the first component. Publishing without a ticket is a requirement, not an extra."
-      },
-      {
-        "q": "Do I own the code?",
-        "a": "Yes. The repository, the hosting, and the Sanity project sit on your accounts from day one. Nothing on the site needs me around to keep running."
-      },
-      {
-        "q": "What does hosting cost after I move to Astro?",
-        "a": "For most marketing sites, close to nothing. A static Astro site runs on the free or entry tiers of Vercel, Netlify, or Cloudflare. Sanity has a free plan that covers many marketing teams, and if yours needs a paid one, I list it in the quote so there are no surprises."
-      }
-    ],
-    "ctaTitle": "Tell me about your site.",
-    "ctaText": "Send the URL and the part that bothers you. I reply within a day with what I would fix first and which package it lands in.",
-    "ctaButton": "Let’s talk"
-  },
   "servicePages": [
     {
+      "slug": "custom-websites",
+      "bookCall": true,
+      "metaTitle": "Custom websites for B2B companies | WaveWeb",
+      "metaDescription": "We build fast, custom websites for B2B companies in Astro or Next.js, with the CMS that fits your team. You own the repo, the hosting, and the content.",
+      "crumb": "Custom websites",
+      "eyebrow": "Custom websites",
+      "titleStart": "A website you",
+      "titleAccent": "own",
+      "titleEnd": "from the first commit.",
+      "subtitle": "We design and build your site in code. It lives in your repo, runs on your hosting, and loads fast on a phone from the first release.",
+      "ctaPrimary": "Book a call",
+      "ctaSecondary": "See the other services",
+      "signalsLabel": "We build with",
+      "signals": [
+        "Astro",
+        "Next.js",
+        "Sanity",
+        "Payload",
+        "Git"
+      ],
+      "painTitle": "What renting your site costs you.",
+      "pain": [
+        {
+          "title": "Your content hits a plan limit.",
+          "text": "CMS item caps decide how far a blog, a docs section, or a set of landing pages can grow. You pay for the next tier or you cut the plan."
+        },
+        {
+          "title": "The bill follows your headcount.",
+          "text": "Plugin fees and editor seats rise as your team does, for a site that mostly serves static pages."
+        },
+        {
+          "title": "You cannot take it with you.",
+          "text": "The hosting is locked, and an export, if you get one, is a snapshot nobody wants to maintain. Leaving means starting over."
+        }
+      ],
+      "painCta": "Tell us what your platform costs you",
+      "worksTitle": "What you get.",
+      "works": [
+        {
+          "title": "The right framework for the site",
+          "text": "Astro for marketing and content sites. Next.js for app logic, auth, dashboards, or a team that already works in React. We explain the choice before we write the first line."
+        },
+        {
+          "title": "A CMS your team actually likes",
+          "text": "We pick the CMS that fits your team: Sanity for a hosted editor with real-time editing, or Payload for an open-source CMS inside a Next.js app."
+        },
+        {
+          "title": "Speed from the first release",
+          "text": "Pages ship as finished HTML wherever they can, with JavaScript only where a section needs it. We test on a mid-range phone throughout the build."
+        },
+        {
+          "title": "Pages that search and AI can read",
+          "text": "Schema, semantic markup, a sitemap that stays current, and llms.txt ship with the first release."
+        }
+      ],
+      "worksCta": "Book a call about your site",
+      "proofTitle": "What you own afterwards.",
+      "proofText": "A Git repository with the full history, a build on your own hosting, a CMS project on your own account, and the speed reports from launch. No part of the site needs us around to keep it running.",
+      "proofCta": "Start with a call",
+      "faqTitle": "Custom website questions, answered.",
+      "faq": [
+        {
+          "q": "When do you choose Astro, and when Next.js?",
+          "a": "Astro is the default for marketing and content sites, because it ships finished HTML and almost no JavaScript. We use Next.js when the site needs app logic, auth, or dashboards, or when your team already works in React."
+        },
+        {
+          "q": "Which CMS do you use?",
+          "a": "We pick the CMS that fits your team. Sanity gives you a hosted editor with real-time editing. Payload gives you an open-source CMS inside a Next.js app and your repository."
+        },
+        {
+          "q": "Is design included?",
+          "a": "Yes. You get a design direction and rounds of changes before we build. If you already have a design, we build from that."
+        },
+        {
+          "q": "Do I own the code?",
+          "a": "Yes. The repository, the hosting, and the CMS project sit on your accounts from day one. Nothing on the site needs us around to keep running."
+        },
+        {
+          "q": "How long does a new site take?",
+          "a": "A site of up to 10 pages takes 2 to 3 weeks. A larger site with a CMS takes 6 to 8 weeks. You get the timeline before work starts."
+        },
+        {
+          "q": "Can my team publish without a developer?",
+          "a": "Yes. We set up the CMS before we build the first component, so your marketing team publishes without filing a ticket."
+        }
+      ],
+      "faqCta": "Ask us something else",
+      "ctaTitle": "Tell us what you are building.",
+      "ctaText": "Send a link, a brief, or a rough idea. We reply within a day with how we would approach it.",
+      "ctaButton": "Book a call"
+    },
+    {
+      "slug": "website-migration",
+      "bookCall": true,
+      "metaTitle": "Website migration: move off your platform | WaveWeb",
+      "metaDescription": "Moving off a website platform? We rebuild your site in Astro or Next.js, in a repo your team owns, keeping the design and every URL that earns traffic.",
+      "crumb": "Website migration",
+      "eyebrow": "Website migration",
+      "titleStart": "You outgrew the platform",
+      "titleAccent": "you",
+      "titleEnd": "started on.",
+      "subtitle": "We rebuild your site in code, keep the design you paid for, keep the URLs that earn traffic, and hand your team a repository they own.",
+      "ctaPrimary": "Plan the move",
+      "ctaSecondary": "See the other services",
+      "signalsLabel": "We rebuild with",
+      "signals": [
+        "Astro",
+        "Next.js",
+        "Sanity",
+        "Payload",
+        "Git"
+      ],
+      "painTitle": "Why teams leave.",
+      "pain": [
+        {
+          "title": "The seat bill outgrew the site.",
+          "text": "You pay per editor, per plugin, or per site for a platform you now use as a static host."
+        },
+        {
+          "title": "The thing you need next is not on the roadmap.",
+          "text": "A real search, a gated area, a calculator that talks to your API. Each workaround is another embed, and each embed adds weight to the page."
+        },
+        {
+          "title": "Your engineers cannot review a change.",
+          "text": "There is no diff, no branch, no pull request. Things go live because somebody clicked publish."
+        }
+      ],
+      "painCta": "Tell us why you want to leave",
+      "worksTitle": "How we run it.",
+      "works": [
+        {
+          "title": "Same pixels, different engine",
+          "text": "The rebuild matches the site you have, and we redesign nothing unless you ask. What changes is everything underneath."
+        },
+        {
+          "title": "URL parity, checked line by line",
+          "text": "Live URLs come across at the same path, and we diff the two sitemaps before the switch. Anything that has to move gets a 301."
+        },
+        {
+          "title": "A repository your team recognizes",
+          "text": "Astro for marketing and content sites, Next.js when the site has app logic or your team works in React. Plain components, and no framework tax you did not ask for. It builds on Vercel or wherever you host today."
+        },
+        {
+          "title": "Content stays editable",
+          "text": "Marketing keeps the ability to publish. We pick the CMS that fits your team, Sanity or Payload, and set up its structure before we write the first component."
+        }
+      ],
+      "worksCta": "Plan the move",
+      "proofTitle": "What you own afterwards.",
+      "proofText": "A Git repository with the full history, a build that runs on your own hosting, the redirect map, and the speed reports before and after. No part of the site needs us around to keep it running.",
+      "proofCta": "Talk through your move",
+      "faqTitle": "Questions about moving your site.",
+      "faq": [
+        {
+          "q": "Which platforms can you migrate from?",
+          "a": "Webflow, WordPress, Framer, Wix, Squarespace, and custom builds. If your site is live, we can rebuild it: the content comes across through an export, the platform’s API, or the live pages themselves."
+        },
+        {
+          "q": "Will the site look different?",
+          "a": "No, unless you want it to. The default is a faithful rebuild: same design, same content, same URLs, new foundation underneath."
+        },
+        {
+          "q": "What do you rebuild it in?",
+          "a": "Astro for most marketing and content sites, because it serves finished HTML with almost no JavaScript. Next.js if the site has app logic, auth, or dashboards, or your team already works in React. Any engineer you hire later can pick up either one."
+        },
+        {
+          "q": "Can marketing still publish without a developer?",
+          "a": "Yes, and we treat that as a requirement. Your content lives in a headless CMS your team edits in the browser, and we set it up before we write the first component."
+        },
+        {
+          "q": "Which CMS will my team use?",
+          "a": "We pick the CMS that fits your team. Sanity gives you a hosted editor with real-time editing. Payload gives you an open-source CMS inside a Next.js app. Both structure content around your pages instead of one big rich-text field."
+        },
+        {
+          "q": "Will I lose my SEO rankings when I move?",
+          "a": "Not when the redirect map holds. We keep your URL structure, set up 301 redirects wherever URLs change, and carry over meta tags, schema, and sitemaps. We also watch indexing and rankings after launch to catch problems early."
+        },
+        {
+          "q": "What happens to my CMS content and blog posts?",
+          "a": "We export your CMS content and move it into the new CMS. Your posts, images, and metadata come over intact, and your team edits them in an editor structured around your content."
+        },
+        {
+          "q": "Will there be any downtime during the migration?",
+          "a": "No. We build and test on a staging environment, then switch over at the DNS level once you have signed off. That keeps downtime close to zero."
+        },
+        {
+          "q": "What about my forms, integrations, and third-party tools?",
+          "a": "We rebuild and reconnect your forms, analytics, CRM, email tools, and other integrations, then test each one before launch so you lose no leads or data."
+        }
+      ],
+      "faqCta": "Ask about your platform",
+      "ctaTitle": "Send us your site URL.",
+      "ctaText": "We reply within a day with what the rebuild involves and where the platform is costing you.",
+      "ctaButton": "Plan the move"
+    },
+    {
       "slug": "performance-optimization",
-      "metaTitle": "Website performance optimization for Web3 and fintech | WaveWeb",
-      "metaDescription": "I profile your site on a real phone, cut what costs you the paint, and ship Core Web Vitals in the green — with the before and after reports to prove it.",
+      "metaTitle": "Website performance optimization for B2B companies | WaveWeb",
+      "metaDescription": "We profile your site on a real phone, cut what slows the first paint, and ship Core Web Vitals in the green, with the before and after reports to prove it.",
       "crumb": "Performance optimization",
       "eyebrow": "Performance optimization",
       "titleStart": "Your visitors leave",
       "titleAccent": "before",
       "titleEnd": "your product finishes loading.",
-      "subtitle": "I profile your site on a real phone, find what costs you the paint, and ship the fixes. You get Core Web Vitals in the green and the raw reports that prove it.",
+      "subtitle": "We profile your site on a real phone, find what slows the first paint, and ship the fixes. You get Core Web Vitals in the green and the raw reports that prove it.",
       "ctaPrimary": "Get a speed audit",
       "ctaSecondary": "See the other services",
-      "signalsLabel": "I work on",
+      "signalsLabel": "We work on",
       "signals": [
         "Largest contentful paint",
         "Cumulative layout shift",
@@ -370,7 +478,7 @@
         "Core Web Vitals",
         "Real phone testing"
       ],
-      "painTitle": "What a slow site actually costs you.",
+      "painTitle": "What a slow site costs you.",
       "pain": [
         {
           "title": "You pay twice for every visitor.",
@@ -378,70 +486,74 @@
         },
         {
           "title": "Google ranks the wait.",
-          "text": "Core Web Vitals are a ranking signal. A failing largest contentful paint holds a page down no matter how good the copy on it is."
+          "text": "Core Web Vitals are a ranking signal. A failing largest contentful paint holds a page down, however good the copy on it is."
         },
         {
           "title": "The desktop score is not the problem.",
-          "text": "A green number on a desktop test means little when your buyer is on a mid-range Android over 4G. That is the device I test on."
+          "text": "A green number on a desktop test means little when your buyer is on a mid-range Android over 4G. We test on that device."
         }
       ],
-      "worksTitle": "What I actually change.",
+      "painCta": "Send us the slow page",
+      "worksTitle": "What we change.",
       "works": [
         {
           "title": "The critical path",
-          "text": "Render-blocking scripts and stylesheets come out of the head, fonts get preloaded and metric-matched, and the browser paints text on the first pass instead of the third."
+          "text": "Render-blocking scripts and stylesheets come out of the head, we preload and metric-match the fonts, and the browser paints text on the first pass instead of the third."
         },
         {
           "title": "The JavaScript you ship and never run",
-          "text": "Most sites download a whole framework to animate three sections. I cut what is dead, defer what can wait, and load the rest only where it earns its bytes."
+          "text": "Most sites download a whole framework to animate three sections. We cut what is dead, defer what can wait, and load the rest only where it earns its bytes."
         },
         {
           "title": "Media that holds the paint hostage",
-          "text": "Hero images get sized, converted, and served at the width the layout actually asks for. Video that autoplays above the fold stops blocking the first frame."
+          "text": "We size and convert hero images and serve them at the width the layout asks for. Video that autoplays above the fold stops blocking the first frame."
         },
         {
           "title": "Layout shift",
-          "text": "Everything that arrives late gets its space reserved before it lands — images, embeds, and the font swap that quietly drops your headline one line down the page."
+          "text": "We reserve space for whatever arrives late: images, embeds, and the font swap that drops your headline one line down the page."
         }
       ],
+      "worksCta": "Get a speed audit",
       "proofTitle": "What lands in your inbox.",
-      "proofText": "The same tests, run before and after, with the raw reports attached. Median mobile PageSpeed across the last five projects is 97, up from 35, and largest contentful paint went from 4.1s to 1.2s on a throttled Moto G4.",
+      "proofText": "The same tests, run before and after, with the raw reports attached. You see what moved, and by how much, on the pages you care about.",
+      "proofCta": "See it on your site",
       "faqTitle": "Speed questions, answered.",
       "faq": [
         {
           "q": "How fast can you make my site?",
-          "a": "Most sites I take on land above 90 on mobile. What I promise before the audit is the measurement, not a number: I profile the site first, tell you what each fix is worth, and you decide how far down the list to go."
+          "a": "We profile the site first, tell you what each fix is worth, and you decide how far down the list to go. On a tuning pass we promise the measurement. On a new build or a migration, we guarantee 90+ on mobile on the pages we agree on."
         },
         {
           "q": "Will you break my design?",
-          "a": "No. Speed work is plumbing — the page looks the same and arrives sooner. Anything that would change a layout goes on a staging URL for you to review before it ships."
+          "a": "No. Speed work is plumbing: the page looks the same and arrives sooner. Anything that would change a layout goes on a staging URL for you to review before it ships."
         },
         {
           "q": "What if my platform is the bottleneck?",
-          "a": "Then I tell you. Every builder has a ceiling, and I know where it sits: what to cut, what to move out of the head, and the point where the honest answer is a rebuild in Astro rather than another round of tuning."
+          "a": "Then we tell you. Every builder has a ceiling, and we know where it sits: what to cut, what to move out of the head, and the point where the honest answer is a rebuild in code you own."
         },
         {
           "q": "How long does it take?",
-          "a": "A typical pass runs one to two weeks from audit to shipped, depending on how much of the site is custom and how quickly your review comes back."
+          "a": "A typical pass runs one to two weeks from audit to shipped, depending on how much of the site is custom and how soon your review comes back."
         }
       ],
-      "ctaTitle": "Send me the URL.",
-      "ctaText": "I run the audit and reply within a day with what I would fix first and what it is worth.",
+      "faqCta": "Ask about your site",
+      "ctaTitle": "Send us the URL.",
+      "ctaText": "We run the audit and reply within a day with what we would fix first and what it is worth.",
       "ctaButton": "Get a speed audit"
     },
     {
       "slug": "answer-engine-optimization",
-      "metaTitle": "Answer engine optimization (AEO) for Web3 and fintech | WaveWeb",
-      "metaDescription": "I structure your pages so ChatGPT, Claude, Perplexity and Google AI Overviews quote you by name instead of a competitor — and I measure it on the same prompts.",
+      "metaTitle": "Answer engine optimization (AEO) for B2B companies | WaveWeb",
+      "metaDescription": "We structure your pages so ChatGPT, Claude, Perplexity and Google AI Overviews quote you by name instead of a competitor, and we measure it on the same prompts.",
       "crumb": "Answer engine optimization",
       "eyebrow": "Answer engine optimization",
       "titleStart": "AI answers your buyer’s question",
       "titleAccent": "without",
       "titleEnd": "naming you.",
-      "subtitle": "Ask a model about your own category and it lists three competitors. I structure your pages so the answer comes out of yours, with your name attached.",
+      "subtitle": "Ask a model about your own category and it lists three competitors. We structure your pages so the answer comes out of yours, with your name attached.",
       "ctaPrimary": "Get an AEO audit",
       "ctaSecondary": "See the other services",
-      "signalsLabel": "I work on",
+      "signalsLabel": "We work on",
       "signals": [
         "ChatGPT",
         "Claude",
@@ -461,10 +573,11 @@
         },
         {
           "title": "You cannot win a question you never answer.",
-          "text": "Most sites describe a product. An answer engine is looking for the sentence that answers the question your buyer actually asked, in the words they asked it."
+          "text": "Most sites describe a product. An answer engine looks for the sentence that answers your buyer’s question, in the words they asked it."
         }
       ],
-      "worksTitle": "What I actually change.",
+      "painCta": "Send us what the model said",
+      "worksTitle": "What we change.",
       "works": [
         {
           "title": "Structured data that matches the page",
@@ -472,7 +585,7 @@
         },
         {
           "title": "Answers written to be lifted",
-          "text": "The question goes in a heading and the answer goes in the first two sentences under it. No preamble for a model to wade through before it reaches the part worth quoting."
+          "text": "The question goes in a heading and the answer goes in the first two sentences under it. A model reaches the part worth quoting without wading through a preamble."
         },
         {
           "title": "Crawlable to the machines that matter",
@@ -480,20 +593,22 @@
         },
         {
           "title": "Entity signals off the page",
-          "text": "The profiles, mentions and links that tell a search engine which company owns your name. Most AEO packages skip this part, and it is the part that decides whether you show up at all."
+          "text": "The profiles, mentions and links that tell a search engine which company owns your name. Most AEO work skips this part, and it decides whether you show up at all."
         }
       ],
+      "worksCta": "Get an AEO audit",
       "proofTitle": "How you tell whether it worked.",
-      "proofText": "I record the answers first: the same prompts, in the same models, before anything changes. After the work we run them again and you see where your name now appears and where it still does not. No agency dashboard, just the transcripts.",
+      "proofText": "We record the answers first: the same prompts, in the same models, before anything changes. After the work we run them again and you see where your name now appears and where it still does not. No agency dashboard, just the transcripts.",
+      "proofCta": "Run the prompts on your site",
       "faqTitle": "AEO questions, answered.",
       "faq": [
         {
           "q": "What is AEO and how is it different from SEO?",
-          "a": "SEO earns a link in a list. AEO earns a sentence inside the answer. The work overlaps — both want a fast, crawlable, well-structured page — but AEO optimizes for being quoted rather than being clicked."
+          "a": "SEO earns a link in a list. AEO earns a sentence inside the answer. The work overlaps, since both want a fast, crawlable, well-structured page, but AEO aims at being quoted rather than clicked."
         },
         {
           "q": "Can you guarantee ChatGPT will mention me?",
-          "a": "No, and anyone who guarantees it is selling you something. Models change and none of them publishes a ranking. What I can do is remove every reason a model has to skip you, then measure the difference on the same prompts."
+          "a": "No, and anyone who guarantees it is selling you something. Models change and none of them publishes a ranking. We remove the reasons a model has to skip you, then measure the difference on the same prompts."
         },
         {
           "q": "Does AEO work hurt my Google rankings?",
@@ -501,148 +616,49 @@
         },
         {
           "q": "How long does it take to see results?",
-          "a": "Technical fixes and structured data can be picked up within weeks, while building lasting authority and citations usually takes a few months. Timelines vary by industry, competition, and how much content needs work, and I’ll give you a realistic outlook after the audit."
+          "a": "Crawlers can pick up technical fixes and structured data within weeks. Lasting authority and citations usually take a few months. Timelines vary with competition and how much content needs work, and we give you a realistic outlook after the audit."
         },
         {
           "q": "Do site speed and performance affect AEO?",
-          "a": "Yes. Fast, clean, well-structured pages are easier for crawlers to access and process, and they give users a better experience too. That’s why I combine AEO with web performance optimization instead of treating them separately."
+          "a": "Yes. Crawlers access and process fast, well-structured pages more easily, and your visitors get a better experience too. That is why we combine AEO with web performance work instead of treating them separately."
         },
         {
-          "q": "Will AEO work for a Web3 or fintech company?",
-          "a": "Yes, and these industries benefit a lot from it. Buyers in Web3 and fintech research heavily and often ask AI tools to explain products, compare options, and assess credibility. Clear, accurate, trustworthy content helps you show up in those conversations, while staying within the compliance expectations of your industry."
+          "q": "Will AEO work for a B2B company?",
+          "a": "Yes. B2B buyers research heavily and often ask AI tools to explain products, compare options, and assess credibility. Clear, accurate content helps you show up in those conversations."
         },
         {
           "q": "How do I get started?",
-          "a": "Book a call and I’ll review your current site, see how AI tools currently talk about your brand, and outline a clear plan with priorities and next steps."
+          "a": "Book a call. We review your current site, see how AI tools talk about your brand today, and outline a plan with priorities and next steps."
         }
       ],
+      "faqCta": "Ask about your category",
       "ctaTitle": "Ask a model about your category.",
-      "ctaText": "Send me what it said and your URL. I reply within a day with why it named them and not you.",
+      "ctaText": "Send us what it said and your URL. We reply within a day with why it named them and not you.",
       "ctaButton": "Get an AEO audit"
-    },
-    {
-      "slug": "migrate-to-astro",
-      "bookCall": true,
-      "metaTitle": "Migrate your website to Astro | WaveWeb",
-      "metaDescription": "Moving off Webflow, WordPress, Framer or Wix? I rebuild your site in Astro, in a repo your team owns, keeping the design and every URL that earns traffic.",
-      "crumb": "Migrate to Astro",
-      "eyebrow": "Migrate to Astro",
-      "titleStart": "You outgrew the platform",
-      "titleAccent": "you",
-      "titleEnd": "started on.",
-      "subtitle": "I rebuild your site in Astro, keep the design you paid for, keep the URLs that earn traffic, and hand your team a repository they own.",
-      "ctaPrimary": "Plan the move",
-      "ctaSecondary": "See the other services",
-      "signalsLabel": "I rebuild with",
-      "signals": [
-        "Astro",
-        "Git",
-        "Vercel",
-        "Sanity CMS",
-        "Ship Studio"
-      ],
-      "painTitle": "Why teams leave.",
-      "pain": [
-        {
-          "title": "The seat bill outgrew the site.",
-          "text": "You are paying per editor, per plugin, or per site for a platform you now use as a static host and little else."
-        },
-        {
-          "title": "The thing you need next is not on the roadmap.",
-          "text": "A real search, a gated area, a pricing calculator that talks to your API. Every workaround is another embed, and every embed is more weight on the page."
-        },
-        {
-          "title": "Your engineers cannot review a change.",
-          "text": "There is no diff, no branch, no pull request. Things go live because somebody clicked publish."
-        }
-      ],
-      "worksTitle": "How I run it.",
-      "works": [
-        {
-          "title": "Same pixels, different engine",
-          "text": "The rebuild matches the site you have — nothing gets redesigned unless you ask for it. What changes is everything underneath."
-        },
-        {
-          "title": "URL parity, checked line by line",
-          "text": "Every live URL comes across at the same path, and I diff the two sitemaps before the switch. Anything that genuinely has to move gets a 301."
-        },
-        {
-          "title": "A repository your team recognizes",
-          "text": "Astro, plain components, and no framework tax you did not ask for. Pages ship as finished HTML, and JavaScript loads only where a section actually needs it. It builds on Vercel or wherever you host today."
-        },
-        {
-          "title": "Content stays editable",
-          "text": "Marketing does not lose the ability to publish. Copy lands in Sanity, a headless CMS your team edits in the browser, and its structure is set up before the first component is written."
-        }
-      ],
-      "proofTitle": "What you own afterwards.",
-      "proofText": "A Git repository with the full history, a build that runs on your own hosting, the redirect map, and the speed reports before and after. No part of the site needs me around to keep it running.",
-      "faqTitle": "Questions about moving to Astro.",
-      "faq": [
-        {
-          "q": "Which platforms can you migrate from?",
-          "a": "Webflow, WordPress, Framer, Wix, Squarespace, and custom builds in React, Next.js or Gatsby. If your site is live, I can rebuild it in Astro: the content comes across through an export, the platform’s API, or the live pages themselves."
-        },
-        {
-          "q": "Will the site look different?",
-          "a": "No, unless you want it to. The default is a faithful rebuild: same design, same content, same URLs, new foundation underneath."
-        },
-        {
-          "q": "What do you rebuild it in?",
-          "a": "Astro. It serves finished HTML with almost no JavaScript, which is why the rebuild lands faster than the site it replaces, and it is plain enough that any engineer you hire later can pick it up."
-        },
-        {
-          "q": "Can marketing still publish without a developer?",
-          "a": "Yes, and it is a requirement rather than an extra. Your content lives in Sanity, a headless CMS your team edits in the browser, and I set it up before I write the first component."
-        },
-        {
-          "q": "Which CMS will my team use?",
-          "a": "Sanity. It gives your team a clean editor in the browser, real-time collaboration, and content structured around your pages instead of one big rich-text field. The site rebuilds on its own every time someone publishes."
-        },
-        {
-          "q": "Will I lose my SEO rankings when I move to Astro?",
-          "a": "Not if the migration is done properly. I keep your URL structure, set up 301 redirects wherever URLs change, and carry over meta tags, schema, and sitemaps. I also monitor indexing and rankings after launch to catch any issues early. In many cases, performance improves after the move."
-        },
-        {
-          "q": "What happens to my CMS content and blog posts?",
-          "a": "I export your CMS content and move it into Sanity. Your posts, images, and metadata come over intact, and your team edits them in an editor structured around your content."
-        },
-        {
-          "q": "Will there be any downtime during the migration?",
-          "a": "No. I build and test everything on a staging environment, then switch over at the DNS level once everything is verified. That keeps downtime close to zero."
-        },
-        {
-          "q": "What about my forms, integrations, and third-party tools?",
-          "a": "I rebuild and reconnect your forms, analytics, CRM, email tools, and any other integrations, then test each one before launch so no leads or data get lost."
-        }
-      ],
-      "ctaTitle": "Send me your site URL.",
-      "ctaText": "I reply within a day with what the rebuild involves and where the platform is actually costing you.",
-      "ctaButton": "Plan the move"
     }
   ],
   "migrationPages": [
     {
       "slug": "webflow-to-astro",
       "bookCall": true,
-      "parent": "migrate-to-astro",
+      "parent": "website-migration",
       "metaTitle": "Webflow to Astro migration | WaveWeb",
-      "metaDescription": "I move your Webflow site to Astro: same design, every URL kept, CMS collections exported, interactions rebuilt, and a repo your team owns. Fixed price, agreed up front.",
+      "metaDescription": "We move your Webflow site to Astro: same design, every URL kept, CMS collections exported, interactions rebuilt, and a repo your team owns.",
       "crumb": "Webflow to Astro",
       "eyebrow": "Webflow to Astro",
       "titleStart": "Move from Webflow to Astro and keep",
       "titleAccent": "every",
       "titleEnd": "URL that ranks.",
-      "subtitle": "I rebuild your Webflow site in Astro to match the one you have, move your CMS collections into Sanity, rebuild the interactions that matter, and hand your team a repository they own. Your traffic stays where it is.",
+      "subtitle": "We rebuild your Webflow site in Astro to match the one you have, move your CMS collections to the CMS that fits your team, rebuild the interactions that matter, and hand you a repository you own. Your traffic stays where it is.",
       "ctaPrimary": "Plan the move",
       "ctaSecondary": "See the other services",
-      "signalsLabel": "I rebuild with",
+      "signalsLabel": "We rebuild with",
       "signals": [
         "Astro",
         "Git",
         "Vercel",
-        "Sanity CMS",
-        "Ship Studio"
+        "Sanity",
+        "Payload"
       ],
       "painTitle": "Why teams leave Webflow.",
       "pain": [
@@ -656,14 +672,15 @@
         },
         {
           "title": "The CMS plan sets your content strategy.",
-          "text": "Collection and item caps tied to your plan mean a growing blog, a docs section, or a set of comparison pages hits a pricing tier before it runs out of ideas."
+          "text": "Collection and item caps tied to your plan mean a growing blog, a docs section, or a set of comparison pages hits a plan limit before it runs out of ideas."
         }
       ],
+      "painCta": "Send us your Webflow URL",
       "worksTitle": "How a Webflow move runs.",
       "works": [
         {
           "title": "Export, then inventory",
-          "text": "Webflow’s code export leaves the CMS behind, so I pull every collection out through the API, then crawl the live site so nothing that only exists in production gets left behind."
+          "text": "Webflow’s code export leaves the CMS behind, so we pull every collection out through the API, then crawl the live site to catch anything that only exists in production."
         },
         {
           "title": "Combo classes, untangled",
@@ -675,24 +692,30 @@
         },
         {
           "title": "URL parity, checked line by line",
-          "text": "Collection URLs keep their paths, the 301s you already set in Webflow move to the new host, and I diff the two sitemaps before the DNS switch."
+          "text": "Collection URLs keep their paths, the 301s you already set in Webflow move to the new host, and we diff the two sitemaps before the DNS switch."
         }
       ],
+      "worksCta": "Plan the move",
       "proofTitle": "What you own afterwards.",
-      "proofText": "A Git repository with the full history, a build that runs on your own hosting, your content in Sanity where your team edits it, the redirect map, and the speed reports before and after. No Webflow plan to renew, and no part of the site needs me around to keep it running.",
+      "proofText": "A Git repository with the full history, a build that runs on your own hosting, your content in a CMS your team edits, the redirect map, and the speed reports before and after. No Webflow plan to renew, and no part of the site needs us around to keep it running.",
+      "proofCta": "Talk through your move",
       "faqTitle": "Webflow to Astro, answered.",
       "faq": [
         {
           "q": "How long does a Webflow to Astro migration take?",
-          "a": "Most marketing sites take 3 to 4 weeks. Sites with several CMS collections and a team that publishes every week take 5 to 6. You get the timeline in the quote, before anything starts."
+          "a": "Most marketing sites take 3 to 4 weeks. Sites with several CMS collections and a team that publishes every week take 5 to 6. You get the timeline before anything starts."
         },
         {
           "q": "Can’t I just use Webflow’s code export?",
-          "a": "You can, but you get a snapshot, not a site. The export leaves your CMS content out, keeps jQuery and webflow.js on every page, and hands you generated files nobody wants to maintain. I rebuild instead, so the code is something your team can actually work in."
+          "a": "You can, but you get a snapshot, not a site. The export leaves your CMS content out, keeps jQuery and webflow.js on every page, and hands you generated files nobody wants to maintain. We rebuild instead, so your team gets code it can work in."
+        },
+        {
+          "q": "What if my Webflow site is turning into an app?",
+          "a": "Then we build it in Next.js instead. Astro is the default for marketing sites. Logins, dashboards, or a team that already works in React point to Next.js, and the rest of the move stays the same."
         },
         {
           "q": "What happens to my Webflow CMS collections?",
-          "a": "I export every collection, including rich text, images, references, and SEO fields, and move it into Sanity. Every item keeps its slug, so its URL does not change."
+          "a": "We export every collection, including rich text, images, references, and SEO fields, and move it into the CMS that fits your team, Sanity or Payload. Every item keeps its slug, so its URL does not change."
         },
         {
           "q": "Can you rebuild Webflow interactions and animations?",
@@ -700,45 +723,46 @@
         },
         {
           "q": "Will I lose my Google rankings when I leave Webflow?",
-          "a": "Not when the redirect map holds. Every URL that earns traffic keeps its path, the 301s you set in Webflow move across, meta tags and schema come with the content, and I watch Search Console through the first month."
+          "a": "Not when the redirect map holds. Every URL that earns traffic keeps its path, the 301s you set in Webflow move across, meta tags and schema come with the content, and we watch Search Console through the first month."
         },
         {
           "q": "What happens to my Webflow forms?",
-          "a": "Webflow forms only work on Webflow hosting, so I reconnect each one to your CRM, email tool, or a form service, and test every submission before launch so no lead gets lost."
+          "a": "Webflow forms only work on Webflow hosting, so we reconnect each one to your CRM, email tool, or a form service, and test every submission before launch."
         },
         {
           "q": "Will my team miss the Webflow Editor?",
-          "a": "Not for long. Sanity replaces it with an editor built around your content: fields for exactly what each page needs, a live preview, and no way to nudge a layout out of place by accident."
+          "a": "Not for long. The new CMS is built around your content: fields for what each page needs, a live preview, and no way to nudge a layout out of place by accident."
         },
         {
           "q": "What does the site cost to run after I cancel Webflow?",
-          "a": "For most marketing sites, close to nothing. A static Astro site runs on the free or entry tiers of Vercel, Netlify, or Cloudflare. Sanity has a free plan that covers many marketing teams, and if yours needs a paid one, I list it in the quote. Keep your Webflow plan until the new site is live, then cancel it."
+          "a": "For most marketing sites, close to nothing. A static Astro site runs on the free or entry tiers of Vercel, Netlify, or Cloudflare. Sanity has a free plan that covers many marketing teams, and Payload is open source. If you need a paid plan, we tell you before work starts. Keep your Webflow plan until the new site is live, then cancel it."
         }
       ],
-      "ctaTitle": "Send me your Webflow URL.",
-      "ctaText": "I reply within a day with what the move involves, which package it lands in, and where Webflow is actually costing you.",
+      "faqCta": "Ask about your Webflow site",
+      "ctaTitle": "Send us your Webflow URL.",
+      "ctaText": "We reply within a day with what the move involves and where Webflow is costing you.",
       "ctaButton": "Plan the move"
     },
     {
       "slug": "framer-to-astro",
       "bookCall": true,
-      "parent": "migrate-to-astro",
+      "parent": "website-migration",
       "metaTitle": "Framer to Astro migration | WaveWeb",
-      "metaDescription": "Framer site slow on phones, or locked to one plan? I rebuild it in Astro from your Framer project: animations kept, CMS moved to Sanity, and code you own and can host anywhere.",
+      "metaDescription": "Framer site slow on phones, or locked to one plan? We rebuild it in Astro from your Framer project: animations kept, CMS moved, and code you own and can host anywhere.",
       "crumb": "Framer to Astro",
       "eyebrow": "Framer to Astro",
       "titleStart": "Framer to Astro: keep the design, lose the",
       "titleAccent": "weight",
       "titleEnd": "it ships with.",
-      "subtitle": "Framer is a great place to design a site and a heavy way to serve one. I rebuild yours in Astro from the Framer project itself, keep the animations worth keeping, move your CMS into Sanity, and hand you code you can finally host anywhere.",
+      "subtitle": "Framer is a great place to design a site and a heavy way to serve one. We rebuild yours in Astro from the Framer project itself, keep the animations worth keeping, move your CMS to one that fits your team, and hand you code you can host anywhere.",
       "ctaPrimary": "Plan the move",
       "ctaSecondary": "See the other services",
-      "signalsLabel": "I rebuild with",
+      "signalsLabel": "We rebuild with",
       "signals": [
         "Astro",
         "React islands",
-        "Sanity CMS",
-        "Vercel",
+        "Sanity",
+        "Payload",
         "Git"
       ],
       "painTitle": "Why teams leave Framer.",
@@ -756,11 +780,12 @@
           "text": "Framer has no export. The design, the CMS, and every URL live on its plan, and the plan decides your page, CMS, and bandwidth limits."
         }
       ],
+      "painCta": "Send us your Framer URL",
       "worksTitle": "How a Framer move runs.",
       "works": [
         {
           "title": "Rebuilt from the project, not a screenshot",
-          "text": "I work inside your Framer project and take spacing, type, and colors straight from it. Desktop, tablet, and phone breakpoints become one responsive layout instead of three stacked copies."
+          "text": "We work inside your Framer project and take spacing, type, and colors straight from it. Desktop, tablet, and phone breakpoints become one responsive layout instead of three stacked copies."
         },
         {
           "title": "Animations kept, runtime dropped",
@@ -768,15 +793,17 @@
         },
         {
           "title": "Code components carried over",
-          "text": "Your code components are React, and Astro runs React. They come across as islands that load only on the pages that use them, and overrides get rewritten as plain scripts."
+          "text": "Your code components are React, and Astro runs React. They come across as islands that load only on the pages that use them, and we rewrite overrides as plain scripts."
         },
         {
           "title": "CMS out, slugs intact",
-          "text": "Every Framer CMS collection moves into Sanity with its fields, images, and slugs, and the redirects in your Framer site settings move to the new host, so no URL changes under you."
+          "text": "Every Framer CMS collection moves into the CMS that fits your team, with its fields, images, and slugs. The redirects in your Framer site settings move to the new host, so your URLs stay put."
         }
       ],
+      "worksCta": "Plan the move",
       "proofTitle": "What you own afterwards.",
-      "proofText": "The site as code in a Git repository, a build you can host anywhere, your content in Sanity where your team edits it, the redirect map, and phone speed reports before and after. Your designer can keep Framer as a design tool. The live site just stops depending on it.",
+      "proofText": "The site as code in a Git repository, a build you can host anywhere, your content in a CMS your team edits, the redirect map, and phone speed reports before and after. Your designer can keep Framer as a design tool. The live site just stops depending on it.",
+      "proofCta": "Talk through your move",
       "faqTitle": "Framer to Astro, answered.",
       "faq": [
         {
@@ -785,15 +812,19 @@
         },
         {
           "q": "Can’t I just export the code from Framer?",
-          "a": "No. Framer has no official export, and third-party tools that scrape a Framer site give you the same React runtime in a folder. A rebuild is the only way to get code that is fast on a phone and yours to change."
+          "a": "No. Framer has no official export, and third-party tools that scrape a Framer site give you the same React runtime in a folder. A rebuild gets you code that is fast on a phone and yours to change."
+        },
+        {
+          "q": "What if my Framer site is turning into an app?",
+          "a": "Then we build it in Next.js instead. Astro is the default for marketing sites. Logins, dashboards, or a team that already works in React point to Next.js, and the rest of the move stays the same."
         },
         {
           "q": "Will my Framer animations survive the move?",
-          "a": "Yes. Appear effects, hovers, and scroll transforms come across, rebuilt in CSS and small scripts. Heavier sequences get GSAP, loaded only on the pages that use it. Motion that exists only to look busy is something I flag, not something I cut without asking."
+          "a": "Yes. Appear effects, hovers, and scroll transforms come across, rebuilt in CSS and small scripts. Heavier sequences get GSAP, loaded only on the pages that use it. If motion only exists to look busy, we flag it and ask before we cut it."
         },
         {
           "q": "What happens to my Framer CMS collections?",
-          "a": "I move every collection into Sanity, item by item, with its fields, images, and slug. A post at /blog/your-post stays at /blog/your-post."
+          "a": "We move every collection into Sanity or Payload, whichever fits your team, item by item, with its fields, images, and slug. A post at /blog/your-post stays at /blog/your-post."
         },
         {
           "q": "What about my code components and overrides?",
@@ -801,19 +832,20 @@
         },
         {
           "q": "Can my designer keep designing in Framer?",
-          "a": "Yes. Framer stays a great design tool. New sections get designed there and built into components in the repo, while marketing publishes content in Sanity without touching layout."
+          "a": "Yes. Framer stays a great design tool. Your designer draws new sections there, we build them into components in the repo, and marketing publishes content in the CMS without touching layout."
         },
         {
           "q": "Will I lose my Google rankings when I leave Framer?",
-          "a": "Not when the redirect map holds. Every URL keeps its path, the redirects from your Framer site settings move across, page titles and descriptions come with the content, and I watch Search Console through the first month."
+          "a": "Not when the redirect map holds. Every URL keeps its path, the redirects from your Framer site settings move across, page titles and descriptions come with the content, and we watch Search Console through the first month."
         },
         {
           "q": "What happens to my Framer forms?",
-          "a": "Framer forms send submissions through Framer, so they stop when the site leaves. I reconnect each one to your CRM, email tool, or a form service, and test every submission before launch."
+          "a": "Framer forms send submissions through Framer, so they stop when the site leaves. We reconnect each one to your CRM, email tool, or a form service, and test every submission before launch."
         }
       ],
-      "ctaTitle": "Send me your Framer URL.",
-      "ctaText": "I run it on a real phone and reply within a day with what the move involves and what Framer’s runtime is costing you on mobile.",
+      "faqCta": "Ask about your Framer site",
+      "ctaTitle": "Send us your Framer URL.",
+      "ctaText": "We run it on a real phone and reply within a day with what the move involves and what Framer’s runtime costs you on mobile.",
       "ctaButton": "Plan the move"
     }
   ]

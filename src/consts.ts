@@ -70,7 +70,7 @@ export { default as PERSON_PHOTO } from './assets/matej-avelinovic.jpg';
  */
 export const PERSON = {
   name: 'Mateja Velinovic',
-  jobTitle: 'Web performance and AEO consultant',
+  jobTitle: 'Founder and web developer',
   linkedin: 'https://www.linkedin.com/in/mateja-velinovic/',
 };
 

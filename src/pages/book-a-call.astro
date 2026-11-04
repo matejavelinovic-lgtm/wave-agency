@@ -10,7 +10,7 @@
  */
 import Layout from '../layouts/Layout.astro';
 import { CALENDLY_URL } from '../consts';
-import quiz from '../data/astro-quiz.json';
+import quiz from '../data/migration-quiz.json';
 
 /* Result id → label, so the line above the calendar can name the result. */
 const resultLabels = Object.fromEntries(quiz.results.map((r) => [r.id, r.label]));
@@ -18,7 +18,7 @@ const resultLabels = Object.fromEntries(quiz.results.map((r) => [r.id, r.label])
 
 <Layout
   title="Book a call | WaveWeb"
-  description="Book a free 30 minute call about your site: what's slowing it down, how it shows up in AI search, and what a move to Astro would take."
+  description="Book a free 30 minute call about your site: what's slowing it down, how it shows up in AI search, and what it would take to own your code."
   breadcrumbs={[{ name: 'Book a call', path: '/book-a-call/' }]}
 >
   <section class="svc-hero">
@@ -31,7 +31,7 @@ const resultLabels = Object.fromEntries(quiz.results.map((r) => [r.id, r.label])
       <span class="svc-eyebrow">Book a call</span>
       <h1 class="svc-title">Pick a time for a <span class="svc-title-em">30 minute call</span></h1>
       <p class="svc-subtitle">
-        Free. We go through your site, what's holding it back and what a move to Astro would take.
+        Free. We go through your site, what's holding it back and what it would take to own your code.
       </p>
     </div>
   </section>
@@ -45,7 +45,7 @@ const resultLabels = Object.fromEntries(quiz.results.map((r) => [r.id, r.label])
       {/* No src until the script adds the quiz parameters, so it loads once. */}
       <iframe class="book-frame" title="Book a 30 minute call on Calendly" data-src={CALENDLY_URL}></iframe>
       <noscript>
-        {/* is:inline keeps the rule inside the noscript, as on /pricing/. */}
+        {/* is:inline keeps the rule inside the noscript, as on the FAQ. */}
         <style is:inline>.book-frame:not([src]) { display: none; }</style>
         <iframe class="book-frame" title="Book a 30 minute call on Calendly" src={CALENDLY_URL}></iframe>
       </noscript>
@@ -83,7 +83,7 @@ const resultLabels = Object.fromEntries(quiz.results.map((r) => [r.id, r.label])
 
       // Calendly stores UTM parameters on the booking itself.
       src.searchParams.set('utm_source', 'waveweb');
-      src.searchParams.set('utm_medium', 'astro-quiz');
+      src.searchParams.set('utm_medium', 'migration-quiz');
       src.searchParams.set('utm_content', result);
     }
 

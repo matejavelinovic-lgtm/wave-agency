@@ -3,6 +3,7 @@ title: 'Why Astro Is the Fastest Tool for a Website, and How I Hit PageSpeed 100
 metaTitle: 'Why Astro is the fastest tool for a website'
 description: 'My last Astro build scored PageSpeed 100 on mobile and desktop, first try. Why islands architecture gets you there, and what a no-code runtime costs you.'
 pubDate: 2026-08-01
+updatedDate: 2026-11-04
 tags: ['Astro', 'Performance', 'PageSpeed']
 takeaways:
   - >-
@@ -21,7 +22,7 @@ takeaways:
     Building in Ship Studio adds a visual editor on top of Astro, so clients
     edit content by clicking, without Git or a Claude agent.
 faq:
-  - q: Is Astro faster than no-code tools like Webflow or Framer?
+  - q: Is Astro faster than no-code website builders?
     a: >-
       Yes, for most content sites and landing pages. Astro ships minimal
       JavaScript by default and serves finished HTML, while no-code tools load
@@ -51,6 +52,11 @@ faq:
       No. Ship Studio combines Astro's speed with a visual editor, so you keep
       both. The client edits content by clicking directly on the page, while the
       site still serves fast static HTML underneath.
+  - q: When should I use Next.js instead of Astro?
+    a: >-
+      Use Next.js when the site needs app logic, logins, or dashboards, or when
+      your team already works in React. For marketing and content sites, Astro
+      is the better default.
 ---
 
 The last site I built in Astro scored a Google PageSpeed 100 on mobile and desktop, first try. I didn't spend half a day compressing images, didn't rip scripts out of a template, didn't pay for an extra CDN plugin. The site was fast because Astro ships close to zero JavaScript to the browser by default.
@@ -61,7 +67,7 @@ If you're picking a tool for a new site and speed is the priority, Astro is the 
 
 Astro is a framework that renders your site into plain HTML before it reaches the visitor. Most modern tools ship a large JavaScript bundle the browser has to parse, execute, and hydrate before the page becomes usable. Astro skips that step for every part of the site that doesn't need to be interactive.
 
-This approach is called islands architecture. Your page is static HTML, and the interactive parts (a slider, a form, a wallet connect button) live as isolated islands that load only when needed. The rest of the site carries none of that code.
+This approach is called islands architecture. Your page is static HTML, and the interactive parts (a slider, a form, a booking widget) live as isolated islands that load only when needed. The rest of the site carries none of that code.
 
 The result is a page that loads fast because the browser gets what it needs and nothing extra.
 
@@ -92,6 +98,10 @@ The old tradeoff with a framework like Astro was maintenance. A Git-based workfl
 I build in Ship Studio, which puts a visual editor on top of the Astro site. A client opens the editor, clicks the text or image they want to change, and edits it directly. No Markdown, no Git, no burning a Claude agent to swap out a headline. They get the speed of Astro and the hands-on control they'd expect from a no-code tool.
 
 When I pick a tool, my first question is who maintains the site after launch. Ship Studio answers both sides of it: fast by architecture, editable by anyone.
+
+## When I Use Next.js Instead
+
+Astro is my default for marketing and content sites. I build in Next.js when a project needs app logic, logins, or dashboards, or when the client's team already works in React. The page still has to be fast on a phone, and the client still owns the repo.
 
 ## What This Means for Your Site
 

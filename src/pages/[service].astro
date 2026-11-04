@@ -3,28 +3,29 @@
  * The service pages and the migration pages, from one template.
  *
  * Each entry in copy.servicePages is a page, and its `slug` is its URL. One
- * template rather than three files because the pages differ only in their words:
- * a change to the shape of a service page should be one edit, not three that
- * drift apart. Adding a fourth service means adding an entry to copy.json — no
- * file here, no route to register, and @astrojs/sitemap picks it up on the next
- * build because getStaticPaths declared it.
+ * template rather than one file each because the pages differ only in their
+ * words: a change to the shape of a service page should be one edit, not several
+ * that drift apart. Adding a service means adding an entry to copy.json: no file
+ * here, no route to register, and @astrojs/sitemap picks it up on the next build
+ * because getStaticPaths declared it.
  *
  * Every visible sentence still lives in src/content/copy.json and still renders
  * inside a data-edit, same contract as the homepage. The paths are indexed —
  * `servicePages.0.subtitle` — because the dev editor's path pattern allows only
  * letters, digits and underscores, and every slug here has a hyphen in it. That
- * makes the ORDER of the array load bearing: reordering it repoints every
- * data-edit on these pages. Add to the end.
+ * makes the ORDER of the array load bearing: services.cards has to stay in the
+ * same order, because card i links to page i. Reorder the two together.
  *
- * copy.migrationPages builds here too — "Webflow to Astro" and whatever platform
- * comes next. Same shape, same template, plus a `parent`: the slug of the
- * service page they sit under, which sets their breadcrumb and puts them in the
- * "By platform" row on that page. They stay out of servicePages because that
- * list is the homepage cards and the header menu, and both are meant to hold
- * three. A new migration page is a new entry at the end of migrationPages.
+ * copy.migrationPages builds here too: one page per platform people leave. Same
+ * shape, same template, plus a `parent`: the slug of the service page they sit
+ * under, which sets their breadcrumb and puts them in the "By platform" row on
+ * that page. They stay out of servicePages because that list is the homepage
+ * cards and the header menu, and both are meant to hold the services alone. A
+ * new migration page is a new entry at the end of migrationPages.
  */
 import Layout from '../layouts/Layout.astro';
 import ServiceProof from '../components/ServiceProof.astro';
+import SectionCta from '../components/SectionCta.astro';
 import { SITE_URL } from '../consts';
 import copy from '../content/copy.json';
 
@@ -60,9 +61,16 @@ if (parentSlug && !parent) {
 const url = `${SITE_URL}/${page.slug}/`;
 
 /*
+ * Where the page's contact links go. bookCall pages go straight to the calendar;
+ * the rest go to the form on the homepage, which keeps a single submit handler
+ * and a single place for the honeypot.
+ */
+const contactHref = page.bookCall ? '/book-a-call/' : '/#contact';
+
+/*
  * The Service node points its provider at the homepage Organization by @id
  * rather than describing the company again, so a crawler reading any of these
- * four pages assembles one company with three services instead of three
+ * pages assembles one company with several services instead of several
  * companies. Layout emits the Organization itself on every page.
  */
 const service = {
@@ -77,7 +85,7 @@ const service = {
   areaServed: 'Worldwide',
   audience: {
     '@type': 'Audience',
-    audienceType: 'Web3 and fintech companies',
+    audienceType: 'B2B companies',
   },
 };
 
@@ -178,6 +186,7 @@ const breadcrumbs = [
           </div>
         ))}
       </div>
+      <SectionCta tone="light" href={contactHref} label={page.painCta} edit={`${base}.painCta`} />
     </div>
   </section>
 
@@ -197,10 +206,17 @@ const breadcrumbs = [
           </li>
         ))}
       </ol>
+      <SectionCta href={contactHref} label={page.worksCta} edit={`${base}.worksCta`} />
     </div>
   </section>
 
-  <ServiceProof title={page.proofTitle} text={page.proofText} base={base} />
+  <ServiceProof
+    title={page.proofTitle}
+    text={page.proofText}
+    base={base}
+    cta={page.proofCta}
+    ctaHref={contactHref}
+  />
 
   <div class="seam-to-light"></div>
 
@@ -233,6 +249,7 @@ const breadcrumbs = [
           </div>
         ))}
       </div>
+      <SectionCta tone="light" href={contactHref} label={page.faqCta} edit={`${base}.faqCta`} />
       <noscript>
         {/* is:inline keeps this rule inside the noscript — without it Astro
             hoists it into the global bundle and every panel stays open. */}
@@ -250,17 +267,7 @@ const breadcrumbs = [
     <div class="svc-cta-inner">
       <h2 class="svc-cta-title" data-edit={`${base}.ctaTitle`}>{page.ctaTitle}</h2>
       <p class="svc-cta-text" data-edit={`${base}.ctaText`}>{page.ctaText}</p>
-      {/*
-        The form lives on the homepage and posts to one endpoint. Sending people
-        there rather than repeating the form keeps a single submit handler and a
-        single place for the honeypot; the hash lands them on it directly.
-        bookCall pages skip the form and go straight to the calendar.
-      */}
-      <a
-        class="btn-primary"
-        href={page.bookCall ? '/book-a-call/' : '/#contact'}
-        data-edit={`${base}.ctaButton`}>{page.ctaButton}</a
-      >
+      <a class="btn-primary" href={contactHref} data-edit={`${base}.ctaButton`}>{page.ctaButton}</a>
       {linkRows.map((row) => (
         <div class="svc-siblings">
           <span class="svc-siblings-label">{row.label}</span>

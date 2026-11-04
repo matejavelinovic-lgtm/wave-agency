@@ -1,24 +1,13 @@
 {
   "redirects": [
-    {
-      "source": "/webflow-migration",
-      "destination": "/migrate-to-astro/",
-      "statusCode": 301
-    },
-    {
-      "source": "/webflow-migration/",
-      "destination": "/migrate-to-astro/",
-      "statusCode": 301
-    },
-    {
-      "source": "/migration-out-of-webflow",
-      "destination": "/migrate-to-astro/",
-      "statusCode": 301
-    },
-    {
-      "source": "/migration-out-of-webflow/",
-      "destination": "/migrate-to-astro/",
-      "statusCode": 301
-    }
+    { "source": "/pricing(/.*)?", "destination": "/book-a-call/", "statusCode": 301 },
+    { "source": "/migrate-to-astro", "destination": "/website-migration/", "statusCode": 301 },
+    { "source": "/migrate-to-astro/", "destination": "/website-migration/", "statusCode": 301 },
+    { "source": "/astro-quiz", "destination": "/migration-quiz/", "statusCode": 301 },
+    { "source": "/astro-quiz/", "destination": "/migration-quiz/", "statusCode": 301 },
+    { "source": "/webflow-migration", "destination": "/webflow-to-astro/", "statusCode": 301 },
+    { "source": "/webflow-migration/", "destination": "/webflow-to-astro/", "statusCode": 301 },
+    { "source": "/migration-out-of-webflow", "destination": "/webflow-to-astro/", "statusCode": 301 },
+    { "source": "/migration-out-of-webflow/", "destination": "/webflow-to-astro/", "statusCode": 301 }
   ]
 }

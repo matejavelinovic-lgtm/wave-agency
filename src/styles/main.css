@@ -1,5 +1,5 @@
 /*
- * main.css — Waveweb
+ * main.css â€” Waveweb
  *
  * Convention (keeps the in-app visual editor reliable): every styled element
  * carries ONE semantic class, and each class is defined by exactly ONE rule
@@ -9,7 +9,7 @@
  * Measure: every max-width that caps a line of text is in em, never ch, and the
  * odd-looking numbers are why. ch is the width of the current font's "0", so a
  * container measured in ch is one width in Blauer Nue and another in whatever
- * paints before it arrives — the column itself moves during the font swap, on
+ * paints before it arrives â€” the column itself moves during the font swap, on
  * top of the text inside it re-wrapping. em is font-independent, so these hold
  * still. Blauer Nue's "0" is 0.664em: to go back to thinking in characters,
  * divide by that (12.62em is the old 19ch), and multiply to write a new one.
@@ -17,10 +17,10 @@
  * Palette: --bg-dark and --bg-light split the page roughly in half as the
  * background rhythm; --block (purple) covers the card/module surfaces
  * (~40% of the page); --accent (pale yellow) is reserved for CTAs and small
- * accent text only — used sparingly by design, not as a base color.
+ * accent text only â€” used sparingly by design, not as a base color.
  */
 
-/* ── Design tokens ───────────────────────────────────────────────── */
+/* â”€â”€ Design tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 :root {
   --bg-dark: #070707;
   --bg-light: #d0dada;
@@ -37,7 +37,7 @@
   --border-on-dark: rgba(237, 237, 230, 0.14);
   --border-on-light: rgba(7, 7, 7, 0.14);
   /*
-   * 'Blauer Fallback' is Arial re-measured to Blauer Nue's metrics — see the
+   * 'Blauer Fallback' is Arial re-measured to Blauer Nue's metrics â€” see the
    * @font-face block in Layout.astro. It stands in for the real face while the
    * woff2 is in flight, at the same width and the same baseline, so the swap
    * moves nothing. system-ui only catches a machine with no Arial at all.
@@ -47,7 +47,7 @@
   --step: 28px;
 }
 
-/* ── Base elements ───────────────────────────────────────────────── */
+/* â”€â”€ Base elements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 * {
   box-sizing: border-box;
 }
@@ -90,7 +90,7 @@ section {
   position: relative;
 }
 
-/* ── Header / nav ────────────────────────────────────────────────── */
+/* â”€â”€ Header / nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .site-header {
   position: sticky;
   top: 0;
@@ -188,7 +188,7 @@ section {
   font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
 }
 
-/* ── Services menu ───────────────────────────────────────────────── */
+/* â”€â”€ Services menu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .nav-item {
   position: relative;
   display: flex;
@@ -284,6 +284,10 @@ section {
   transition-delay: 0.1s;
 }
 
+.nav-menu-item:nth-child(4) {
+  transition-delay: 0.15s;
+}
+
 .nav-menu-link {
   display: flex;
   align-items: center;
@@ -373,7 +377,7 @@ section {
   left: 130%;
 }
 
-/* ── Buttons ─────────────────────────────────────────────────────── */
+/* â”€â”€ Buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .btn-primary {
   display: inline-block;
   position: relative;
@@ -392,7 +396,7 @@ section {
   /*
    * Belt to the clip-path's braces. The sweep parks off the left edge, which is
    * where the neighbouring button sits, and clip-path alone does not reliably
-   * clip a composited descendant — the streak escapes and paints over that
+   * clip a composited descendant â€” the streak escapes and paints over that
    * neighbour. overflow works on the compositor. The polygon sits inside the
    * border box, so this changes nothing you can see.
    */
@@ -450,7 +454,7 @@ section {
   font-size: 16px;
   padding: 15px 30px;
   border: 1px solid var(--border-on-dark);
-  /* See .btn-primary — keeps the parked sweep from painting over its neighbour. */
+  /* See .btn-primary â€” keeps the parked sweep from painting over its neighbour. */
   overflow: hidden;
   clip-path: polygon(
     0 0,
@@ -488,7 +492,7 @@ section {
   transform: translateX(325%) skewX(-20deg);
 }
 
-/* ── Hero ────────────────────────────────────────────────────────── */
+/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .hero {
   position: relative;
   background: var(--bg-dark);
@@ -544,6 +548,10 @@ section {
   color: var(--text-on-dark);
 }
 
+.hero-title-line {
+  display: block;
+}
+
 .hero-subtitle {
   font-size: 19px;
   color: var(--text-on-dark-muted);
@@ -555,7 +563,7 @@ section {
   display: flex;
   /*
    * Not stretch. Stretch ties the two buttons' heights together, so anything
-   * that grows one of them — a border, a focus ring, a label that wraps —
+   * that grows one of them â€” a border, a focus ring, a label that wraps â€”
    * resizes the other and warps its clip-path corner. Each button keeps its
    * own height instead.
    */
@@ -598,7 +606,7 @@ section {
   transform: translateY(-2px);
 }
 
-/* ── Founder ─────────────────────────────────────────────────────── */
+/* â”€â”€ Founder â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .founder {
   background: var(--bg-dark);
   padding: 96px 28px 108px;
@@ -680,93 +688,555 @@ section {
   border-bottom-color: var(--accent);
 }
 
-/* ── Proof strip ─────────────────────────────────────────────────── */
-.proof {
+/* â”€â”€ Section CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/*
+ * The line that ends a section with a path to contact. Two link rules because
+ * the accent yellow only reads on dark and purple; see SectionCta.astro. The
+ * arrow is a pseudo-element so textContent stays the label the copy editor saves.
+ */
+.section-cta {
+  margin: 40px 0 0;
+}
+
+.section-cta-link,
+.section-cta-link-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 3px;
+  transition: gap 0.2s ease, border-color 0.15s ease;
+}
+
+.section-cta-link {
+  color: var(--accent);
+  border-bottom: 1px solid rgba(239, 237, 144, 0.4);
+}
+
+.section-cta-link-light {
+  color: var(--block);
+  border-bottom: 1px solid rgba(104, 53, 206, 0.35);
+}
+
+.section-cta-link:hover,
+.section-cta-link-light:hover {
+  gap: 14px;
+  border-bottom-color: currentColor;
+}
+
+.section-cta-link:focus-visible,
+.section-cta-link-light:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.section-cta-link::after,
+.section-cta-link-light::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+/* â”€â”€ Rebuilds â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.rebuilds {
   background: var(--bg-dark);
   padding: 0 28px 96px;
 }
 
-.proof-inner {
+.rebuilds-inner {
   max-width: var(--maxw);
   margin: 0 auto;
   border-top: 1px solid var(--border-on-dark);
-  padding-top: 40px;
+  padding-top: 56px;
 }
 
-.proof-title {
+.rebuilds-eyebrow {
+  display: block;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-on-dark-muted);
-  margin: 0 0 32px;
+  color: var(--accent);
+  margin-bottom: 16px;
 }
 
-.proof-grid {
+.rebuilds-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-on-dark);
+  margin: 0 0 14px;
+  max-width: 13.28em;
+}
+
+.rebuilds-text {
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--text-on-dark-muted);
+  margin: 0 0 44px;
+  max-width: 37.18em;
+}
+
+/* min() so a 300px floor cannot push a phone-width column off the side. */
+.rebuild-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: 20px;
 }
 
-.proof-item {
-  border-left: 2px solid var(--block);
-  padding-left: 22px;
+.rebuild-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: var(--block);
+  color: var(--text-on-dark);
+  padding: 30px 26px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 32px) 0,
+    calc(100% - 32px) 16px,
+    calc(100% - 16px) 16px,
+    calc(100% - 16px) 32px,
+    100% 32px,
+    100% 100%,
+    0 100%
+  );
 }
 
-.proof-figures {
+/* Dev only in practice: an unfinished entry never reaches a build. */
+.rebuild-todo {
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: var(--accent);
+  color: var(--ink);
+  padding: 3px 8px;
+  margin-bottom: 14px;
+}
+
+.rebuild-name {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0 0 24px;
+  padding-right: 24px;
+}
+
+.rebuild-metrics {
+  align-self: stretch;
+  flex-grow: 1;
+  margin: 0 0 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rebuild-metric {
+  border-top: 1px solid rgba(237, 237, 230, 0.18);
+  padding-top: 14px;
+}
+
+.rebuild-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(237, 237, 230, 0.78);
+  margin-bottom: 8px;
+}
+
+.rebuild-figures {
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: 12px;
-  margin: 0 0 10px;
+  margin: 0;
   line-height: 1;
 }
 
-.proof-before {
-  font-size: 28px;
+.rebuild-before {
+  font-size: 20px;
   font-weight: 500;
-  color: rgba(237, 237, 230, 0.32);
+  color: rgba(237, 237, 230, 0.6);
   text-decoration: line-through;
   text-decoration-thickness: 2px;
 }
 
-/* Chevron drawn from two borders so the strip ships without an icon file. */
-.proof-arrow {
-  width: 10px;
-  height: 10px;
-  border-top: 2px solid var(--block);
-  border-right: 2px solid var(--block);
+/* Chevron drawn from two borders so the cards ship without an icon file. */
+.rebuild-arrow {
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
   transform: rotate(45deg) translateY(-2px);
   flex-shrink: 0;
 }
 
-.proof-after {
-  font-size: 46px;
+.rebuild-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.rebuild-after {
+  font-size: 34px;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--accent);
 }
 
-.proof-label {
-  font-size: 16px;
+.rebuild-link {
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-on-dark);
-  margin: 0 0 4px;
+  border-bottom: 1px solid rgba(237, 237, 230, 0.4);
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.proof-note {
+.rebuild-link:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.rebuild-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* â”€â”€ Own your stack â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.own {
+  background: var(--bg-light);
+  padding: 96px 28px 24px;
+}
+
+.own-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.own-eyebrow {
+  display: block;
   font-size: 13px;
-  color: var(--text-on-dark-muted);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--block);
+  margin-bottom: 16px;
+}
+
+.own-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text-on-light);
+  margin: 0 0 18px;
+  max-width: 13.28em;
+}
+
+.own-text {
+  font-size: 17px;
+  line-height: 1.3;
+  color: var(--text-on-light-muted);
+  margin: 0 0 44px;
+  max-width: 37.18em;
+}
+
+.own-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.own-rented,
+.own-owned {
+  padding: 32px 28px 34px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 32px) 0,
+    calc(100% - 32px) 16px,
+    calc(100% - 16px) 16px,
+    calc(100% - 16px) 32px,
+    100% 32px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.own-rented {
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--text-on-light);
+}
+
+.own-owned {
+  background: var(--block);
+  color: var(--text-on-dark);
+}
+
+.own-rented-title,
+.own-owned-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0 0 22px;
+}
+
+.own-rented-list,
+.own-owned-list {
+  list-style: none;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.own-rented-item,
+.own-owned-item {
+  position: relative;
+  padding-left: 22px;
+  font-size: 16px;
   line-height: 1.35;
 }
 
-/* ── Section seams (blocky transition where bg color changes) ──── */
+.own-rented-item {
+  color: var(--text-on-light-muted);
+}
+
+/* Hollow on the rented side, filled on the owned side: same pixel, same spot,
+   so the two lists read across as a pair. */
+.own-rented-item::before,
+.own-owned-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 8px;
+  height: 8px;
+}
+
+.own-rented-item::before {
+  border: 1px solid var(--text-on-light-muted);
+}
+
+.own-owned-item::before {
+  background: var(--accent);
+}
+
+/* â”€â”€ Stack â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.stack {
+  background: var(--bg-dark);
+  padding: 100px 28px 0;
+}
+
+.stack-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.stack-eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.stack-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-on-dark);
+  margin: 0 0 14px;
+}
+
+.stack-text {
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--text-on-dark-muted);
+  margin: 0 0 44px;
+  max-width: 37.18em;
+}
+
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.stack-item {
+  border: 1px solid var(--border-on-dark);
+  padding: 26px 26px 28px;
+  transition: border-color 0.15s ease;
+}
+
+.stack-item:hover {
+  border-color: var(--accent);
+}
+
+.stack-group {
+  display: block;
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.stack-name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-on-dark);
+  margin: 0 0 8px;
+}
+
+.stack-item-text {
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--text-on-dark-muted);
+  margin: 0;
+}
+
+/* â”€â”€ Guarantee â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.guarantee {
+  background: var(--bg-light);
+  padding: 84px 28px 88px;
+}
+
+.guarantee-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  background: var(--block);
+  color: var(--text-on-dark);
+  padding: 60px 64px;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 64px;
+  align-items: center;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 56px) 0,
+    calc(100% - 56px) 28px,
+    calc(100% - 28px) 28px,
+    calc(100% - 28px) 56px,
+    100% 56px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.guarantee-eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.guarantee-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin: 0 0 18px;
+}
+
+.guarantee-text {
+  font-size: 17px;
+  line-height: 1.45;
+  color: rgba(237, 237, 230, 0.86);
+  margin: 0 0 14px;
+}
+
+.guarantee-note {
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgba(237, 237, 230, 0.72);
+  margin: 0;
+}
+
+.guarantee-meter-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.guarantee-meter-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(237, 237, 230, 0.78);
+}
+
+.guarantee-meter-value {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--accent);
+}
+
+/* Ten blocks, cut by a mask so the fill breaks along the same gaps as the track.
+   --score comes from the headline, so the bar cannot drift from the words. */
+.guarantee-track {
+  display: block;
+  position: relative;
+  height: 14px;
+  background: rgba(7, 7, 7, 0.28);
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 calc(10% - 3px), transparent calc(10% - 3px) 10%);
+  mask-image: repeating-linear-gradient(90deg, #000 0 calc(10% - 3px), transparent calc(10% - 3px) 10%);
+}
+
+.guarantee-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--score) * 1%);
+  background: var(--accent);
+}
+
+/* â”€â”€ Contact: book a call â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.contact-book {
+  display: inline-block;
+  margin-top: 22px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  border-bottom: 1px solid rgba(239, 237, 144, 0.4);
+  transition: border-color 0.15s ease;
+}
+
+.contact-book:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* â”€â”€ Section seams (blocky transition where bg color changes) â”€â”€â”€â”€ */
 /*
- * A dither: four rows of square cells, each row denser than the one above it —
+ * A dither: four rows of square cells, each row denser than the one above it â€”
  * one cell in four, then one in two, then three in four, then solid. The way a
  * display with no gradients faked one. Both seams share the geometry and differ
- * only in which colour arrives — --from is the section above, --to the section
- * below — so the two rules underneath set nothing but the pair.
+ * only in which colour arrives â€” --from is the section above, --to the section
+ * below â€” so the two rules underneath set nothing but the pair.
  *
  * Cells are sized in px, not percent, so they stay the same size at every
  * viewport instead of stretching with the window. --px tracks a quarter of --h,
@@ -811,7 +1281,7 @@ section {
   --to: var(--bg-dark);
 }
 
-/* ── Services ────────────────────────────────────────────────────── */
+/* â”€â”€ Services â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .services {
   background: var(--bg-light);
   padding: 96px 28px 100px;
@@ -852,7 +1322,7 @@ section {
 
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
@@ -888,7 +1358,7 @@ section {
   /* auto, not a fixed gap: the three cards carry different amounts of text, and
      this lines every arrow up on the card's bottom edge instead of leaving each
      one under its own paragraph. The clearance above it is .service-text's
-     bottom margin — padding here would stretch the rotated square out of shape. */
+     bottom margin â€” padding here would stretch the rotated square out of shape. */
   margin-top: auto;
   border-top: 2px solid var(--accent);
   border-right: 2px solid var(--accent);
@@ -923,7 +1393,7 @@ section {
   line-height: 1.3;
 }
 
-/* ── Process ─────────────────────────────────────────────────────── */
+/* â”€â”€ Process â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .process {
   background: var(--bg-dark);
   padding: 100px 28px 104px;
@@ -958,13 +1428,13 @@ section {
   line-height: 1.2;
 }
 
-.chain-row {
+.step-row {
   display: flex;
   align-items: stretch;
   gap: 0;
 }
 
-.chain-block {
+.step-block {
   position: relative;
   flex: 1;
   background: var(--block);
@@ -985,33 +1455,33 @@ section {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.chain-row.in-view .chain-block {
-  animation: chain-rise 0.6s ease forwards;
+.step-row.in-view .step-block {
+  animation: step-rise 0.6s ease forwards;
 }
 
-.chain-row.in-view .chain-block:nth-of-type(1) {
+.step-row.in-view .step-block:nth-of-type(1) {
   animation-delay: 0s;
 }
 
-.chain-row.in-view .chain-block:nth-of-type(3) {
+.step-row.in-view .step-block:nth-of-type(3) {
   animation-delay: 0.15s;
 }
 
-.chain-row.in-view .chain-block:nth-of-type(5) {
+.step-row.in-view .step-block:nth-of-type(5) {
   animation-delay: 0.3s;
 }
 
-.chain-row.in-view .chain-block:nth-of-type(7) {
+.step-row.in-view .step-block:nth-of-type(7) {
   animation-delay: 0.45s;
 }
 
-/* Hover: accent fill sweep — yellow wipes across the block from the
+/* Hover: accent fill sweep â€” yellow wipes across the block from the
    left and the text flips to dark. Loading animation is untouched. */
-.chain-row.in-view .chain-block:hover {
+.step-row.in-view .step-block:hover {
   z-index: 2;
 }
 
-.chain-row--hover1 .chain-block::after {
+.step-row--hover1 .step-block::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -1023,23 +1493,23 @@ section {
   clip-path: inherit;
 }
 
-.chain-row--hover1 .chain-block > * {
+.step-row--hover1 .step-block > * {
   position: relative;
   z-index: 1;
   transition: color 0.3s ease 0.05s;
 }
 
-.chain-row--hover1.in-view .chain-block:hover::after {
+.step-row--hover1.in-view .step-block:hover::after {
   transform: scaleX(1);
 }
 
-.chain-row--hover1.in-view .chain-block:hover .chain-hash,
-.chain-row--hover1.in-view .chain-block:hover .chain-block-title,
-.chain-row--hover1.in-view .chain-block:hover .chain-block-text {
+.step-row--hover1.in-view .step-block:hover .step-tag,
+.step-row--hover1.in-view .step-block:hover .step-block-title,
+.step-row--hover1.in-view .step-block:hover .step-block-text {
   color: var(--block);
 }
 
-@keyframes chain-rise {
+@keyframes step-rise {
   from {
     opacity: 0;
     transform: translateY(18px);
@@ -1050,7 +1520,7 @@ section {
   }
 }
 
-.chain-hash {
+.step-tag {
   display: block;
   font-family: monospace;
   font-size: 12px;
@@ -1059,27 +1529,27 @@ section {
   margin-bottom: 14px;
 }
 
-.chain-block-title {
+.step-block-title {
   font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.01em;
   margin: 0 0 8px;
 }
 
-.chain-block-text {
+.step-block-text {
   font-size: 14px;
   color: rgba(237, 237, 230, 0.75);
   margin: 0;
   line-height: 1.3;
 }
 
-.chain-link {
+.step-link {
   width: 40px;
   flex-shrink: 0;
   position: relative;
 }
 
-.chain-link::before {
+.step-link::before {
   content: '';
   position: absolute;
   left: 0;
@@ -1091,28 +1561,28 @@ section {
   transform-origin: left center;
 }
 
-.chain-row.in-view .chain-link::before {
-  animation: chain-draw 0.5s ease forwards;
+.step-row.in-view .step-link::before {
+  animation: step-draw 0.5s ease forwards;
 }
 
-.chain-row.in-view .chain-link:nth-of-type(2)::before {
+.step-row.in-view .step-link:nth-of-type(2)::before {
   animation-delay: 0.1s;
 }
 
-.chain-row.in-view .chain-link:nth-of-type(4)::before {
+.step-row.in-view .step-link:nth-of-type(4)::before {
   animation-delay: 0.25s;
 }
 
-.chain-row.in-view .chain-link:nth-of-type(6)::before {
+.step-row.in-view .step-link:nth-of-type(6)::before {
   animation-delay: 0.4s;
 }
 
-.chain-block:hover + .chain-link::before {
+.step-block:hover + .step-link::before {
   background: var(--accent);
   transition: background 0.3s ease 0.05s;
 }
 
-@keyframes chain-draw {
+@keyframes step-draw {
   from {
     transform: translateY(-1px) scaleX(0);
   }
@@ -1121,7 +1591,7 @@ section {
   }
 }
 
-@keyframes chain-draw-v {
+@keyframes step-draw-v {
   from {
     transform: scaleY(0);
   }
@@ -1130,7 +1600,7 @@ section {
   }
 }
 
-/* ── Problem scenes ──────────────────────────────────────────────── */
+/* â”€â”€ Problem scenes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 /*
  * Every scene runs on one 6s cycle, and every moving part inside a scene uses
  * that same length. Parts with the same period never drift apart, so a stagger
@@ -1764,7 +2234,7 @@ section {
   }
 }
 
-/* ── Problem reel ────────────────────────────────────────────────── */
+/* â”€â”€ Problem reel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .preel {
   background: var(--bg-light);
   padding: 72px 28px 96px;
@@ -1939,7 +2409,7 @@ section {
   }
 }
 
-/* ── FAQ ─────────────────────────────────────────────────────────── */
+/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .faq {
   background: var(--bg-light);
   padding: 76px 28px 88px;
@@ -1985,6 +2455,11 @@ section {
   margin: 0;
   max-width: 22.58em;
   line-height: 1.35;
+}
+
+/* min-width: 0 so a long question cannot widen the grid column it sits in. */
+.faq-body {
+  min-width: 0;
 }
 
 .faq-list {
@@ -2079,7 +2554,7 @@ section {
   background: var(--ink);
 }
 
-/* 0fr → 1fr interpolates the answer's real height, so opening and closing run
+/* 0fr â†’ 1fr interpolates the answer's real height, so opening and closing run
    the identical curve. A fixed max-height cannot: the visible part of the
    travel would be a fraction of the cap, making the open look instant.
    The padding lives on .faq-answer, one level below the clipper, because a
@@ -2115,7 +2590,7 @@ section {
   line-height: 1.5;
 }
 
-/* ── Contact ─────────────────────────────────────────────────────── */
+/* â”€â”€ Contact â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .contact {
   background: var(--bg-dark);
   padding: 100px 28px 110px;
@@ -2236,7 +2711,7 @@ section {
 /*
  * "What do you need?" is a radio group wearing chips, not a select. The native
  * dropdown hid five answers behind a click and could not be styled to match the
- * rest of the form; these show every option at once and stay keyboard native —
+ * rest of the form; these show every option at once and stay keyboard native â€”
  * the real radio sits under each chip, visually hidden but focusable.
  */
 .choice-grid {
@@ -2298,7 +2773,7 @@ section {
     transform: none;
   }
 
-  /* The message still has to appear — only the movement goes. */
+  /* The message still has to appear â€” only the movement goes. */
   .form-status[data-state='ok'] {
     animation: none;
   }
@@ -2313,7 +2788,7 @@ section {
   font-weight: 700;
   font-size: 16px;
   padding: 14px 30px;
-  /* See .btn-primary — keeps the parked sweep from painting over its neighbour. */
+  /* See .btn-primary â€” keeps the parked sweep from painting over its neighbour. */
   overflow: hidden;
   clip-path: polygon(
     0 0,
@@ -2372,7 +2847,7 @@ section {
 
 /*
  * The honeypot. Pushed off-screen rather than hidden with display:none or the
- * hidden attribute — both are trivial for a bot to detect and skip, and the
+ * hidden attribute â€” both are trivial for a bot to detect and skip, and the
  * point is that it fills this in. Nothing here is reachable by mouse, keyboard
  * or screen reader: the field carries tabindex="-1" and its wrapper aria-hidden.
  */
@@ -2395,7 +2870,7 @@ section {
 /*
  * Success gets more than a colour change. Sending a form into a black box is
  * the moment a visitor most wants proof something happened, so the confirmation
- * arrives with a tick and a short rise — a beat of celebration, then it sits
+ * arrives with a tick and a short rise â€” a beat of celebration, then it sits
  * still. The other two states stay plain: nobody wants a flourish on an error.
  */
 .form-status[data-state='ok'] {
@@ -2408,7 +2883,7 @@ section {
 }
 
 .form-status[data-state='ok']::before {
-  content: '✓';
+  content: 'âœ“';
   flex: none;
   font-size: 17px;
   line-height: 1;
@@ -2432,7 +2907,7 @@ section {
   color: #ffc4b4;
 }
 
-/* ── Footer ──────────────────────────────────────────────────────── */
+/* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .site-footer {
   background: var(--bg-dark);
   border-top: 1px solid var(--border-on-dark);
@@ -2526,7 +3001,7 @@ section {
   margin: 0;
 }
 
-/* ── Service pages ───────────────────────────────────────────────── */
+/* â”€â”€ Service pages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 /*
  * Everything prefixed svc- belongs to src/pages/[service].astro and to nothing
  * else. The page reuses the homepage's buttons, chips, seams and FAQ accordion
@@ -2765,6 +3240,10 @@ section {
   line-height: 1.4;
 }
 
+.svc-proof-main {
+  min-width: 0;
+}
+
 .svc-proof-text {
   font-size: clamp(26px, 3vw, 40px);
   font-weight: 600;
@@ -2881,432 +3360,8 @@ section {
   transform: translateY(-2px);
 }
 
-/* ── Pricing ─────────────────────────────────────────────────────── */
-/*
- * Everything prefixed price- belongs to src/pages/pricing.astro. The hero, the
- * FAQ and the closing CTA reuse the svc- and faq rules as they are. Background
- * runs dark, light (plans), dark (terms, guarantee), light (care, FAQ), dark.
- */
-.price-plans {
-  background: var(--bg-light);
-  padding: 72px 28px 96px;
-}
-
-.price-plans-inner {
-  max-width: var(--maxw);
-  margin: 0 auto;
-}
-
-/* A segmented switch: one bordered strip, the selected half filled in ink. */
-.price-tabs {
-  display: inline-flex;
-  border: 1px solid var(--border-on-light);
-  margin-bottom: 40px;
-}
-
-.price-tab {
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-on-light);
-  background: transparent;
-  border: 0;
-  padding: 13px 24px;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-.price-tab:hover {
-  background: rgba(7, 7, 7, 0.06);
-}
-
-.price-tab[aria-selected='true'] {
-  background: var(--ink);
-  color: var(--text-on-dark);
-}
-
-.price-tab:focus-visible {
-  outline: 2px solid var(--block);
-  outline-offset: 2px;
-}
-
-/* No display here on purpose: the hidden attribute is what switches panels,
-   and any author display value would override it. Removing hidden restarts the
-   animation, so every switch fades the new set of cards in. */
-.price-panel {
-  animation: price-panel-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes price-panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Read by screen readers and crawlers, shown only in the no-JavaScript
-   fallback, where the tabs that normally name each panel are gone. */
-.price-group-title {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
-/* auto-fit, so the same rule lays out three migration plans in thirds and two
-   new-site plans in halves, with no modifier per group. */
-.price-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  align-items: stretch;
-}
-
-.price-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background: var(--block);
-  color: var(--text-on-dark);
-  padding: 32px 28px 30px;
-  clip-path: polygon(
-    0 0,
-    calc(100% - 32px) 0,
-    calc(100% - 32px) 16px,
-    calc(100% - 16px) 16px,
-    calc(100% - 16px) 32px,
-    100% 32px,
-    100% 100%,
-    0 100%
-  );
-}
-
-/* The featured plan goes to ink: the one card on the light section that
-   carries the strongest contrast, and the only one with the accent button. */
-.price-card.is-featured {
-  background: var(--ink);
-}
-
-.price-card-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 12px;
-  margin-bottom: 22px;
-}
-
-.price-name {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(237, 237, 230, 0.78);
-  margin: 0;
-}
-
-.price-amount {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-  font-size: 46px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: var(--text-on-dark);
-  margin: 0 0 16px;
-}
-
-.price-prefix {
-  font-size: 17px;
-  font-weight: 500;
-  letter-spacing: 0;
-  color: rgba(237, 237, 230, 0.7);
-}
-
-.price-period {
-  font-size: 17px;
-  font-weight: 500;
-  letter-spacing: 0;
-  color: rgba(237, 237, 230, 0.7);
-}
-
-.price-text {
-  font-size: 15px;
-  color: rgba(237, 237, 230, 0.78);
-  margin: 0 0 24px;
-  line-height: 1.4;
-  max-width: 22em;
-}
-
-/* flex-grow pushes every button onto the card's bottom edge, so a row of
-   cards with lists of different lengths still lines its buttons up. */
-.price-features {
-  list-style: none;
-  margin: 0 0 30px;
-  padding: 22px 0 0;
-  border-top: 1px solid rgba(237, 237, 230, 0.18);
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  align-self: stretch;
-}
-
-/* The care card ends on its list, with no button under it to clear. */
-.price-features:last-child {
-  margin-bottom: 0;
-}
-
-/* A square bullet in the accent — the same pixel the notches and seams cut. */
-.price-feature {
-  position: relative;
-  padding-left: 20px;
-  font-size: 15px;
-  line-height: 1.4;
-  color: var(--text-on-dark);
-}
-
-.price-feature::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.5em;
-  width: 7px;
-  height: 7px;
-  background: var(--accent);
-}
-
-/*
- * The guarantee and the terms, one section: the promise on the left, and on
- * the right a score meter over the included items. The rules below are the
- * finished frame; pricing.astro builds it up on scroll.
- */
-.price-promise {
-  position: relative;
-  background: var(--bg-dark);
-  padding: 96px 28px;
-}
-
-.price-promise-inner {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 72px;
-  align-items: center;
-}
-
-/* The page's one promise keeps the accent rule it had as its own section. */
-.price-promise-copy {
-  border-left: 2px solid var(--accent);
-  padding-left: 26px;
-}
-
-.price-promise-title {
-  font-size: 40px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.12;
-  color: var(--text-on-dark);
-  margin: 0 0 18px;
-}
-
-.price-promise-text {
-  font-size: 17px;
-  line-height: 1.45;
-  color: var(--text-on-dark-muted);
-  margin: 0 0 16px;
-}
-
-.price-promise-note {
-  font-size: 14px;
-  line-height: 1.45;
-  color: rgba(237, 237, 230, 0.45);
-  margin: 0;
-}
-
-.price-promise-meter {
-  margin: 0 0 32px;
-}
-
-.price-promise-meter-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  margin: 0 0 12px;
-}
-
-.price-promise-meter-label,
-.price-promise-terms-title {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-on-dark-muted);
-}
-
-.price-promise-meter-value {
-  font-size: 44px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-}
-
-.price-promise-bar {
-  position: relative;
-}
-
-/* Ten blocks, cut by a mask so the fill breaks along the same gaps as the
-   track. The gaps are 3px, so the score mark sits inside one. */
-.price-promise-track {
-  display: block;
-  position: relative;
-  height: 14px;
-  background: rgba(237, 237, 230, 0.12);
-  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 calc(10% - 3px), transparent calc(10% - 3px) 10%);
-  mask-image: repeating-linear-gradient(90deg, #000 0 calc(10% - 3px), transparent calc(10% - 3px) 10%);
-}
-
-.price-promise-fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: calc(var(--score) * 1%);
-  background: var(--accent);
-  transform-origin: 0 50%;
-}
-
-.price-promise-mark {
-  position: absolute;
-  top: -6px;
-  bottom: -6px;
-  left: calc(var(--score) * 1% - 2.5px);
-  width: 2px;
-  background: var(--text-on-dark);
-}
-
-.price-promise-terms-title {
-  margin: 0 0 14px;
-}
-
-.price-promise-grid {
-  list-style: none;
-  margin: 0 0 28px;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-/* The price cards' stepped corner, at half the step. */
-.price-promise-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 16px 22px 16px 18px;
-  font-size: 14.5px;
-  line-height: 1.35;
-  color: var(--text-on-dark);
-  background: var(--block);
-  clip-path: polygon(
-    0 0,
-    calc(100% - 16px) 0,
-    calc(100% - 16px) 8px,
-    calc(100% - 8px) 8px,
-    calc(100% - 8px) 16px,
-    100% 16px,
-    100% 100%,
-    0 100%
-  );
-}
-
-.price-promise-index {
-  flex: none;
-  margin-top: 1px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-}
-
-.price-promise-excluded {
-  border-top: 1px dashed rgba(237, 237, 230, 0.22);
-  padding-top: 20px;
-}
-
-.price-promise-excluded .price-promise-terms-title {
-  margin-bottom: 10px;
-}
-
-.price-promise-excluded-text {
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--text-on-dark-muted);
-  margin: 0;
-}
-
-.price-care {
-  background: var(--bg-light);
-  padding: 84px 28px 20px;
-}
-
-.price-care-inner {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
-}
-
-.price-care-text {
-  font-size: 17px;
-  color: var(--text-on-light-muted);
-  margin: 0;
-  max-width: 26em;
-  line-height: 1.4;
-}
-
-.price-care-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--block);
-  color: var(--text-on-dark);
-  padding: 32px 28px 30px;
-  clip-path: polygon(
-    0 0,
-    calc(100% - 32px) 0,
-    calc(100% - 32px) 16px,
-    calc(100% - 16px) 16px,
-    calc(100% - 16px) 32px,
-    100% 32px,
-    100% 100%,
-    0 100%
-  );
-}
-
-.price-care-label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-
-/* ── Blog: listing ───────────────────────────────────────────────── */
-/* The hero is the service hero with less under it — same paddings, same
+/* â”€â”€ Blog: listing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* The hero is the service hero with less under it â€” same paddings, same
    .svc-eyebrow / .svc-title / .svc-subtitle inside, so the two page types open
    identically and there is one set of type rules to keep in step. */
 .blog-hero {
@@ -3488,7 +3543,7 @@ section {
   max-width: 33.55em;
 }
 
-/* ── Blog: post ──────────────────────────────────────────────────── */
+/* â”€â”€ Blog: post â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .post-hero {
   background: var(--bg-dark);
   padding: 56px 28px 76px;
@@ -3561,7 +3616,7 @@ section {
 }
 
 /* The measure. Everything a reader reads lives inside this column, and 40em is
-   ~72 characters in Blauer Nue — long enough not to break every clause, short
+   ~72 characters in Blauer Nue â€” long enough not to break every clause, short
    enough that the eye finds the next line without hunting for it. */
 .post-body-inner {
   max-width: 40em;
@@ -3669,7 +3724,7 @@ section {
  * The article body, and the one exception to the one-class-per-element rule at
  * the top of this file: markdown produces these tags, so there is no class to
  * hang a rule on. Every selector below is scoped under .post-body and reaches
- * nothing outside it — the exception stays inside the article.
+ * nothing outside it â€” the exception stays inside the article.
  */
 .post-body {
   font-size: 18px;
@@ -3685,7 +3740,7 @@ section {
   margin: 0 0 24px;
 }
 
-/* scroll-margin-top clears the sticky header when a TOC link jumps here —
+/* scroll-margin-top clears the sticky header when a TOC link jumps here â€”
    without it the heading lands underneath the bar it just scrolled past. */
 .post-body h2 {
   font-size: 30px;
@@ -3949,14 +4004,14 @@ section {
   transform: translateX(4px);
 }
 
-/* ── Astro quiz ──────────────────────────────────────────────────── */
+/* â”€â”€ Migration quiz â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 /*
  * The service hero on top, then one purple card on the light band that swaps
  * its contents screen by screen. The answers are the contact form's chips
  * stretched to full width, Continue is the form's own .form-submit, and the
  * result reuses .btn-primary. No rule here sets display on anything the script
- * hides — .quiz-step, .quiz-top, .quiz-result, .quiz-flags, .quiz-flag and
- * .quiz-text-btn — because a display value would beat the hidden attribute.
+ * hides â€” .quiz-step, .quiz-top, .quiz-result, .quiz-flags, .quiz-flag and
+ * .quiz-text-btn â€” because a display value would beat the hidden attribute.
  */
 .quiz {
   background: var(--bg-light);
@@ -4243,7 +4298,7 @@ section {
   border-top: 1px solid rgba(237, 237, 230, 0.18);
 }
 
-/* Same square accent bullet as .price-feature. */
+/* Same square accent bullet as .own-owned-item. */
 .quiz-flag {
   position: relative;
   padding-left: 20px;
@@ -4269,7 +4324,7 @@ section {
   margin: 20px 0 0;
 }
 
-/* ── Book a call ─────────────────────────────────────────────────── */
+/* â”€â”€ Book a call â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 /*
  * The Calendly calendar in an iframe on the light band. The iframe cannot size
  * itself to what Calendly draws inside it, so the heights here are set to fit
@@ -4318,7 +4373,7 @@ section {
   border-bottom-color: var(--block);
 }
 
-/* ── Motion ──────────────────────────────────────────────────────── */
+/* â”€â”€ Motion â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @keyframes ring-pulse {
   0% {
     opacity: 0.5;
@@ -4360,13 +4415,13 @@ section {
     animation: none;
   }
 
-  .chain-block {
+  .step-block {
     animation: none;
     opacity: 1;
     transform: none;
   }
 
-  .chain-link::before {
+  .step-link::before {
     animation: none;
     transform: none;
   }
@@ -4377,10 +4432,6 @@ section {
 
   .faq-icon::before {
     transition: none;
-  }
-
-  .price-panel {
-    animation: none;
   }
 
   /* Each scene falls back to its finished frame; see Problem scenes. */
@@ -4409,34 +4460,29 @@ section {
   }
 }
 
-/* ── Responsive (one breakpoint set; mirror rules above) ─────────── */
+/* â”€â”€ Responsive (one breakpoint set; mirror rules above) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (max-width: 900px) {
   .hero-title {
     font-size: 46px;
   }
 
-  /* One column, not two: three cards in a two-column grid leave the last one
-     alone on its row. */
+  /* The cards carry a paragraph each, and a half-width column at this size
+     stacks them too narrow to read. */
   .service-grid {
     grid-template-columns: 1fr;
   }
 
-  .proof-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .chain-row {
+  .step-row {
     flex-direction: column;
     gap: 18px;
   }
 
-  .chain-link {
+  .step-link {
     width: 100%;
     height: 24px;
   }
 
-  .chain-link::before {
+  .step-link::before {
     left: 50%;
     right: auto;
     top: 0;
@@ -4447,8 +4493,8 @@ section {
     transform-origin: top center;
   }
 
-  .chain-row.in-view .chain-link::before {
-    animation-name: chain-draw-v;
+  .step-row.in-view .step-link::before {
+    animation-name: step-draw-v;
   }
 
   /* At phone width 16:9 leaves the chat scene too short for its last line. Not
@@ -4535,6 +4581,27 @@ section {
     font-size: 40px;
   }
 
+  .own-grid,
+  .stack-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guarantee-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 40px 28px;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 32px) 0,
+      calc(100% - 32px) 16px,
+      calc(100% - 16px) 16px,
+      calc(100% - 16px) 32px,
+      100% 32px,
+      100% 100%,
+      0 100%
+    );
+  }
+
   .svc-pain-grid {
     grid-template-columns: 1fr;
   }
@@ -4558,24 +4625,6 @@ section {
     );
   }
 
-  .price-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .price-promise-inner {
-    grid-template-columns: 1fr;
-    gap: 44px;
-  }
-
-  .price-care-inner {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .price-promise-title {
-    font-size: 34px;
-  }
-
   .post-title {
     font-size: 38px;
   }
@@ -4588,7 +4637,7 @@ section {
     grid-template-columns: 1fr;
   }
 
-  /* Three columns, with the brand across the top of all of them — the link
+  /* Three columns, with the brand across the top of all of them â€” the link
      columns are narrow enough to sit side by side long after the brand
      sentence is not. */
   .footer-inner {
@@ -4637,12 +4686,28 @@ section {
     opacity: 0.5;
   }
 
-  .proof {
+  .rebuilds {
     padding: 0 20px 64px;
   }
 
-  .proof-after {
-    font-size: 38px;
+  .rebuilds-title,
+  .own-title,
+  .stack-title,
+  .guarantee-title {
+    font-size: 30px;
+  }
+
+  /* 28px gutters, like the reel and process sections they sit against. */
+  .own {
+    padding: 64px 28px 16px;
+  }
+
+  .stack {
+    padding: 64px 28px 0;
+  }
+
+  .guarantee {
+    padding: 64px 20px;
   }
 
   .faq {
@@ -4681,7 +4746,7 @@ section {
 
   .seam-to-light,
   .seam-to-dark {
-    /* Drives height, row heights, and cell width at once — see the rule above. */
+    /* Drives height, row heights, and cell width at once â€” see the rule above. */
     --h: 20px;
   }
 
@@ -4710,40 +4775,6 @@ section {
 
   .svc-cta-title {
     font-size: 27px;
-  }
-
-  .price-plans,
-  .price-promise,
-  .price-care {
-    padding: 64px 20px;
-  }
-
-  /* Full width, halves of equal size: a long tab label wraps to two
-     lines before it pushes the switch off the side of a phone. */
-  .price-tabs {
-    display: flex;
-  }
-
-  .price-tab {
-    flex: 1 1 0;
-    padding: 12px 14px;
-    font-size: 14px;
-  }
-
-  .price-card {
-    padding: 28px 22px 26px;
-  }
-
-  .price-amount {
-    font-size: 40px;
-  }
-
-  .price-promise-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .price-promise-title {
-    font-size: 28px;
   }
 
   .quiz {
@@ -4817,7 +4848,7 @@ section {
 
   .post-takeaways {
     padding: 24px 22px 26px;
-    /* The notch scales with the block — 34px cut out of a 22px gutter would eat
+    /* The notch scales with the block â€” 34px cut out of a 22px gutter would eat
        into the label above the list. */
     clip-path: polygon(
       0 0,

@@ -2,61 +2,61 @@
  * /llms.txt — the site in one markdown file, for answer engines.
  *
  * Built from the same sources the pages render, not written by hand: the
- * services and migration pages from copy.json, the plans and prices from
- * copy.pricing, the posts from the blog collection. A hand-written copy would
- * be the one place a price stayed at last month's number after the pricing page
- * moved on — and an answer engine quoting a stale price is worse than one
- * quoting none.
+ * services and migration pages and the stack from copy.json, the rebuilds from
+ * src/data/rebuilds.ts, the posts from the blog collection. A hand-written copy
+ * would be the one place a claim stayed at last month's wording after the page
+ * moved on.
  *
  * Shape follows https://llmstxt.org: an H1, a one-line blockquote summary,
  * free-form notes with no headings, then H2 sections of `[name](url): note`
- * links. The plans sit in the notes rather than behind a link because the
- * starting price is the single fact a model is most likely to be asked for.
+ * links. The stack and the guarantee sit in the notes rather than behind a link
+ * because they are the facts a model is most likely to be asked for.
  */
 import type { APIRoute } from 'astro';
 import { SITE_URL, SITE_NAME, SITE_ALT_NAME, PERSON, LOCATION } from '../consts';
 import copy from '../content/copy.json';
-import quiz from '../data/astro-quiz.json';
+import quiz from '../data/migration-quiz.json';
+import { completeRebuilds, formatScore, formatSeconds, formatKb } from '../data/rebuilds';
 import { getPublishedPosts } from '../lib/blog';
 
 const link = (name: string, path: string, note: string) => `- [${name}](${SITE_URL}${path}): ${note}`;
 
 export const GET: APIRoute = async () => {
-  const { pricing } = copy;
+  const { stack, guarantee, own } = copy;
   const posts = await getPublishedPosts();
 
-  const plans = pricing.groups.flatMap((group) =>
-    group.plans.map((plan) => {
-      const price = plan.pricePrefix ? `${plan.pricePrefix.toLowerCase()} ${plan.price}` : plan.price;
-      return `- ${group.label}, ${plan.name}: ${price}. ${plan.text}`;
-    }),
+  /* Finished entries only, so an answer engine can never quote a placeholder. */
+  const rebuildLines = completeRebuilds.map(
+    (r) =>
+      `- [${r.name}](${r.demoUrl}): mobile PageSpeed ${formatScore(r.pageSpeed.before)} to ${formatScore(r.pageSpeed.after)}, ` +
+      `LCP ${formatSeconds(r.lcpSeconds.before)} to ${formatSeconds(r.lcpSeconds.after)}, ` +
+      `JavaScript ${formatKb(r.jsKb.before)} to ${formatKb(r.jsKb.after)}. A public site rebuilt as a demo, not client work.`,
   );
 
   const lines = [
     `# ${SITE_NAME}`,
     '',
-    `> ${SITE_NAME} (also written "${SITE_ALT_NAME}") is a web performance and answer engine optimization (AEO) practice run by ${PERSON.name} from ${LOCATION.locality}, Serbia. It makes Web3 and fintech sites load fast, get quoted by AI search, and rebuilds them in Astro.`,
+    `> ${SITE_NAME} (also written "${SITE_ALT_NAME}") builds fast, custom websites for B2B companies. ${PERSON.name} runs it from ${LOCATION.locality}, Serbia. The site is code the client owns, in their repository and on their hosting, instead of a site rented on a platform.`,
     '',
-    `Pricing is fixed and agreed before work starts. ${pricing.subtitle}`,
+    `Own your stack: ${own.text}`,
     '',
-    ...plans,
-    `- ${pricing.careLabel}, ${pricing.careName}: ${pricing.carePrice} ${pricing.carePeriod.replace(/^\/\s*/, 'per ')}. ${pricing.careText}`,
+    ...stack.items.map((item) => `- ${item.group}, ${item.name}: ${item.text}`),
     '',
-    `Guarantee: ${pricing.guaranteeTitle} ${pricing.guaranteeText}`,
+    `Guarantee: ${guarantee.title} ${guarantee.text} ${guarantee.note}`,
     '',
     '## Services',
     '',
     ...copy.servicePages.map((page) => link(page.crumb, `/${page.slug}/`, page.metaDescription)),
     ...copy.migrationPages.map((page) => link(page.crumb, `/${page.slug}/`, page.metaDescription)),
-    link('Pricing', '/pricing/', pricing.metaDescription),
     '',
+    ...(rebuildLines.length > 0 ? ['## Rebuilds', '', ...rebuildLines, ''] : []),
     '## Blog',
     '',
     ...posts.map((post) => link(post.data.title, `/blog/${post.id}/`, post.data.description)),
     '',
     '## Tools and contact',
     '',
-    link(quiz.title, '/astro-quiz/', quiz.subtitle),
+    link(quiz.title, '/migration-quiz/', quiz.subtitle),
     link('Book a call', '/book-a-call/', 'A free 30 minute call about your site with ' + PERSON.name + '.'),
     `- [${PERSON.name} on LinkedIn](${PERSON.linkedin}): ${PERSON.jobTitle}.`,
     '',

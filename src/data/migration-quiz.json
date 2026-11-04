@@ -1,5 +1,5 @@
 {
-  "title": "Is your site ready to migrate to Astro?",
+  "title": "Is your site ready to leave its platform?",
   "subtitle": "15 questions, about 3 minutes. Get your Migration Need and Migration Complexity scores with a clear recommendation.",
   "scoring": {
     "need": { "max": 21, "threshold": 40 },
@@ -107,7 +107,7 @@
         {
           "id": "q9",
           "question": "How many pages does your site have?",
-          "helper": "Count unique pages like Home, About and Pricing. Don't count individual blog posts.",
+          "helper": "Count unique pages like Home, About and Contact. Don't count individual blog posts.",
           "answers": [
             { "id": "under-10", "label": "Under 10", "need": 0, "complexity": 0 },
             { "id": "10-30", "label": "10–30", "need": 0, "complexity": 1 },
@@ -186,16 +186,16 @@
       "id": "migrate-now",
       "when": { "need": "high", "complexity": "low" },
       "label": "Migrate now",
-      "headline": "Your site is a prime candidate for Astro",
+      "headline": "Your site is a prime candidate for a move",
       "body": "Your current platform is costing you speed, money or flexibility, and your site is simple enough to move quickly. This is the best-case migration: a faster site with less overhead, without a drawn-out project.",
       "cta": "Book a free migration call",
-      "ctaNote": "Every migration comes with a 90+ mobile PageSpeed guarantee, or I keep working for free."
+      "ctaNote": "Every migration comes with a 90+ mobile Lighthouse guarantee, or we keep working for free."
     },
     {
       "id": "migrate-with-plan",
       "when": { "need": "high", "complexity": "high" },
       "label": "Migrate with a plan",
-      "headline": "Astro will pay off, but plan the move",
+      "headline": "A move will pay off, but plan it",
       "body": "Your site has real reasons to migrate and enough moving parts that it needs a phased plan. Mapping content, integrations and redirects first protects your traffic and keeps the launch on schedule.",
       "cta": "Get a migration plan"
     },
@@ -204,8 +204,8 @@
       "when": { "need": "low", "complexity": "low" },
       "label": "Easy upgrade, no rush",
       "headline": "You could move anytime, but there's no fire",
-      "body": "Your site works well enough today, and moving it would be straightforward. Astro makes the most sense when you're planning a redesign or want to cut platform costs.",
-      "cta": "See what Astro would change"
+      "body": "Your site works well enough today, and moving it would be straightforward. A move makes the most sense when you're planning a redesign or want to cut platform costs.",
+      "cta": "See what a move would change"
     },
     {
       "id": "optimize-first",
@@ -219,11 +219,11 @@
   "flags": {
     "maxShown": 2,
     "items": [
-      { "priority": 1, "when": { "q13": ["full-store", "members-area"] }, "message": "Astro can run stores and member areas through connected services, but they add scope. We'll map this part separately on the call." },
-      { "priority": 2, "when": { "q8": ["3-months"] }, "message": "Planning a redesign anyway? Doing it together with the migration means you only pay for the build once." },
+      { "priority": 1, "when": { "q13": ["full-store", "members-area"] }, "message": "A store or a members area adds scope, and logins usually point to Next.js. We'll map this part separately on the call." },
+      { "priority": 2, "when": { "q8": ["3-months"] }, "message": "Planning a redesign anyway? Do it together with the migration and you only build once." },
       { "priority": 3, "when": { "q4": ["critical"] }, "message": "Search is your #1 channel, so the migration includes full redirect mapping and schema checks to protect your rankings." },
-      { "priority": 4, "when": { "q11": ["several-daily"] }, "message": "Your team publishes a lot. We'll choose an editing setup that keeps publishing as easy as it is today." },
-      { "priority": 5, "when": { "q3": ["90-100"] }, "message": "Your site is already fast. Here the case for Astro is cost, flexibility or AI visibility, not raw speed." },
+      { "priority": 4, "when": { "q11": ["several-daily"] }, "message": "Your team publishes a lot. We'll pick a CMS that keeps publishing as easy as it is today." },
+      { "priority": 5, "when": { "q3": ["90-100"] }, "message": "Your site is already fast. Here the case for moving is cost, flexibility or AI visibility, not raw speed." },
       { "priority": 6, "when": { "q3": ["dont-know"] }, "message": "Run your homepage through pagespeed.web.dev before we talk. It's the quickest way to see what you're losing." }
     ]
   }

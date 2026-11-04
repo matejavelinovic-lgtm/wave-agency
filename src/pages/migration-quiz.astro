@@ -1,9 +1,9 @@
 ---
 /*
- * /astro-quiz/ — fifteen questions in two parts, scored on two axes, ending on
+ * /migration-quiz/ — fifteen questions in two parts, scored on two axes, ending on
  * one of four recommendations.
  *
- * Everything the quiz says and scores lives in src/data/astro-quiz.json, not
+ * Everything the quiz says and scores lives in src/data/migration-quiz.json, not
  * copy.json: the questions are data the scoring reads, so nothing here carries
  * a data-edit. Every screen renders at build time, hidden but the first; the
  * script below only shows and hides them. It reads the points, maximums,
@@ -11,7 +11,7 @@
  * once, as markup, and never ships again inside the bundle.
  */
 import Layout from '../layouts/Layout.astro';
-import quiz from '../data/astro-quiz.json';
+import quiz from '../data/migration-quiz.json';
 
 const totalQuestions = quiz.parts.reduce((sum, part) => sum + part.questions.length, 0);
 
@@ -28,16 +28,16 @@ const flags = [...quiz.flags.items].sort((a, b) => a.priority - b.priority);
 <Layout
   title={`${quiz.title} | WaveWeb`}
   description={quiz.subtitle}
-  breadcrumbs={[{ name: 'Astro quiz', path: '/astro-quiz/' }]}
+  breadcrumbs={[{ name: 'Migration quiz', path: '/migration-quiz/' }]}
 >
   <section class="svc-hero">
     <div class="svc-hero-inner">
       <nav class="crumbs" aria-label="Breadcrumb">
         <a class="crumb-link" href="/">Home</a>
         <span class="crumb-sep" aria-hidden="true">/</span>
-        <span class="crumb-here">Astro quiz</span>
+        <span class="crumb-here">Migration quiz</span>
       </nav>
-      <span class="svc-eyebrow">Astro readiness quiz</span>
+      <span class="svc-eyebrow">Migration readiness quiz</span>
       <h1 class="svc-title">{quiz.title}</h1>
       <p class="svc-subtitle">{quiz.subtitle}</p>
     </div>

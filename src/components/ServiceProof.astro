@@ -13,14 +13,19 @@
  * between it and the next, so textContent still reads back as the exact
  * string — the inline editor saves what it always saved.
  */
+import SectionCta from './SectionCta.astro';
+
 interface Props {
   title: string;
   text: string;
   /** copy.json path of the page, for data-edit. */
   base: string;
+  /** Label and target of the link that closes the block. */
+  cta: string;
+  ctaHref: string;
 }
 
-const { title, text, base } = Astro.props;
+const { title, text, base, cta, ctaHref } = Astro.props;
 
 const words = text.split(' ');
 ---
@@ -31,14 +36,17 @@ const words = text.split(' ');
       <span class="svc-proof-rail" aria-hidden="true"><span class="svc-proof-fill"></span></span>
       <h2 class="svc-proof-title" data-edit={`${base}.proofTitle`}>{title}</h2>
     </div>
-    <p class="svc-proof-text" data-edit={`${base}.proofText`}>
-      {words.map((word, i) => (
-        <>
-          <span class="svc-proof-word">{word}</span>
-          {i < words.length - 1 ? ' ' : ''}
-        </>
-      ))}
-    </p>
+    <div class="svc-proof-main">
+      <p class="svc-proof-text" data-edit={`${base}.proofText`}>
+        {words.map((word, i) => (
+          <>
+            <span class="svc-proof-word">{word}</span>
+            {i < words.length - 1 ? ' ' : ''}
+          </>
+        ))}
+      </p>
+      <SectionCta href={ctaHref} label={cta} edit={`${base}.proofCta`} />
+    </div>
   </div>
 </section>
 

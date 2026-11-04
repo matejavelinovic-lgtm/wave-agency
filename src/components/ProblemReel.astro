@@ -1,5 +1,6 @@
 ---
 import ProblemScene from './ProblemScene.astro';
+import SectionCta from './SectionCta.astro';
 import copy from '../content/copy.json';
 
 /*
@@ -43,6 +44,7 @@ const { problem } = copy;
         .preel-timer { display: none; }
       </style>
     </noscript>
+    <SectionCta tone="light" href="#contact" label={problem.cta} edit="problem.cta" />
   </div>
 </section>
 

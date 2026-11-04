@@ -1,0 +1,87 @@
+---
+/*
+ * The Rebuilds section: public sites rebuilt as demos, with the numbers from
+ * before and after. Cards come from src/data/rebuilds.ts, and the chrome around
+ * them from copy.rebuilds.
+ *
+ * Renders nothing when there is nothing finished to show. See the note at the top
+ * of the data file: placeholders exist in `astro dev` only, so a production page
+ * cannot print the word TODO.
+ */
+import SectionCta from './SectionCta.astro';
+import copy from '../content/copy.json';
+import {
+  visibleRebuilds,
+  isComplete,
+  formatScore,
+  formatSeconds,
+  formatKb,
+} from '../data/rebuilds';
+
+const { rebuilds } = copy;
+
+const cards = visibleRebuilds.map((rebuild) => ({
+  rebuild,
+  complete: isComplete(rebuild),
+  metrics: [
+    {
+      label: rebuilds.labelPageSpeed,
+      edit: 'rebuilds.labelPageSpeed',
+      before: formatScore(rebuild.pageSpeed.before),
+      after: formatScore(rebuild.pageSpeed.after),
+    },
+    {
+      label: rebuilds.labelLcp,
+      edit: 'rebuilds.labelLcp',
+      before: formatSeconds(rebuild.lcpSeconds.before),
+      after: formatSeconds(rebuild.lcpSeconds.after),
+    },
+    {
+      label: rebuilds.labelJs,
+      edit: 'rebuilds.labelJs',
+      before: formatKb(rebuild.jsKb.before),
+      after: formatKb(rebuild.jsKb.after),
+    },
+  ],
+}));
+---
+
+{
+  cards.length > 0 && (
+    <section class="rebuilds" id="rebuilds">
+      <div class="rebuilds-inner">
+        <span class="rebuilds-eyebrow" data-edit="rebuilds.eyebrow">{rebuilds.eyebrow}</span>
+        <h2 class="rebuilds-title" data-edit="rebuilds.title">{rebuilds.title}</h2>
+        <p class="rebuilds-text" data-edit="rebuilds.text">{rebuilds.text}</p>
+        <div class="rebuild-grid">
+          {cards.map(({ rebuild, complete, metrics }) => (
+            <article class="rebuild-card">
+              {!complete && <span class="rebuild-todo">TODO</span>}
+              <h3 class="rebuild-name">{rebuild.name ?? 'Site name'}</h3>
+              <dl class="rebuild-metrics">
+                {metrics.map((m) => (
+                  <div class="rebuild-metric">
+                    <dt class="rebuild-label" data-edit={m.edit}>{m.label}</dt>
+                    {/* "to" is for a screen reader: the arrow is drawn and says nothing. */}
+                    <dd class="rebuild-figures">
+                      <span class="rebuild-before">{m.before}</span>
+                      <span class="rebuild-arrow" aria-hidden="true" />
+                      <span class="rebuild-sr">to</span>
+                      <span class="rebuild-after">{m.after}</span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              {rebuild.demoUrl && (
+                <a class="rebuild-link" href={rebuild.demoUrl} rel="noopener" target="_blank">
+                  {rebuilds.demoLabel}
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+        <SectionCta href="/book-a-call/" label={rebuilds.cta} edit="rebuilds.cta" />
+      </div>
+    </section>
+  )
+}

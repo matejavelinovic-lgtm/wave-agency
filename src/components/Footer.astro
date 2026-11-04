@@ -9,6 +9,7 @@
  */
 import { SITE_NAME, PERSON } from '../consts';
 import copy from '../content/copy.json';
+import { visibleRebuilds } from '../data/rebuilds';
 
 const year = new Date().getFullYear();
 ---
@@ -26,7 +27,7 @@ const year = new Date().getFullYear();
     </div>
 
     <!--
-      The three service pages, straight from the list that builds them, so a new
+      The service pages, straight from the list that builds them, so a new
       service appears here the moment it exists in copy.json. Crumb rather than
       the page's own H1: the H1 is a sentence, this is a label in a column.
     -->
@@ -47,8 +48,8 @@ const year = new Date().getFullYear();
       </ul>
     </nav>
 
-    {/* One link per platform, from migrationPages — "Framer to Astro" lands
-        here the day its entry exists in copy.json. */}
+    {/* One link per platform, from migrationPages: a new one lands here the day
+        its entry exists in copy.json. */}
     <nav class="footer-col" aria-labelledby="footer-migrations">
       <span class="footer-col-title" id="footer-migrations">Migrations</span>
       <ul class="footer-list">
@@ -63,11 +64,15 @@ const year = new Date().getFullYear();
     <nav class="footer-col" aria-labelledby="footer-more">
       <span class="footer-col-title" id="footer-more">More</span>
       <ul class="footer-list">
-        <li><a class="footer-link" href="/pricing/">Pricing</a></li>
+        {/* The section does not exist until an entry in rebuilds.ts is complete. */}
+        {visibleRebuilds.length > 0 && (
+          <li><a class="footer-link" href="/#rebuilds">Rebuilds</a></li>
+        )}
         <li><a class="footer-link" href="/blog/">Blog</a></li>
         <li><a class="footer-link" href="/#process">Process</a></li>
         <li><a class="footer-link" href="/#faq">FAQ</a></li>
         <li><a class="footer-link" href="/#contact">Contact</a></li>
+        <li><a class="footer-link" href="/book-a-call/">Book a call</a></li>
         <li>
           <a class="footer-link" href={PERSON.linkedin} rel="noopener" target="_blank">LinkedIn</a>
         </li>
