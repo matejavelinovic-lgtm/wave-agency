@@ -1113,108 +1113,6 @@ section {
   margin: 0;
 }
 
-/* â”€â”€ Guarantee â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-.guarantee {
-  background: var(--bg-light);
-  padding: 84px 28px 88px;
-}
-
-.guarantee-inner {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  background: var(--block);
-  color: var(--text-on-dark);
-  padding: 60px 64px;
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 64px;
-  align-items: center;
-  clip-path: polygon(
-    0 0,
-    calc(100% - 56px) 0,
-    calc(100% - 56px) 28px,
-    calc(100% - 28px) 28px,
-    calc(100% - 28px) 56px,
-    100% 56px,
-    100% 100%,
-    0 100%
-  );
-}
-
-.guarantee-eyebrow {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 16px;
-}
-
-.guarantee-title {
-  font-size: 38px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.12;
-  margin: 0 0 18px;
-}
-
-.guarantee-text {
-  font-size: 17px;
-  line-height: 1.45;
-  color: rgba(237, 237, 230, 0.86);
-  margin: 0 0 14px;
-}
-
-.guarantee-note {
-  font-size: 14px;
-  line-height: 1.45;
-  color: rgba(237, 237, 230, 0.72);
-  margin: 0;
-}
-
-.guarantee-meter-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 12px;
-}
-
-.guarantee-meter-label {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(237, 237, 230, 0.78);
-}
-
-.guarantee-meter-value {
-  font-size: 44px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: var(--accent);
-}
-
-/* Ten blocks, cut by a mask so the fill breaks along the same gaps as the track.
-   --score comes from the headline, so the bar cannot drift from the words. */
-.guarantee-track {
-  display: block;
-  position: relative;
-  height: 14px;
-  background: rgba(7, 7, 7, 0.28);
-  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 calc(10% - 3px), transparent calc(10% - 3px) 10%);
-  mask-image: repeating-linear-gradient(90deg, #000 0 calc(10% - 3px), transparent calc(10% - 3px) 10%);
-}
-
-.guarantee-fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: calc(var(--score) * 1%);
-  background: var(--accent);
-}
-
 /* â”€â”€ Contact: book a call â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .contact-book {
   display: inline-block;
@@ -4586,22 +4484,6 @@ section {
     grid-template-columns: 1fr;
   }
 
-  .guarantee-inner {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 40px 28px;
-    clip-path: polygon(
-      0 0,
-      calc(100% - 32px) 0,
-      calc(100% - 32px) 16px,
-      calc(100% - 16px) 16px,
-      calc(100% - 16px) 32px,
-      100% 32px,
-      100% 100%,
-      0 100%
-    );
-  }
-
   .svc-pain-grid {
     grid-template-columns: 1fr;
   }
@@ -4692,8 +4574,7 @@ section {
 
   .rebuilds-title,
   .own-title,
-  .stack-title,
-  .guarantee-title {
+  .stack-title {
     font-size: 30px;
   }
 
@@ -4704,10 +4585,6 @@ section {
 
   .stack {
     padding: 64px 28px 0;
-  }
-
-  .guarantee {
-    padding: 64px 20px;
   }
 
   .faq {

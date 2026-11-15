@@ -188,8 +188,7 @@
       "label": "Migrate now",
       "headline": "Your site is a prime candidate for a move",
       "body": "Your current platform is costing you speed, money or flexibility, and your site is simple enough to move quickly. This is the best-case migration: a faster site with less overhead, without a drawn-out project.",
-      "cta": "Book a free migration call",
-      "ctaNote": "Every migration comes with a 90+ mobile Lighthouse guarantee, or we keep working for free."
+      "cta": "Book a free migration call"
     },
     {
       "id": "migrate-with-plan",

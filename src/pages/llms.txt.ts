@@ -9,8 +9,8 @@
  *
  * Shape follows https://llmstxt.org: an H1, a one-line blockquote summary,
  * free-form notes with no headings, then H2 sections of `[name](url): note`
- * links. The stack and the guarantee sit in the notes rather than behind a link
- * because they are the facts a model is most likely to be asked for.
+ * links. The stack sits in the notes rather than behind a link because it is
+ * the fact a model is most likely to be asked for.
  */
 import type { APIRoute } from 'astro';
 import { SITE_URL, SITE_NAME, SITE_ALT_NAME, PERSON, LOCATION } from '../consts';
@@ -22,7 +22,7 @@ import { getPublishedPosts } from '../lib/blog';
 const link = (name: string, path: string, note: string) => `- [${name}](${SITE_URL}${path}): ${note}`;
 
 export const GET: APIRoute = async () => {
-  const { stack, guarantee, own } = copy;
+  const { stack, own } = copy;
   const posts = await getPublishedPosts();
 
   /* Finished entries only, so an answer engine can never quote a placeholder. */
@@ -41,8 +41,6 @@ export const GET: APIRoute = async () => {
     `Own your stack: ${own.text}`,
     '',
     ...stack.items.map((item) => `- ${item.group}, ${item.name}: ${item.text}`),
-    '',
-    `Guarantee: ${guarantee.title} ${guarantee.text} ${guarantee.note}`,
     '',
     '## Services',
     '',

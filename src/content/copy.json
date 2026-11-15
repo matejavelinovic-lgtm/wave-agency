@@ -155,14 +155,6 @@
     ],
     "cta": "Start with an audit"
   },
-  "guarantee": {
-    "eyebrow": "Guarantee",
-    "title": "90+ on mobile, or we keep working for free.",
-    "text": "Before kickoff we agree on the pages that matter most. At launch we measure them with Lighthouse on mobile. If any of them scores under 90, we keep working on it at no cost until it does.",
-    "note": "Excludes third-party scripts you choose to keep, such as chat widgets, heavy trackers, and embedded video players. We flag each one in the audit, with what it costs you in speed.",
-    "scoreLabel": "Lighthouse, mobile",
-    "cta": "Talk to us about your pages"
-  },
   "faq": {
     "eyebrow": "FAQ",
     "title": "Answers before the first call.",
@@ -521,7 +513,7 @@
       "faq": [
         {
           "q": "How fast can you make my site?",
-          "a": "We profile the site first, tell you what each fix is worth, and you decide how far down the list to go. On a tuning pass we promise the measurement. On a new build or a migration, we guarantee 90+ on mobile on the pages we agree on."
+          "a": "We profile the site first, tell you what each fix is worth, and you decide how far down the list to go. Afterwards we run the same tests again, so you see exactly what moved."
         },
         {
           "q": "Will you break my design?",

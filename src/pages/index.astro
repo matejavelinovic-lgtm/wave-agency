@@ -15,12 +15,8 @@ import copy from '../content/copy.json';
  * a data-edit pointing at it — text hardcoded in the markup below is text
  * nobody can edit in the browser.
  */
-const { hero, own, services, stack, founder, guarantee, faq, contact } = copy;
+const { hero, own, services, stack, founder, faq, contact } = copy;
 const steps = copy.process.steps;
-
-/* The number the guarantee promises, read from its own headline so the meter
-   cannot drift from the words. Falls back to 90 if the headline loses it. */
-const guaranteeScore = Number(guarantee.title.match(/\d+/)?.[0] ?? 90);
 
 /*
  * The cards and the service pages are two parallel lists: services.cards[i]
@@ -259,29 +255,6 @@ const faqSchema = {
       }
     }
   </script>
-
-  <div class="seam-to-light"></div>
-
-  <section class="guarantee" id="guarantee">
-    <div class="guarantee-inner">
-      <div class="guarantee-copy">
-        <span class="guarantee-eyebrow" data-edit="guarantee.eyebrow">{guarantee.eyebrow}</span>
-        <h2 class="guarantee-title" data-edit="guarantee.title">{guarantee.title}</h2>
-        <p class="guarantee-text" data-edit="guarantee.text">{guarantee.text}</p>
-        <p class="guarantee-note" data-edit="guarantee.note">{guarantee.note}</p>
-        <SectionCta href="#contact" label={guarantee.cta} edit="guarantee.cta" />
-      </div>
-      <div class="guarantee-meter" style={`--score: ${guaranteeScore}`}>
-        <div class="guarantee-meter-head">
-          <span class="guarantee-meter-label" data-edit="guarantee.scoreLabel">{guarantee.scoreLabel}</span>
-          <span class="guarantee-meter-value" aria-hidden="true">{guaranteeScore}+</span>
-        </div>
-        <span class="guarantee-track" aria-hidden="true"><span class="guarantee-fill"></span></span>
-      </div>
-    </div>
-  </section>
-
-  <div class="seam-to-dark"></div>
 
   <section class="founder" id="founder">
     <div class="founder-inner">
@@ -729,22 +702,6 @@ const faqSchema = {
         duration: 0.6,
         stagger: 0.08,
         ease: 'power3.out',
-      });
-
-      // ── Guarantee ───────────────────────────────────────────────
-      gsap.from('.guarantee-inner', {
-        scrollTrigger: { trigger: '.guarantee', start: 'top 78%' },
-        scale: 0.97,
-        duration: 0.9,
-        ease: 'power3.out',
-      });
-
-      gsap.from('.guarantee-fill', {
-        scrollTrigger: { trigger: '.guarantee', start: 'top 70%' },
-        scaleX: 0,
-        transformOrigin: 'left center',
-        duration: 1,
-        ease: 'power2.out',
       });
 
       // ── Founder ─────────────────────────────────────────────────
