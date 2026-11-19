@@ -16,7 +16,7 @@ import type { APIRoute } from 'astro';
 import { SITE_URL, SITE_NAME, SITE_ALT_NAME, PERSON, LOCATION } from '../consts';
 import copy from '../content/copy.json';
 import quiz from '../data/migration-quiz.json';
-import { completeRebuilds, formatScore, formatSeconds, formatKb } from '../data/rebuilds';
+import { completeRebuilds, formatScore, formatSeconds } from '../data/rebuilds';
 import { getPublishedPosts } from '../lib/blog';
 
 const link = (name: string, path: string, note: string) => `- [${name}](${SITE_URL}${path}): ${note}`;
@@ -28,9 +28,9 @@ export const GET: APIRoute = async () => {
   /* Finished entries only, so an answer engine can never quote a placeholder. */
   const rebuildLines = completeRebuilds.map(
     (r) =>
-      `- [${r.name}](${r.demoUrl}): mobile PageSpeed ${formatScore(r.pageSpeed.before)} to ${formatScore(r.pageSpeed.after)}, ` +
-      `LCP ${formatSeconds(r.lcpSeconds.before)} to ${formatSeconds(r.lcpSeconds.after)}, ` +
-      `JavaScript ${formatKb(r.jsKb.before)} to ${formatKb(r.jsKb.after)}. A public site rebuilt as a demo, not client work.`,
+      `- [${r.name}](${r.demoUrl}): ${r.from} to ${r.to}. Mobile PageSpeed ${formatScore(r.pageSpeed.before)} to ${formatScore(r.pageSpeed.after)}, ` +
+      `LCP ${formatSeconds(r.lcpSeconds.before)} to ${formatSeconds(r.lcpSeconds.after)}. ` +
+      `A public site rebuilt as a demo, not client work.`,
   );
 
   const lines = [

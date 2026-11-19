@@ -19,7 +19,6 @@
     "text": "We took public websites and rebuilt them in Astro or Next.js. These are demos, not client work. Each card shows the live site’s numbers next to the rebuild’s.",
     "labelPageSpeed": "Mobile PageSpeed",
     "labelLcp": "Largest contentful paint",
-    "labelJs": "JavaScript shipped",
     "demoLabel": "Open the live demo",
     "cta": "Book a call about your site"
   },

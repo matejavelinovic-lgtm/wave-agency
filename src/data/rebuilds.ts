@@ -7,8 +7,6 @@
  * How to measure, so the before and after can be compared:
  *   - pageSpeed: the Performance score on the Mobile tab of pagespeed.web.dev.
  *   - lcpSeconds: Largest Contentful Paint from that same report, in seconds.
- *   - jsKb: JavaScript transferred on page load, in KB. The DevTools Network
- *     tab, filtered to JS, shows it in the status bar.
  *   - before is the live public site. after is your rebuild. Run both on the
  *     same day, and run the same page on each.
  *
@@ -17,8 +15,14 @@
  * complete, the production site has no Rebuilds section and no link to it, so a
  * deploy can never show a buyer the word TODO or a made-up number.
  *
- * Add or remove entries freely. The grid lays out one, two or three cards.
+ * Screenshots go in src/assets/rebuilds/ and are imported below, so Astro
+ * resizes them to WebP at build time. A browser-width capture of the top of the
+ * page works best: the card crops from the bottom, never the top.
+ *
+ * Add or remove entries freely. Each one is a full-width row.
  */
+import type { ImageMetadata } from 'astro';
+import latticeShot from '../assets/rebuilds/lattice.png';
 
 /** A number from before the rebuild and the same number after it. */
 export interface Figures {
@@ -31,48 +35,43 @@ export interface Rebuild {
   name: string | null;
   /** Where the rebuild is live, as a full https:// URL. */
   demoUrl: string | null;
+  /** The platform the live site runs on, e.g. Webflow. */
+  from: string | null;
+  /** What the rebuild is built in, e.g. Astro. */
+  to: string | null;
+  /** A screenshot of the rebuild, imported from src/assets/rebuilds/. */
+  screenshot: ImageMetadata | null;
   /** Mobile PageSpeed score, 0 to 100. */
   pageSpeed: Figures;
   /** Largest Contentful Paint on mobile, in seconds. */
   lcpSeconds: Figures;
-  /** JavaScript shipped on page load, in KB. */
-  jsKb: Figures;
 }
 
 export const rebuilds: Rebuild[] = [
   {
-    name: null, // TODO: site name
-    demoUrl: null, // TODO: live demo URL
-    pageSpeed: { before: null, after: null }, // TODO: mobile PageSpeed score
-    lcpSeconds: { before: null, after: null }, // TODO: LCP in seconds
-    jsKb: { before: null, after: null }, // TODO: JS shipped in KB
-  },
-  {
-    name: null, // TODO: site name
-    demoUrl: null, // TODO: live demo URL
-    pageSpeed: { before: null, after: null }, // TODO: mobile PageSpeed score
-    lcpSeconds: { before: null, after: null }, // TODO: LCP in seconds
-    jsKb: { before: null, after: null }, // TODO: JS shipped in KB
-  },
-  {
-    name: null, // TODO: site name
-    demoUrl: null, // TODO: live demo URL
-    pageSpeed: { before: null, after: null }, // TODO: mobile PageSpeed score
-    lcpSeconds: { before: null, after: null }, // TODO: LCP in seconds
-    jsKb: { before: null, after: null }, // TODO: JS shipped in KB
+    // lattice.com
+    name: 'Lattice',
+    demoUrl: 'https://lattice-puce-eight.vercel.app/',
+    from: 'Webflow',
+    to: 'Astro',
+    screenshot: latticeShot,
+    pageSpeed: { before: 47, after: 99 },
+    lcpSeconds: { before: 4, after: 2.1 },
   },
 ];
 
 const hasBoth = ({ before, after }: Figures) => before !== null && after !== null;
 
-/** True once an entry has a name, a demo link and all six numbers. */
+/** True once an entry has a name, a demo link, both platforms, a screenshot and all four numbers. */
 export function isComplete(rebuild: Rebuild): boolean {
   return (
     rebuild.name !== null &&
     rebuild.demoUrl !== null &&
+    rebuild.from !== null &&
+    rebuild.to !== null &&
+    rebuild.screenshot !== null &&
     hasBoth(rebuild.pageSpeed) &&
-    hasBoth(rebuild.lcpSeconds) &&
-    hasBoth(rebuild.jsKb)
+    hasBoth(rebuild.lcpSeconds)
   );
 }
 
@@ -91,6 +90,3 @@ export const formatScore = (value: number | null) => (value === null ? 'TODO' : 
 
 /** Card text for an lcpSeconds number. */
 export const formatSeconds = (value: number | null) => (value === null ? 'TODO' : `${value}s`);
-
-/** Card text for a jsKb number. */
-export const formatKb = (value: number | null) => (value === null ? 'TODO' : `${value} KB`);

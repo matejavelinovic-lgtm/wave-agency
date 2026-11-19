@@ -782,21 +782,20 @@ section {
   max-width: 37.18em;
 }
 
-/* min() so a 300px floor cannot push a phone-width column off the side. */
+/* One full-width row per rebuild, stacked. */
 .rebuild-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
+/* Screenshot left, numbers right. The notch sits over the numbers' corner. */
 .rebuild-card {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
   background: var(--block);
   color: var(--text-on-dark);
-  padding: 30px 26px;
   clip-path: polygon(
     0 0,
     calc(100% - 32px) 0,
@@ -807,6 +806,103 @@ section {
     100% 100%,
     0 100%
   );
+}
+
+/* A deeper purple with a lit corner, so the white window has something to sit on. */
+.rebuild-stage {
+  position: relative;
+  display: block;
+  min-height: 460px;
+  overflow: hidden;
+  background: radial-gradient(120% 100% at 0% 0%, #8455e6 0%, var(--block-strong) 62%);
+}
+
+/* Absolute so the screenshot never sets the row's height: the card bottom crops it. */
+.rebuild-window {
+  position: absolute;
+  inset: 44px 44px 0;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 30px 70px -18px rgba(7, 7, 7, 0.6);
+}
+
+.rebuild-chrome {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 60px 0 14px;
+  background: #efefec;
+  border-bottom: 1px solid rgba(7, 7, 7, 0.08);
+}
+
+/* Three dots from one element: the box-shadows are the second and third. */
+.rebuild-dots {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(7, 7, 7, 0.2);
+  box-shadow:
+    15px 0 0 rgba(7, 7, 7, 0.2),
+    30px 0 0 rgba(7, 7, 7, 0.2);
+  margin-right: 46px;
+}
+
+.rebuild-url {
+  flex: 1;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: rgba(7, 7, 7, 0.06);
+  font-size: 12px;
+  line-height: 1.2;
+  color: rgba(7, 7, 7, 0.55);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fills what is left of the window and crops from the bottom, never the top. */
+.rebuild-shot {
+  display: block;
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transform-origin: top center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.rebuild-shot:hover {
+  transform: scale(1.025);
+}
+
+/* Dev only: an entry without a screenshot never reaches a build. */
+.rebuild-shot-todo {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(7, 7, 7, 0.45);
+  background: #e4e4e0;
+}
+
+.rebuild-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px 40px 36px;
 }
 
 /* Dev only in practice: an unfinished entry never reaches a build. */
@@ -822,46 +918,58 @@ section {
 }
 
 .rebuild-name {
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-  margin: 0 0 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 12px;
   padding-right: 24px;
+}
+
+.rebuild-path {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 34px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(237, 237, 230, 0.78);
 }
 
 .rebuild-metrics {
   align-self: stretch;
   flex-grow: 1;
-  margin: 0 0 26px;
+  margin: 0 0 32px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 22px;
 }
 
 .rebuild-metric {
   border-top: 1px solid rgba(237, 237, 230, 0.18);
-  padding-top: 14px;
+  padding-top: 16px;
 }
 
 .rebuild-label {
   font-size: 13px;
   font-weight: 600;
   color: rgba(237, 237, 230, 0.78);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .rebuild-figures {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
   margin: 0;
   line-height: 1;
 }
 
 .rebuild-before {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
   color: rgba(237, 237, 230, 0.6);
   text-decoration: line-through;
@@ -889,7 +997,7 @@ section {
 }
 
 .rebuild-after {
-  font-size: 34px;
+  font-size: 52px;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--accent);
@@ -4313,6 +4421,10 @@ section {
     animation: none;
   }
 
+  .rebuild-shot {
+    transition: none;
+  }
+
   .step-block {
     animation: none;
     opacity: 1;
@@ -4362,6 +4474,43 @@ section {
 @media (max-width: 900px) {
   .hero-title {
     font-size: 46px;
+  }
+
+  /* Screenshot on top, numbers under it. */
+  .rebuild-card {
+    grid-template-columns: 1fr;
+  }
+
+  /* The row no longer sets a height, so the stage takes one from its width. */
+  .rebuild-stage {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* 40px on top clears the card's 32px notch, which sits over the stage here. */
+  .rebuild-window {
+    inset: 40px 20px 0;
+  }
+
+  /* No room to balance the dots on a phone; the address gets the width instead. */
+  .rebuild-chrome {
+    padding: 0 12px;
+  }
+
+  .rebuild-dots {
+    margin-right: 42px;
+  }
+
+  .rebuild-body {
+    padding: 30px 24px 28px;
+  }
+
+  .rebuild-name {
+    font-size: 26px;
+  }
+
+  .rebuild-after {
+    font-size: 42px;
   }
 
   /* The cards carry a paragraph each, and a half-width column at this size
