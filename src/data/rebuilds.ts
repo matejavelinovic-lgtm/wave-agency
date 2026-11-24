@@ -23,6 +23,7 @@
  */
 import type { ImageMetadata } from 'astro';
 import latticeShot from '../assets/rebuilds/lattice.png';
+import tenoraShot from '../assets/rebuilds/tenora.png';
 
 /** A number from before the rebuild and the same number after it. */
 export interface Figures {
@@ -58,6 +59,16 @@ export const rebuilds: Rebuild[] = [
     pageSpeed: { before: 47, after: 99 },
     lcpSeconds: { before: 4, after: 2.1 },
   },
+  {
+    // tenora.com
+    name: 'Tenora',
+    demoUrl: 'https://tenora-mu.vercel.app/',
+    from: 'Webflow',
+    to: 'Astro',
+    screenshot: tenoraShot,
+    pageSpeed: { before: 56, after: 98 },
+    lcpSeconds: { before: 2.4, after: 2.0 },
+  },
 ];
 
 const hasBoth = ({ before, after }: Figures) => before !== null && after !== null;
@@ -88,5 +99,5 @@ export const visibleRebuilds = import.meta.env.DEV ? rebuilds : completeRebuilds
 /** Card text for a pageSpeed number, or TODO while it is still null. */
 export const formatScore = (value: number | null) => (value === null ? 'TODO' : String(value));
 
-/** Card text for an lcpSeconds number. */
-export const formatSeconds = (value: number | null) => (value === null ? 'TODO' : `${value}s`);
+/** Card text for an lcpSeconds number, to one decimal the way PageSpeed shows it (2.0s, not 2s). */
+export const formatSeconds = (value: number | null) => (value === null ? 'TODO' : `${value.toFixed(1)}s`);
