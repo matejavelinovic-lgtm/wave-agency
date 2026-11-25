@@ -4459,6 +4459,19 @@ section {
 .calc-control {
   display: flex;
   height: 46px;
+  border-radius: 10px;
+}
+
+/*
+ * The focus ring goes round the whole control, - and + included, and sits on
+ * its edge rather than outside it: -2px lays the 2px ring over the 1px border
+ * and the pixel inside it, and the 10px radius above bends it round the same
+ * corners as the buttons. :has, not :focus-within, so a tap on - or + does not
+ * light it; only the field being typed into does.
+ */
+.calc-control:has(.calc-input:focus) {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 .calc-step {
@@ -4493,7 +4506,7 @@ section {
 
 .calc-step:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: -2px;
 }
 
 .calc-box {
@@ -4508,11 +4521,6 @@ section {
   border-bottom: 1px solid rgba(237, 237, 230, 0.22);
 }
 
-/* The ring goes on the box, so it takes in the $ and the unit with the number. */
-.calc-box:focus-within {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
 
 .calc-affix {
   flex: none;
@@ -4573,9 +4581,10 @@ section {
   border-color: var(--accent);
 }
 
+/* On the edge, like the number fields' ring. */
 .calc-select:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: -2px;
 }
 
 /* The results. Sticky under the header here; a bottom bar on a phone, below. */
