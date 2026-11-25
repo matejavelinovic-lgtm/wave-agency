@@ -1,0 +1,436 @@
+---
+/*
+ * /website-cost-calculator/ — what a B2B marketing site costs a year on a
+ * hosted platform with an agency retainer, next to the same site on Astro. It
+ * goes with a LinkedIn post that makes the comparison, so most visitors arrive
+ * on a phone and give it about a minute.
+ *
+ * The fields, the formula and the number formats live in
+ * src/lib/cost-calculator.ts. Every result for the default inputs is rendered
+ * here at build time, so the numbers are in the HTML before the script runs;
+ * the script only redoes them when an input changes, and mirrors the inputs
+ * into the query string so a filled-in calculator can be shared as a link.
+ *
+ * Linked from neither the header nor the footer on purpose: visitors come from
+ * the post. The sitemap integration lists it on its own.
+ */
+import Layout from '../layouts/Layout.astro';
+import { SITE_URL, PERSON } from '../consts';
+import {
+  PLATFORMS,
+  PLATFORM_PARAM,
+  todayFields,
+  astroFields,
+  defaults,
+  calculate,
+  formatUSD,
+  formatNumber,
+} from '../lib/cost-calculator';
+
+const path = '/website-cost-calculator/';
+const name = 'Website Cost Calculator';
+const description =
+  'See what your website costs per year: site plan, seats, agency retainer and the hours your team spends on changes. Then compare it with the same site on Astro.';
+
+const result = calculate(defaults);
+const saving = result.difference > 0;
+
+const groups = [
+  { legend: 'Your current site', fields: todayFields, platform: true },
+  { legend: 'Same site in Astro', fields: astroFields, platform: false },
+];
+
+/* The two sides of the result, each a total over its three lines. */
+const sides = [
+  {
+    name: 'Your site today',
+    total: 'todayTotal',
+    fill: 'calc-fill-today',
+    rows: [
+      { label: 'Platform & seats', out: 'platform' },
+      { label: 'Retainer', out: 'retainer' },
+      { label: 'Your team’s time', out: 'timeToday' },
+    ],
+  },
+  {
+    name: 'Same site in Astro',
+    total: 'astroTotal',
+    fill: 'calc-fill-astro',
+    rows: [
+      { label: 'Hosting', out: 'hosting' },
+      { label: 'AI tools', out: 'ai' },
+      { label: 'Your team’s time', out: 'timeAstro' },
+    ],
+  },
+] as const;
+
+/*
+ * A free tool, so the Offer says price 0 and nothing else: it describes the
+ * calculator, not anything WaveWeb sells.
+ */
+const app = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  '@id': `${SITE_URL}${path}#app`,
+  name,
+  url: `${SITE_URL}${path}`,
+  description,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requires JavaScript',
+  isAccessibleForFree: true,
+  inLanguage: 'en',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  publisher: { '@id': `${SITE_URL}/#organization` },
+};
+---
+
+<Layout
+  title={`${name} | WaveWeb`}
+  description={description}
+  breadcrumbs={[{ name: 'Website cost calculator', path }]}
+  image="/og/website-cost-calculator.png"
+>
+  <section class="calc-hero">
+    <div class="svc-hero-inner">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="crumb-link" href="/">Home</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        <span class="crumb-here">Website cost calculator</span>
+      </nav>
+      <h1 class="svc-title">What does your website cost you per year?</h1>
+      <p class="calc-lede">
+        Plug in your plan, seats, retainer and the hours your team spends on changes. Takes about a minute.
+      </p>
+    </div>
+  </section>
+
+  <div class="seam-to-light"></div>
+
+  <section class="calc" aria-label="Calculator">
+    <div class="calc-inner">
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          {groups.map((group) => (
+            <fieldset class="calc-group">
+              <legend class="calc-legend">{group.legend}</legend>
+
+              {group.platform && (
+                <div class="calc-field">
+                  <div class="calc-field-text">
+                    <label class="calc-label" for="calc-platform">Current platform</label>
+                  </div>
+                  <select class="calc-select" id="calc-platform" data-param={PLATFORM_PARAM}>
+                    {PLATFORMS.map((p) => (
+                      <option value={p.value}>{p.label}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {group.fields.map((f) => (
+                <div class="calc-field">
+                  <div class="calc-field-text">
+                    <label class="calc-label" for={`calc-${f.key}`}>
+                      {f.label}
+                      {f.optional && <span class="calc-optional"> (optional)</span>}
+                      {f.spoken && <span class="calc-sr">, {f.spoken}</span>}
+                    </label>
+                    {f.hint && <p class="calc-hint" id={`calc-${f.key}-hint`}>{f.hint}</p>}
+                  </div>
+                  {/*
+                    − and + stay out of the tab order: the arrow keys step the
+                    field, so a keyboard gets the same control without three tab
+                    stops per row. They are still in the accessibility tree, and
+                    a tap or a screen reader reaches them.
+                  */}
+                  <div class="calc-control">
+                    <button class="calc-step" type="button" tabindex="-1" data-dir="-1" aria-label={`Decrease: ${f.label}`}>−</button>
+                    <div class="calc-box">
+                      {f.prefix && <span class="calc-affix" aria-hidden="true">{f.prefix}</span>}
+                      <input
+                        class="calc-input"
+                        id={`calc-${f.key}`}
+                        type="text"
+                        inputmode={f.integer ? 'numeric' : 'decimal'}
+                        autocomplete="off"
+                        spellcheck="false"
+                        value={formatNumber(f.value)}
+                        data-key={f.key}
+                        data-param={f.param}
+                        data-step={f.step}
+                        data-max={f.max}
+                        data-integer={f.integer ? 'true' : undefined}
+                        data-webflow={f.webflow}
+                        aria-describedby={f.hint ? `calc-${f.key}-hint` : undefined}
+                      />
+                      {f.suffix && <span class="calc-unit" aria-hidden="true">{f.suffix}</span>}
+                    </div>
+                    <button class="calc-step" type="button" tabindex="-1" data-dir="1" aria-label={`Increase: ${f.label}`}>+</button>
+                  </div>
+                </div>
+              ))}
+            </fieldset>
+          ))}
+        </div>
+
+        {/*
+          One block for both layouts. On a wide screen it sits beside the inputs
+          and follows the scroll. On a phone it is a bar pinned to the bottom of
+          the screen while the inputs scroll past, showing the difference, and
+          the button opens it into the full breakdown. data-open only matters on
+          the phone layout; the wide one always shows everything.
+        */}
+        <section class="calc-results" aria-label="Your results" data-open="false">
+          <div class="calc-sum">
+            <div class="calc-sum-main">
+              <p class="calc-sum-label" data-when="saving" hidden={!saving}>You could free up</p>
+              <p class="calc-sum-value" data-when="saving" hidden={!saving}>
+                <span data-out="difference">{formatUSD(result.difference)}</span>
+                <span class="calc-sum-unit">per year</span>
+              </p>
+              <p class="calc-sum-lean" data-when="lean" hidden={saving}>Your setup is already lean.</p>
+            </div>
+            <button class="calc-toggle" type="button" aria-expanded="false" aria-controls="calc-detail">
+              Breakdown<span class="calc-toggle-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="calc-detail" id="calc-detail">
+            <p class="calc-line" data-when="saving" hidden={!saving}>
+              That’s money for ads, content or a new hire in 2027.
+            </p>
+
+            {/* Both bars share one scale, the larger of the two totals. */}
+            {sides.map((side) => (
+              <div class="calc-side">
+                <h2 class="calc-total">
+                  <span class="calc-total-name">{side.name}</span>
+                  <span class="calc-total-value">
+                    <span data-out={side.total}>{formatUSD(result[side.total])}</span>
+                    <span class="calc-total-per">/ year</span>
+                  </span>
+                </h2>
+                <div class="calc-track" aria-hidden="true">
+                  <span class={side.fill} data-bar={side.total}></span>
+                </div>
+                <dl class="calc-rows">
+                  {side.rows.map((row) => (
+                    <div class="calc-row">
+                      <dt class="calc-row-name">{row.label}</dt>
+                      <dd class="calc-row-value" data-out={row.out}>{formatUSD(result[row.out])}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ))}
+
+            <button class="calc-copy" type="button" data-label="Copy a link to these numbers">
+              Copy a link to these numbers
+            </button>
+
+            <noscript>
+              <p class="calc-noscript">These are the default numbers. Turn on JavaScript to change them.</p>
+              {/* is:inline keeps the rule inside the noscript, as on /book-a-call/. */}
+              <style is:inline>.calc-toggle, .calc-copy { display: none !important; } .calc-detail { display: block !important; }</style>
+            </noscript>
+          </div>
+
+          {/* Filled a beat after the last change, so a screen reader hears the
+              result once rather than on every keystroke. */}
+          <p class="calc-sr" aria-live="polite" data-live></p>
+        </section>
+      </div>
+
+      <p class="calc-fine">
+        Estimates based on your inputs. Prices are monthly list prices and may differ from what you pay. A one-time
+        migration cost isn’t included.
+      </p>
+    </div>
+  </section>
+
+  <div class="seam-to-dark"></div>
+
+  <section class="svc-cta">
+    <div class="svc-cta-inner">
+      <h2 class="svc-cta-title">Your team makes changes themselves</h2>
+      <p class="svc-cta-text">
+        They ask Claude in Slack for a new page or an edit, check the preview link and publish. The design system
+        keeps everything on-brand.
+      </p>
+      <div class="calc-cta-actions">
+        <a class="btn-primary" href="/book-a-call/">Book a call</a>
+        <a class="calc-dm" href={PERSON.linkedin} target="_blank" rel="noopener">Or send me a DM on LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(app)} />
+
+  <script>
+    import {
+      PLATFORM_PARAM,
+      calculate,
+      formatUSD,
+      formatNumber,
+      parseAmount,
+      type FieldKey,
+      type Result,
+      type Values,
+    } from '../lib/cost-calculator';
+
+    const inputs = Array.from(document.querySelectorAll<HTMLInputElement>('.calc-input'));
+    const platform = document.querySelector<HTMLSelectElement>('.calc-select')!;
+    const results = document.querySelector<HTMLElement>('.calc-results')!;
+    const toggle = results.querySelector<HTMLButtonElement>('.calc-toggle')!;
+    const copy = results.querySelector<HTMLButtonElement>('.calc-copy')!;
+    const live = results.querySelector<HTMLElement>('[data-live]')!;
+    const outs = Array.from(results.querySelectorAll<HTMLElement>('[data-out]'));
+    const bars = Array.from(results.querySelectorAll<HTMLElement>('[data-bar]'));
+    const whenSaving = Array.from(results.querySelectorAll<HTMLElement>('[data-when="saving"]'));
+    const whenLean = Array.from(results.querySelectorAll<HTMLElement>('[data-when="lean"]'));
+
+    const values = {} as Values;
+
+    const keyOf = (input: HTMLInputElement) => input.dataset.key as FieldKey;
+    const parse = (input: HTMLInputElement, text: string) =>
+      parseAmount(text, Number(input.dataset.max), input.dataset.integer === 'true');
+
+    function render(): Result {
+      const r = calculate(values);
+      outs.forEach((el) => (el.textContent = formatUSD(r[el.dataset.out as keyof Result])));
+
+      const ahead = r.difference > 0;
+      whenSaving.forEach((el) => (el.hidden = !ahead));
+      whenLean.forEach((el) => (el.hidden = ahead));
+
+      // A total above zero never shrinks to nothing: 1% keeps a sliver on screen.
+      const scale = Math.max(r.todayTotal, r.astroTotal);
+      bars.forEach((bar) => {
+        const total = r[bar.dataset.bar as keyof Result];
+        const share = scale > 0 && total > 0 ? Math.max(total / scale, 0.01) : 0;
+        bar.style.transform = `scaleX(${share})`;
+      });
+      return r;
+    }
+
+    /* The query string mirrors the inputs, so the address is always a link to
+       exactly these numbers. replaceState, not pushState: Back should leave the
+       page, not undo the last keystroke. */
+    let urlTimer = 0;
+    function writeUrl() {
+      window.clearTimeout(urlTimer);
+      const params = new URLSearchParams();
+      params.set(PLATFORM_PARAM, platform.value);
+      inputs.forEach((input) => params.set(input.dataset.param!, String(values[keyOf(input)])));
+      history.replaceState(history.state, '', `${location.pathname}?${params}${location.hash}`);
+    }
+
+    let liveTimer = 0;
+    function announce(r: Result) {
+      window.clearTimeout(liveTimer);
+      liveTimer = window.setTimeout(() => {
+        const totals = `Your site today: ${formatUSD(r.todayTotal)} a year. Same site in Astro: ${formatUSD(r.astroTotal)} a year.`;
+        live.textContent =
+          r.difference > 0
+            ? `${totals} You could free up ${formatUSD(r.difference)} a year.`
+            : `${totals} Your setup is already lean.`;
+      }, 900);
+    }
+
+    function changed() {
+      const r = render();
+      announce(r);
+      window.clearTimeout(urlTimer);
+      urlTimer = window.setTimeout(writeUrl, 300);
+    }
+
+    function set(input: HTMLInputElement, value: number) {
+      values[keyOf(input)] = value;
+      input.value = formatNumber(value);
+    }
+
+    /* One step along the field's own grid: 2,050 goes up to 2,100, not 2,150. */
+    function step(input: HTMLInputElement, dir: number) {
+      const size = Number(input.dataset.step);
+      const current = values[keyOf(input)];
+      const next =
+        dir > 0 ? Math.floor(current / size + 1e-9) * size + size : Math.ceil(current / size - 1e-9) * size - size;
+      set(input, parse(input, String(Math.round(next * 100) / 100)) ?? current);
+      changed();
+    }
+
+    // Defaults come from the markup; a shared link overrides them field by field.
+    const query = new URLSearchParams(location.search);
+    inputs.forEach((input) => {
+      const fromUrl = query.get(input.dataset.param!);
+      const value = fromUrl === null ? null : parse(input, fromUrl);
+      set(input, value ?? parse(input, input.value) ?? 0);
+    });
+    const platformFromUrl = query.get(PLATFORM_PARAM);
+    if (Array.from(platform.options).some((o) => o.value === platformFromUrl)) platform.value = platformFromUrl!;
+    render();
+
+    inputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        // Digits, separators and one point only, so a minus sign never lands.
+        const clean = input.value.replace(/[^\d.,]/g, '');
+        if (clean !== input.value) input.value = clean;
+        const value = parse(input, clean);
+        if (value === null) return;
+        values[keyOf(input)] = value;
+        changed();
+      });
+
+      // Typing leaves the text alone; leaving the field tidies it to 2,000.
+      input.addEventListener('blur', () => set(input, values[keyOf(input)]));
+
+      input.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+        event.preventDefault();
+        step(input, event.key === 'ArrowUp' ? 1 : -1);
+      });
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('.calc-step').forEach((button) => {
+      const input = button.parentElement!.querySelector<HTMLInputElement>('.calc-input')!;
+      button.addEventListener('click', () => step(input, Number(button.dataset.dir)));
+    });
+
+    // Webflow writes its list prices back in; every other platform leaves the fields as they are.
+    platform.addEventListener('change', () => {
+      if (platform.value === 'webflow') {
+        inputs.forEach((input) => {
+          if (input.dataset.webflow) set(input, Number(input.dataset.webflow));
+        });
+      }
+      changed();
+    });
+
+    function setOpen(open: boolean) {
+      toggle.setAttribute('aria-expanded', String(open));
+      results.dataset.open = String(open);
+    }
+
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+
+    results.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || results.dataset.open !== 'true') return;
+      setOpen(false);
+      toggle.focus();
+    });
+
+    copy.addEventListener('click', async () => {
+      writeUrl();
+      let message = 'Link copied';
+      try {
+        await navigator.clipboard.writeText(location.href);
+      } catch {
+        message = 'Copy the address from your browser bar';
+      }
+      copy.textContent = message;
+      live.textContent = `${message}.`;
+      window.setTimeout(() => (copy.textContent = copy.dataset.label!), 2500);
+    });
+  </script>
+</Layout>

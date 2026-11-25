@@ -445,6 +445,12 @@ section {
   transform: translateX(325%) skewX(-20deg);
 }
 
+/* Inside the edge: the clip-path would cut off an outline drawn outside it. */
+.btn-primary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -6px;
+}
+
 .btn-secondary {
   display: inline-block;
   position: relative;
@@ -4330,6 +4336,532 @@ section {
   margin: 20px 0 0;
 }
 
+/* == Website cost calculator ===================================== */
+/*
+ * /website-cost-calculator/. A short dark hero, then the light band: the inputs
+ * in two purple cards, each field the contact form's input with - and + either
+ * side, and the results in one dark card that stays in view. On a wide screen
+ * that card sits beside the inputs and follows the scroll; on a phone it is a
+ * bar along the bottom of the screen (sticky, not fixed, so it lands under the
+ * inputs once they have scrolled past instead of covering the CTA) and opens
+ * into the full breakdown. The CTA under it is the service pages' .svc-cta.
+ *
+ * No rule here sets display on what the script hides with the hidden attribute
+ * (.calc-sum-label, .calc-sum-value, .calc-sum-lean, .calc-line): a display
+ * value would beat the attribute.
+ *
+ * Secondary text on purple is 0.85 white rather than the usual 0.78: at 13px it
+ * needs 4.5:1 against --block, and 0.78 lands just under.
+ */
+.calc-hero {
+  background: var(--bg-dark);
+  padding: 56px 28px 64px;
+}
+
+.calc-lede {
+  font-size: 19px;
+  color: var(--text-on-dark-muted);
+  margin: 0;
+  max-width: 31.87em;
+}
+
+.calc {
+  background: var(--bg-light);
+  padding: 56px 28px 80px;
+}
+
+.calc-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 24px;
+  align-items: start;
+}
+
+.calc-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.calc-group {
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  background: var(--block);
+  color: var(--text-on-dark);
+  padding: 30px 30px 16px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 32px) 0,
+    calc(100% - 32px) 16px,
+    calc(100% - 16px) 16px,
+    calc(100% - 16px) 32px,
+    100% 32px,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* Floated, which takes the legend out of the fieldset's border line: left to
+   the browser it sits half above the card, outside the purple. Every row
+   under it clears it (.calc-field). */
+.calc-legend {
+  float: left;
+  width: 100%;
+  padding: 0 40px 14px 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* One row per input: what it asks on the left, the number on the right. */
+.calc-field {
+  clear: both;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 236px;
+  gap: 10px 24px;
+  align-items: center;
+  padding: 14px 0;
+  border-top: 1px solid rgba(237, 237, 230, 0.16);
+}
+
+.calc-field-text {
+  min-width: 0;
+}
+
+.calc-label {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-on-dark);
+}
+
+.calc-optional {
+  font-weight: 400;
+  color: rgba(237, 237, 230, 0.85);
+}
+
+.calc-hint {
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(237, 237, 230, 0.85);
+  margin: 4px 0 0;
+}
+
+/* - [ $ 2,000 / month ] +, read as one rounded control split in three. */
+.calc-control {
+  display: flex;
+  height: 46px;
+}
+
+.calc-step {
+  flex: none;
+  width: 44px;
+  padding: 0;
+  font-family: var(--font-brand);
+  font-size: 20px;
+  line-height: 1;
+  color: var(--text-on-dark);
+  background: rgba(7, 7, 7, 0.28);
+  border: 1px solid rgba(237, 237, 230, 0.22);
+  cursor: pointer;
+  /* Two quick taps on + are two steps, not a double-tap zoom. */
+  touch-action: manipulation;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.calc-step:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.calc-step:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+.calc-step:hover {
+  border-color: var(--accent);
+  background: rgba(239, 237, 144, 0.1);
+  color: var(--accent);
+}
+
+.calc-step:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.calc-box {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 12px;
+  background: rgba(7, 7, 7, 0.28);
+  border-top: 1px solid rgba(237, 237, 230, 0.22);
+  border-bottom: 1px solid rgba(237, 237, 230, 0.22);
+}
+
+/* The ring goes on the box, so it takes in the $ and the unit with the number. */
+.calc-box:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.calc-affix {
+  flex: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(237, 237, 230, 0.85);
+}
+
+/*
+ * 16px is the floor: below it, iOS zooms the page in on focus. scroll-margin
+ * keeps a focused field clear of the sticky header above and, on a phone, the
+ * results bar below.
+ */
+.calc-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  font-family: var(--font-brand);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  scroll-margin: 96px 0 128px;
+}
+
+.calc-unit {
+  flex: none;
+  font-size: 13px;
+  white-space: nowrap;
+  color: rgba(237, 237, 230, 0.85);
+}
+
+/* color-scheme dark gives the native option list a dark popup, so the light
+   option text never lands on a white menu. */
+.calc-select {
+  width: 100%;
+  height: 46px;
+  padding: 0 40px 0 14px;
+  appearance: none;
+  color-scheme: dark;
+  background: rgba(7, 7, 7, 0.28)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23ededE6' stroke-width='2'/%3E%3C/svg%3E")
+    no-repeat right 15px center / 12px 8px;
+  border: 1px solid rgba(237, 237, 230, 0.22);
+  border-radius: 10px;
+  font-family: var(--font-brand);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.calc-select:hover {
+  border-color: var(--accent);
+}
+
+.calc-select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* The results. Sticky under the header here; a bottom bar on a phone, below. */
+.calc-results {
+  position: sticky;
+  top: 92px;
+  z-index: 10;
+  max-height: calc(100vh - 116px);
+  overflow-y: auto;
+  background: var(--bg-dark);
+  color: var(--text-on-dark);
+  padding: 30px 28px 26px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 32px) 0,
+    calc(100% - 32px) 16px,
+    calc(100% - 16px) 16px,
+    calc(100% - 16px) 32px,
+    100% 32px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.calc-sum {
+  position: relative;
+}
+
+.calc-sum-main {
+  min-width: 0;
+}
+
+.calc-sum-label {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+}
+
+/* The one outcome number, in accent like .rebuild-after. */
+.calc-sum-value {
+  margin: 0;
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--accent);
+}
+
+.calc-sum-unit {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--text-on-dark-muted);
+}
+
+.calc-sum-lean {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/*
+ * Only on the phone layout, where the breakdown folds away. The button is laid
+ * over the whole bar, so a tap anywhere on it opens the breakdown; the label
+ * and chevron sit at its right end. The ring draws inside the edge, since the
+ * card's clip-path would cut off one outside it.
+ */
+.calc-toggle {
+  display: none;
+  position: absolute;
+  inset: -16px -18px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+  padding: 0 18px;
+  font-family: var(--font-brand);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-on-dark-muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.15s ease;
+}
+
+.calc-toggle:hover {
+  color: var(--accent);
+}
+
+.calc-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+
+/* Same two-border chevron as .rebuild-arrow: up while closed, the way the
+   breakdown opens, and down once it is open. */
+.calc-toggle-icon {
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: translateY(2px) rotate(-45deg);
+  transition: transform 0.2s ease;
+}
+
+.calc-toggle[aria-expanded='true'] .calc-toggle-icon {
+  transform: translateY(-2px) rotate(135deg);
+}
+
+.calc-detail {
+  margin-top: 12px;
+}
+
+.calc-line {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--text-on-dark-muted);
+}
+
+.calc-side {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-on-dark);
+}
+
+.calc-total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px 12px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.calc-total-name {
+  color: var(--text-on-dark);
+}
+
+.calc-total-value {
+  font-size: 21px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.calc-total-per {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-on-dark-muted);
+}
+
+/* The bar comparison. Both fills share the larger total as their full width;
+   the script sets each scaleX. */
+.calc-track {
+  height: 10px;
+  margin: 12px 0 14px;
+  background: rgba(237, 237, 230, 0.1);
+}
+
+.calc-fill-today,
+.calc-fill-astro {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.calc-fill-today {
+  background: rgba(237, 237, 230, 0.55);
+}
+
+.calc-fill-astro {
+  background: var(--accent);
+}
+
+.calc-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.calc-row-name {
+  color: var(--text-on-dark-muted);
+}
+
+.calc-row-value {
+  margin: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* A quiet text button, like the quiz's Back and Retake. */
+.calc-copy {
+  margin-top: 24px;
+  padding: 0 0 2px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(237, 237, 230, 0.3);
+  font-family: var(--font-brand);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-on-dark-muted);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.calc-copy:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.calc-copy:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.calc-noscript {
+  font-size: 14px;
+  color: var(--accent);
+  margin: 20px 0 0;
+}
+
+/* Visually hidden, still read: the unit after a label, and the live result. */
+.calc-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.calc-fine {
+  margin: 28px 0 0;
+  max-width: 46em;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-on-light-muted);
+}
+
+.calc-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 28px;
+}
+
+/* The secondary path, set like .contact-book: accent text on the purple. */
+.calc-dm {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  border-bottom: 1px solid rgba(239, 237, 144, 0.4);
+  transition: border-color 0.15s ease;
+}
+
+.calc-dm:hover {
+  border-bottom-color: var(--accent);
+}
+
+.calc-dm:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 /* â”€â”€ Book a call â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 /*
  * The Calendly calendar in an iframe on the light band. The iframe cannot size
@@ -4466,6 +4998,13 @@ section {
   .quiz-progress-fill,
   .quiz-meter-fill,
   .quiz-answer {
+    transition: none;
+  }
+
+  .calc-fill-today,
+  .calc-fill-astro,
+  .calc-step,
+  .calc-toggle-icon {
     transition: none;
   }
 }
@@ -4678,6 +5217,79 @@ section {
 
   .footer-brand-col {
     grid-column: 1 / -1;
+  }
+
+  /* One column: the results follow the inputs in the markup, and sticky
+     bottom pins them to the foot of the screen until the inputs run out. */
+  .calc-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .calc-results {
+    top: auto;
+    bottom: 12px;
+    max-height: none;
+    overflow: visible;
+    padding: 16px 18px;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 24px) 0,
+      calc(100% - 24px) 12px,
+      calc(100% - 12px) 12px,
+      calc(100% - 12px) 24px,
+      100% 24px,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  /* Leaves the right end of the bar to the toggle's label and chevron. */
+  .calc-sum-main {
+    padding-right: 96px;
+  }
+
+  .calc-sum-label {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+
+  .calc-sum-value {
+    font-size: 28px;
+  }
+
+  .calc-sum-unit {
+    font-size: 14px;
+  }
+
+  .calc-sum-lean {
+    font-size: 17px;
+  }
+
+  .calc-toggle {
+    display: flex;
+  }
+
+  .calc-results[data-open='false'] .calc-detail {
+    display: none;
+  }
+
+  /* Open, the bar grows upward over the inputs, so it stops short of the
+     header and scrolls inside itself past that. */
+  .calc-detail {
+    max-height: min(58vh, 540px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    margin-top: 14px;
+  }
+
+  .calc-side {
+    margin-top: 18px;
+    padding-top: 16px;
+  }
+
+  .calc-copy {
+    margin: 20px 0 4px;
   }
 }
 
@@ -4939,5 +5551,48 @@ section {
 
   .post-body blockquote {
     font-size: 18px;
+  }
+
+  /* Tighter than the other heroes, so the results bar is on screen on load. */
+  .calc-hero {
+    padding: 40px 20px 44px;
+  }
+
+  .calc-lede {
+    font-size: 17px;
+  }
+
+  .calc {
+    padding: 36px 20px 56px;
+  }
+
+  .calc-group {
+    padding: 24px 20px 10px;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 24px) 0,
+      calc(100% - 24px) 12px,
+      calc(100% - 12px) 12px,
+      calc(100% - 12px) 24px,
+      100% 24px,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .calc-legend {
+    padding-right: 28px;
+    font-size: 20px;
+  }
+
+  /* The question over the number: the labels are too long to share a row. */
+  .calc-field {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .calc-cta-actions {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

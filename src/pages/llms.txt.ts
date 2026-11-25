@@ -55,6 +55,11 @@ export const GET: APIRoute = async () => {
     '## Tools and contact',
     '',
     link(quiz.title, '/migration-quiz/', quiz.subtitle),
+    link(
+      'Website cost calculator',
+      '/website-cost-calculator/',
+      'What a website costs per year (platform, seats, agency retainer and the team’s time on changes) next to the same site on Astro.',
+    ),
     link('Book a call', '/book-a-call/', 'A free 30 minute call about your site with ' + PERSON.name + '.'),
     `- [${PERSON.name} on LinkedIn](${PERSON.linkedin}): ${PERSON.jobTitle}.`,
     '',
