@@ -202,8 +202,8 @@ const app = {
             </p>
 
             {/*
-              Share opens the phone's share sheet, or copies the link where there
-              is none. It is disabled while a field holds text that is not a
+              Share opens the share sheet on a touch screen and copies the link
+              everywhere else. It is disabled while a field holds text that is not a
               number, so it never sends a figure the visitor is still typing.
             */}
             <div class="calc-share">
@@ -467,15 +467,47 @@ const app = {
       statusTimer = window.setTimeout(() => (shareStatus.textContent = ''), 2000);
     }
 
-    /* The phone's share sheet where there is one, the clipboard where there is
-       not, and the link itself in a field when the clipboard says no (an http
-       preview, a browser that blocks it). */
+    /*
+     * The share sheet only on a touch screen. Chrome, Edge and Safari have
+     * navigator.share on a desktop too, but there it opens the system's share
+     * window, and a click on a laptop expects the link on the clipboard.
+     */
+    const touch = window.matchMedia('(pointer: coarse)');
+
+    /*
+     * The Clipboard API first. An embedded page (the Ship Studio preview, any
+     * iframe without clipboard-write) is refused it, but the older copy command
+     * on a selected field still works there. Only when both say no does the
+     * field stay up, with the link selected, for copying by hand.
+     */
+    async function copy(url: string): Promise<boolean> {
+      try {
+        await navigator.clipboard.writeText(url);
+        shareFallback.hidden = true;
+        return true;
+      } catch {}
+
+      shareUrlField.value = url;
+      shareFallback.hidden = false;
+      shareUrlField.focus({ preventScroll: true });
+      shareUrlField.select();
+      let copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch {}
+      if (copied) {
+        shareFallback.hidden = true;
+        shareLink.focus({ preventScroll: true });
+      }
+      return copied;
+    }
+
     shareLink.addEventListener('click', async () => {
       track('calculator_share');
       writeUrl();
       const url = shareUrl();
 
-      if (navigator.share) {
+      if (navigator.share && touch.matches) {
         try {
           await navigator.share({
             title: 'Website Cost Calculator',
@@ -489,17 +521,7 @@ const app = {
         }
       }
 
-      try {
-        await navigator.clipboard.writeText(url);
-        shareFallback.hidden = true;
-        flash('Link copied');
-      } catch {
-        shareUrlField.value = url;
-        shareFallback.hidden = false;
-        shareUrlField.focus();
-        shareUrlField.select();
-        flash('Copy the link below');
-      }
+      flash((await copy(url)) ? 'Link copied' : 'Copy the link below');
     });
 
     shareUrlField.addEventListener('focus', () => shareUrlField.select());
