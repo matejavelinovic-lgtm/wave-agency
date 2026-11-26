@@ -201,6 +201,24 @@ const app = {
               That’s money for ads, content or a new hire in 2027.
             </p>
 
+            {/*
+              Share opens the phone's share sheet, or copies the link where there
+              is none. The CFO button opens a drafted email. Both are disabled
+              while a field holds text that is not a number, so neither sends a
+              figure the visitor is still typing.
+            */}
+            <div class="calc-share">
+              <div class="calc-share-actions">
+                <button class="btn-primary calc-share-btn" type="button" data-share="link">Share</button>
+                <button class="btn-secondary calc-share-btn" type="button" data-share="cfo">Send to your CFO</button>
+              </div>
+              <p class="calc-share-status" aria-live="polite" data-share-status></p>
+              <div class="calc-share-fallback" data-share-fallback hidden>
+                <label class="calc-share-label" for="calc-share-url">Copy this link</label>
+                <input class="calc-share-url" id="calc-share-url" type="text" readonly />
+              </div>
+            </div>
+
             {/* Both bars share one scale, the larger of the two totals. */}
             {sides.map((side) => (
               <div class="calc-side">
@@ -225,14 +243,10 @@ const app = {
               </div>
             ))}
 
-            <button class="calc-copy" type="button" data-label="Copy a link to these numbers">
-              Copy a link to these numbers
-            </button>
-
             <noscript>
               <p class="calc-noscript">These are the default numbers. Turn on JavaScript to change them.</p>
               {/* is:inline keeps the rule inside the noscript, as on /book-a-call/. */}
-              <style is:inline>.calc-toggle, .calc-copy { display: none !important; } .calc-detail { display: block !important; }</style>
+              <style is:inline>.calc-toggle, .calc-share { display: none !important; } .calc-detail { display: block !important; }</style>
             </noscript>
           </div>
 
@@ -268,6 +282,7 @@ const app = {
   <script type="application/ld+json" is:inline set:html={JSON.stringify(app)} />
 
   <script>
+    import { track } from '@vercel/analytics';
     import {
       PLATFORM_PARAM,
       calculate,
@@ -283,7 +298,11 @@ const app = {
     const platform = document.querySelector<HTMLSelectElement>('.calc-select')!;
     const results = document.querySelector<HTMLElement>('.calc-results')!;
     const toggle = results.querySelector<HTMLButtonElement>('.calc-toggle')!;
-    const copy = results.querySelector<HTMLButtonElement>('.calc-copy')!;
+    const shareLink = results.querySelector<HTMLButtonElement>('[data-share="link"]')!;
+    const shareCfo = results.querySelector<HTMLButtonElement>('[data-share="cfo"]')!;
+    const shareStatus = results.querySelector<HTMLElement>('[data-share-status]')!;
+    const shareFallback = results.querySelector<HTMLElement>('[data-share-fallback]')!;
+    const shareUrlField = shareFallback.querySelector<HTMLInputElement>('input')!;
     const live = results.querySelector<HTMLElement>('[data-live]')!;
     const outs = Array.from(results.querySelectorAll<HTMLElement>('[data-out]'));
     const bars = Array.from(results.querySelectorAll<HTMLElement>('[data-bar]'));
@@ -317,13 +336,35 @@ const app = {
     /* The query string mirrors the inputs, so the address is always a link to
        exactly these numbers. replaceState, not pushState: Back should leave the
        page, not undo the last keystroke. */
-    let urlTimer = 0;
-    function writeUrl() {
-      window.clearTimeout(urlTimer);
+    function currentQuery(): string {
       const params = new URLSearchParams();
       params.set(PLATFORM_PARAM, platform.value);
       inputs.forEach((input) => params.set(input.dataset.param!, String(values[keyOf(input)])));
-      history.replaceState(history.state, '', `${location.pathname}?${params}${location.hash}`);
+      return params.toString();
+    }
+
+    /* What Share and the email send: the same parameters, without a #hash. */
+    const shareUrl = () => `${location.origin}${location.pathname}?${currentQuery()}`;
+
+    let urlTimer = 0;
+    function writeUrl() {
+      window.clearTimeout(urlTimer);
+      history.replaceState(history.state, '', `${location.pathname}?${currentQuery()}${location.hash}`);
+    }
+
+    /* A field whose text is not a number (2.5.1) keeps its last good value in
+       the results, but the share buttons wait until it is fixed or left, so a
+       link never carries a number the visitor did not see in the field. */
+    const invalid = new Set<HTMLInputElement>();
+    function setValid(input: HTMLInputElement, valid: boolean) {
+      if (valid) {
+        invalid.delete(input);
+        input.removeAttribute('aria-invalid');
+      } else {
+        invalid.add(input);
+        input.setAttribute('aria-invalid', 'true');
+      }
+      shareLink.disabled = shareCfo.disabled = invalid.size > 0;
     }
 
     let liveTimer = 0;
@@ -343,11 +384,14 @@ const app = {
       announce(r);
       window.clearTimeout(urlTimer);
       urlTimer = window.setTimeout(writeUrl, 300);
+      // A link shown for copying by hand follows the numbers it points to.
+      if (!shareFallback.hidden) shareUrlField.value = shareUrl();
     }
 
     function set(input: HTMLInputElement, value: number) {
       values[keyOf(input)] = value;
       input.value = formatNumber(value);
+      setValid(input, true);
     }
 
     /* One step along the field's own grid: 2,050 goes up to 2,100, not 2,150. */
@@ -377,6 +421,7 @@ const app = {
         const clean = input.value.replace(/[^\d.,]/g, '');
         if (clean !== input.value) input.value = clean;
         const value = parse(input, clean);
+        setValid(input, value !== null);
         if (value === null) return;
         values[keyOf(input)] = value;
         changed();
@@ -420,17 +465,72 @@ const app = {
       toggle.focus();
     });
 
-    copy.addEventListener('click', async () => {
+    let statusTimer = 0;
+    function flash(message: string) {
+      window.clearTimeout(statusTimer);
+      shareStatus.textContent = message;
+      statusTimer = window.setTimeout(() => (shareStatus.textContent = ''), 2000);
+    }
+
+    /* The phone's share sheet where there is one, the clipboard where there is
+       not, and the link itself in a field when the clipboard says no (an http
+       preview, a browser that blocks it). */
+    shareLink.addEventListener('click', async () => {
+      track('calculator_share');
       writeUrl();
-      let message = 'Link copied';
-      try {
-        await navigator.clipboard.writeText(location.href);
-      } catch {
-        message = 'Copy the address from your browser bar';
+      const url = shareUrl();
+
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'Website Cost Calculator',
+            text: `My website costs ${formatUSD(calculate(values).todayTotal)} a year to stay the way it is. Calculate yours:`,
+            url,
+          });
+          return;
+        } catch (error) {
+          // Closing the sheet is a choice, not a failure. Anything else falls through to copying.
+          if (error instanceof DOMException && error.name === 'AbortError') return;
+        }
       }
-      copy.textContent = message;
-      live.textContent = `${message}.`;
-      window.setTimeout(() => (copy.textContent = copy.dataset.label!), 2500);
+
+      try {
+        await navigator.clipboard.writeText(url);
+        shareFallback.hidden = true;
+        flash('Link copied');
+      } catch {
+        shareUrlField.value = url;
+        shareFallback.hidden = false;
+        shareUrlField.focus();
+        shareUrlField.select();
+        flash('Copy the link below');
+      }
+    });
+
+    shareUrlField.addEventListener('focus', () => shareUrlField.select());
+
+    /* No recipient: the visitor picks who it goes to. \r\n is the line break
+       mailto bodies are specified with. The closing line only claims money
+       freed up when there is some. */
+    shareCfo.addEventListener('click', () => {
+      track('calculator_send_cfo');
+      writeUrl();
+      const r = calculate(values);
+      const astro = `The same site in Astro would cost about ${formatUSD(r.astroTotal)} a year`;
+      const subject = `Our website costs ${formatUSD(r.todayTotal)} a year — worth a look before 2027 budget`;
+      const body = [
+        'Hi,',
+        '',
+        `I ran our website through a cost calculator. Including our team's time, it costs us ${formatUSD(r.todayTotal)} a year:`,
+        `- Platform & seats: ${formatUSD(r.platform)}`,
+        `- Agency retainer: ${formatUSD(r.retainer)}`,
+        `- Our team's time: ${formatUSD(r.timeToday)}`,
+        '',
+        r.difference > 0 ? `${astro}, which frees up ${formatUSD(r.difference)} for 2027.` : `${astro}.`,
+        '',
+        `Here are the numbers: ${shareUrl()}`,
+      ].join('\r\n');
+      window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   </script>
 </Layout>
