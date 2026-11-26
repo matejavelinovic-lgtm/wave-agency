@@ -203,15 +203,11 @@ const app = {
 
             {/*
               Share opens the phone's share sheet, or copies the link where there
-              is none. The CFO button opens a drafted email. Both are disabled
-              while a field holds text that is not a number, so neither sends a
-              figure the visitor is still typing.
+              is none. It is disabled while a field holds text that is not a
+              number, so it never sends a figure the visitor is still typing.
             */}
             <div class="calc-share">
-              <div class="calc-share-actions">
-                <button class="btn-primary calc-share-btn" type="button" data-share="link">Share</button>
-                <button class="btn-secondary calc-share-btn" type="button" data-share="cfo">Send to your CFO</button>
-              </div>
+              <button class="btn-primary calc-share-btn" type="button" data-share="link">Share</button>
               <p class="calc-share-status" aria-live="polite" data-share-status></p>
               <div class="calc-share-fallback" data-share-fallback hidden>
                 <label class="calc-share-label" for="calc-share-url">Copy this link</label>
@@ -299,7 +295,6 @@ const app = {
     const results = document.querySelector<HTMLElement>('.calc-results')!;
     const toggle = results.querySelector<HTMLButtonElement>('.calc-toggle')!;
     const shareLink = results.querySelector<HTMLButtonElement>('[data-share="link"]')!;
-    const shareCfo = results.querySelector<HTMLButtonElement>('[data-share="cfo"]')!;
     const shareStatus = results.querySelector<HTMLElement>('[data-share-status]')!;
     const shareFallback = results.querySelector<HTMLElement>('[data-share-fallback]')!;
     const shareUrlField = shareFallback.querySelector<HTMLInputElement>('input')!;
@@ -343,7 +338,7 @@ const app = {
       return params.toString();
     }
 
-    /* What Share and the email send: the same parameters, without a #hash. */
+    /* What Share sends: the same parameters, without a #hash. */
     const shareUrl = () => `${location.origin}${location.pathname}?${currentQuery()}`;
 
     let urlTimer = 0;
@@ -353,7 +348,7 @@ const app = {
     }
 
     /* A field whose text is not a number (2.5.1) keeps its last good value in
-       the results, but the share buttons wait until it is fixed or left, so a
+       the results, but Share waits until it is fixed or left, so a
        link never carries a number the visitor did not see in the field. */
     const invalid = new Set<HTMLInputElement>();
     function setValid(input: HTMLInputElement, valid: boolean) {
@@ -364,7 +359,7 @@ const app = {
         invalid.add(input);
         input.setAttribute('aria-invalid', 'true');
       }
-      shareLink.disabled = shareCfo.disabled = invalid.size > 0;
+      shareLink.disabled = invalid.size > 0;
     }
 
     let liveTimer = 0;
@@ -508,29 +503,5 @@ const app = {
     });
 
     shareUrlField.addEventListener('focus', () => shareUrlField.select());
-
-    /* No recipient: the visitor picks who it goes to. \r\n is the line break
-       mailto bodies are specified with. The closing line only claims money
-       freed up when there is some. */
-    shareCfo.addEventListener('click', () => {
-      track('calculator_send_cfo');
-      writeUrl();
-      const r = calculate(values);
-      const astro = `The same site in Astro would cost about ${formatUSD(r.astroTotal)} a year`;
-      const subject = `Our website costs ${formatUSD(r.todayTotal)} a year — worth a look before 2027 budget`;
-      const body = [
-        'Hi,',
-        '',
-        `I ran our website through a cost calculator. Including our team's time, it costs us ${formatUSD(r.todayTotal)} a year:`,
-        `- Platform & seats: ${formatUSD(r.platform)}`,
-        `- Agency retainer: ${formatUSD(r.retainer)}`,
-        `- Our team's time: ${formatUSD(r.timeToday)}`,
-        '',
-        r.difference > 0 ? `${astro}, which frees up ${formatUSD(r.difference)} for 2027.` : `${astro}.`,
-        '',
-        `Here are the numbers: ${shareUrl()}`,
-      ].join('\r\n');
-      window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    });
   </script>
 </Layout>

@@ -4797,10 +4797,8 @@ section {
 }
 
 /*
- * Share and Send to your CFO: .btn-primary and .btn-secondary, as <button>s.
- * A button does not take the page font on its own, so the brand font is set
- * here. They split one row on the wide card and stack on a phone, where the
- * row is too narrow for both labels.
+ * Share: .btn-primary, as a <button>. A button does not take the page font on
+ * its own, so the brand font is set here.
  *
  * .calc-share-fallback carries the hidden attribute until the clipboard
  * refuses, so nothing here sets its display.
@@ -4809,25 +4807,10 @@ section {
   margin-top: 20px;
 }
 
-.calc-share-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
 .calc-share-btn {
-  flex: 1 1 auto;
   font-family: var(--font-brand);
   line-height: 1.25;
-  text-align: center;
   cursor: pointer;
-}
-
-/* .btn-secondary has no ring of its own; this one sits inside the edge, as on
-   .btn-primary, since the clip-path would cut off one drawn outside it. */
-.calc-share .btn-secondary:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: -6px;
 }
 
 /* While a field holds something that is not a number. No hover either: the
